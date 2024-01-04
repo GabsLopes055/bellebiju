@@ -1,5 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --primary-color: #3f51b5;
+  --secondary-color: #6c757d;
+  --white-color: #fff;
+  --warning-color: #DBB40C;
+  --success-color: #198754;
+  --delete-color: #dc3545;
+  --background-color: #f2f2f2;
+  --black-color: #00022E;
+}
+
+.success {
+  --mdc-snackbar-container-color: var(--primary-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+.error {
+  --mdc-snackbar-container-color: var(--delete-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+.warning {
+  --mdc-snackbar-container-color: var(--warning-color);
+  --mat-mdc-snack-bar-button-color: var(--black-color);
+}
