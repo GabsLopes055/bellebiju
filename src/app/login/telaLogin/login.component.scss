@@ -24,15 +24,13 @@ mat-card {
 }
 
 mat-card-content{
-  width: 80%;
+  width: 100%;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  // margin: 2em auto;
-  width: 100%;
+
 }
 
 mat-card > mat-card-actions {
@@ -44,11 +42,11 @@ mat-card > mat-card-actions {
 }
 
 button {
-  width: 80%;
+  width: 100%;
 }
 
 mat-divider {
-  width: 80%;
+  width: 100%;
 }
 
 .cadastrar {
