@@ -9,16 +9,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  hide: boolean = true
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private message: MatSnackBar) {
     this.formGroup = formBuilder.group({
-      usuario: ['', Validators.required],
-      senha: ['', Validators.required],
+      usuario: ['', [Validators.required, Validators.minLength(1)]],
+      senha: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
+  getErrorMessage() {
+    return 'Campo não pode ser vazio';
+  }
+
   logar() {
+    console.log(this.formGroup.value)
     this.message.open('Em Desenvolvimento', '', {
       duration: 4000,
       horizontalPosition: 'end',
