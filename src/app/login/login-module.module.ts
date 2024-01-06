@@ -10,7 +10,8 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
   imports: [
     CommonModule,
     LoginModuleRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+
   ]
 })
 export class LoginModuleModule { }
