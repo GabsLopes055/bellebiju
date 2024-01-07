@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../service/login.service';
+import { login } from 'src/app/shared/models/login';
+import { EMPTY, Observable, catchError, map } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +12,17 @@ import { LoginService } from '../service/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
-  hide: boolean = true
+  hide: boolean = true;
   formGroup!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    formBuilder: FormBuilder,
     private message: MatSnackBar,
-    private service: LoginService) {
+    private service: LoginService
+  ) {
     this.formGroup = formBuilder.group({
-      usuario: ['', [Validators.required, Validators.minLength(1)]],
-      senha: ['', [Validators.required, Validators.minLength(1)]],
+      username: ['teste', [Validators.required, Validators.minLength(1)]],
+      password: ['123', [Validators.required, Validators.minLength(1)]],
     });
   }
 
@@ -29,8 +31,8 @@ export class LoginComponent {
   }
 
   logar() {
-    this.service.listAllUsers().subscribe(response => {
-      console.log(response)
+    this.service.isAuthentication(this.formGroup.value).subscribe((response) => {
+      this.service.showMessage("Usuario encontrado", "success")
     })
   }
 }

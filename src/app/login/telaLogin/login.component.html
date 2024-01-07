@@ -10,14 +10,14 @@
         <form [formGroup]="formGroup">
           <mat-form-field appearance="outline">
             <mat-label>Informe seu Login</mat-label>
-            <input type="text" matInput placeholder="Usuário" formControlName="usuario" required="required">
+            <input type="text" matInput placeholder="Usuário" formControlName="username" required="required">
             <mat-icon matSuffix>person</mat-icon>
             <mat-error>{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Informe sua senha</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha" required="required">
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required="required">
             <button mat-icon-button matSuffix (click)="hide = !hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
@@ -35,7 +35,7 @@
 
       <mat-card-actions>
         <!-- <button class="cadastrar" mat-button>Cadastra-se</button> -->
-        <button class="login" mat-raised-button (click)="logar()" >Acessar <mat-icon class="mat-18">login</mat-icon></button>
+        <button class="login" mat-raised-button [disabled]="!formGroup.valid" (click)="logar()">Acessar<mat-icon class="mat-18">login</mat-icon></button>
       </mat-card-actions>
     </mat-card>
   </div>
