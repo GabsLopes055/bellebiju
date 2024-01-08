@@ -7,12 +7,14 @@ import { LoginComponent } from './login/telaLogin/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

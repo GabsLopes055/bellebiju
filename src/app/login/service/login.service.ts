@@ -34,9 +34,14 @@ export class LoginService {
   }
 
   isAuthentication(login: login): Observable<user> {
-    return this.http.post<login>(this.url + "/authentication", login).pipe(
-      map((response) => response),
+    return this.http.post<user>(this.url + "/authentication", login).pipe(
+      map((response) => this.setInformationsLocalStorage(response)),
       catchError(e => this.errorHandler(e))
     )
   }
+
+  setInformationsLocalStorage(user: user){
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+
 }

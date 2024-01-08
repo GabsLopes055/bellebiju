@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../service/login.service';
 import { login } from 'src/app/shared/models/login';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +13,22 @@ import { EMPTY, Observable, catchError, map } from 'rxjs';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  loadLogin:boolean = true
   hide: boolean = true;
   formGroup!: FormGroup;
 
   constructor(
     formBuilder: FormBuilder,
-    private message: MatSnackBar,
-    private service: LoginService
+    private service: LoginService,
+    private router: Router
+
   ) {
     this.formGroup = formBuilder.group({
       username: ['teste', [Validators.required, Validators.minLength(1)]],
       password: ['123', [Validators.required, Validators.minLength(1)]],
     });
+    this.loadLogin = false
   }
 
   getErrorMessage() {
@@ -32,7 +37,7 @@ export class LoginComponent {
 
   logar() {
     this.service.isAuthentication(this.formGroup.value).subscribe((response) => {
-      this.service.showMessage("Usuario encontrado", "success")
+      this.router.navigate(['dashboard'])
     })
   }
 }
