@@ -1,0 +1,74 @@
+.container {
+  background-image: url("../../../../assets/img/bg-login.jpg");
+  width: 100vw;
+  height: 100vh;
+}
+
+.content-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+mat-card {
+  border-left: #770d7c solid 2px;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+  flex-basis: 47%;
+  margin: 10px 0px 10px 0px;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+
+mat-card-content{
+  text-align: center;
+}
+
+.content-actions-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-table-card {
+  color: white;
+  border-left: #770d7c solid 2px;
+  background-color: #770d7c;
+  width: 98%;
+}
+
+.card-content-bottom {
+  display: grid;
+  margin-top: 8px;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  );
+  grid-gap: 10px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.border-left {
+  border-left: white solid 2px;
+  border-right: white solid 2px;
+}
+
+span,
+.grid-item {
+  margin: 0;
+  padding: 0;
+  font-size: 8px;
+}
+
+

@@ -1,0 +1,88 @@
+<mat-sidenav-container>
+  <mat-toolbar>
+    <mat-toolbar-row class="toolbar-row">
+      <div class="left">
+        <img src="../../../../assets/img/logo.jpeg" alt="">
+      </div>
+      <div class="center">
+        <h1 class="title">Dashboard</h1>
+      </div>
+      <div class="right">
+        <button mat-icon-button (click)="opened = !opened">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <mat-sidenav [(opened)]="opened" mode="over" #sidenav>
+
+    <div class="close-menu">
+      <button mat-icon-button (click)="opened = !opened">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="container-sidenav">
+      <div class="content-actions-sidenav">
+
+        <mat-list>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+          <!--  [routerLinkActiveOptions]="{ exact: true }" -->
+          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon matListItemIcon>dashboard</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()" >Dashboard</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>add</mat-icon>
+            <div matListItemTitle class="titleMenu"  (click)="sidenav.toggle()">Adicionar Venda</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>real_estate_agent</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Pesquisar Venda</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>equalizer</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Graficos</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item routerLink="usuarios" routerLinkActive="active">
+            <mat-icon matListItemIcon>person</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Usuários</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>informations</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Minhas Informações</div>
+          </mat-list-item>
+
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>logout</mat-icon>
+            <div matListItemTitle routerLink="/login" class="titleMenu">Sair</div>
+          </mat-list-item>
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <router-outlet></router-outlet>
+
+</mat-sidenav-container>

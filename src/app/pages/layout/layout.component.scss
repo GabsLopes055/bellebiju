@@ -1,0 +1,70 @@
+mat-sidenav-container {
+  width: 100vw;
+  height: 100vh;
+}
+.toolbar-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #138182;
+  color: white;
+}
+
+img {
+  width: 100px;
+}
+
+mat-sidenav {
+  width: 100%;
+  background-color: #138182;
+}
+
+.close-menu {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  color: white;
+}
+
+.left {
+  display: flex;
+  align-items: flex-end;
+}
+
+.center {
+  margin-left: -35px;
+  flex: 1;
+  text-align: center;
+}
+
+.container-sidenav {
+  width: 100%;
+  height: auto;
+}
+
+.content-actions-sidenav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+mat-list {
+  width: 80%;
+}
+
+.dividerMenuSidenav {
+  display: flex;
+  flex-direction: column;
+  margin: 1em auto;
+  width: 100%;
+}
+
+.titleMenu {
+  color: white;
+}
+
+.active {
+  border-left: #770d7c solid 4px;
+}
