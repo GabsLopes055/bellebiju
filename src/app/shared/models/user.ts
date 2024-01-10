@@ -3,5 +3,5 @@ export interface user {
   nome: string,
   username: string,
   createdAt: any,
-  roles: string[]
+  roles: string
 }

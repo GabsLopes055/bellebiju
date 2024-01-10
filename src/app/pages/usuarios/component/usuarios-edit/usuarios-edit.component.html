@@ -1,0 +1,49 @@
+<div class="content">
+  <h1 matDialogTitle>Editar Usuário</h1>
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <form method="post" [formGroup]="formGroup">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Nome do Usuário" formControlName="nome">
+        <mat-icon matSuffix>face</mat-icon>
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Usuário</mat-label>
+        <input matInput placeholder="Informe um usuário" formControlName="username">
+        <mat-icon matSuffix>group</mat-icon>
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Permissões</mat-label>
+        <input matInput placeholder="Selecione as permissões do usuário" formControlName="roles" readonly>
+        <mat-icon matSuffix>settings</mat-icon>
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="checkbox">
+      <mat-radio-group color="primary" [(ngModel)]="selectedPermission" (ngModelChange)="onPermissionChange()">
+        <mat-radio-button *ngFor="let role of allRoles" [value]="role">
+          {{ role }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="content-actions">
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="updateUser()">Editar</button>
+      <button mat-button color="accent" matDialogClose>Fechar</button>
+    </div>
+    <div class="delete">
+      <button mat-raised-button color="warn" (click)="deletarUser()">Deletar</button>
+    </div>
+  </mat-dialog-actions>
+
+</div>

@@ -14,6 +14,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   exports: [
@@ -31,6 +35,10 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatTableModule,
     MatListModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatRadioModule
   ],
 })
 export class AngularMaterialModule {}

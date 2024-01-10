@@ -1,0 +1,33 @@
+.container {
+  background-image: url("../../../../../assets/img/bg-login.jpg");
+  width: 100vw;
+  height: 100vh;
+}
+
+.content {
+  // height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+mat-card-content > button {
+  background-color: #138182;
+  color: white;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  border-left: #138182 solid 2px;
+  background-color: #770d7c;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin: 10px 0px 10px 0px;
+  width: 99%;
+}
+

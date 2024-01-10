@@ -9,7 +9,11 @@ import { AngularMaterialModule } from './shared/angular-material/angular-materia
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/component/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
-import { UsuariosComponent } from './pages/usuarios/component/usuarios.component';
+import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usuarios.component';
+import { UsuariosEditComponent } from './pages/usuarios/component/usuarios-edit/usuarios-edit.component';
+import { UsuariosCreatedComponent } from './pages/usuarios/component/usuarios-created/usuarios-created.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -18,14 +22,19 @@ import { UsuariosComponent } from './pages/usuarios/component/usuarios.component
     LoginComponent,
     DashboardComponent,
     LayoutComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    UsuariosEditComponent,
+    UsuariosCreatedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
