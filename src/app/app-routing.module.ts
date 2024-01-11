@@ -8,10 +8,25 @@ import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usua
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  {path: 'dashboard', component: LayoutComponent,children: [
+  {
+    path: 'dashboard',
+    component: LayoutComponent,
+    children: [
       { path: '', component: DashboardComponent },
-      { path: 'usuarios', loadChildren: () => import('../app/pages/usuarios/module/usuarios.module').then((module) => module.UsuariosModule)}
-
+      {
+        path: 'usuarios',
+        loadChildren: () =>
+          import('../app/pages/usuarios/module/usuarios.module').then(
+            (module) => module.UsuariosModule
+          ),
+      },
+      {
+        path: 'adicionarVenda',
+        loadChildren: () =>
+          import('../app/pages/vendas/module/vendas.module').then(
+            (module) => module.VendasModule
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

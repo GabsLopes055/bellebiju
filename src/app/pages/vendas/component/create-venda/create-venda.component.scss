@@ -18,11 +18,7 @@ mat-card-content > button {
   color: white;
 }
 
-mat-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+.card-header-title {
   border-left: #138182 solid 2px;
   background-color: #770d7c;
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
@@ -31,3 +27,28 @@ mat-card {
   width: 100%;
 }
 
+mat-card-title {
+  padding: 20px;
+}
+
+.content-form {
+  margin-top: 10px;
+}
+
+.card-form {
+  width: 100%;
+  gap: 20px;
+}
+
+.card-header-form > form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+mat-card-actions > button {
+  width: 100%;
+  background-color: #138182;
+  color: white;
+}

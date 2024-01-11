@@ -1,0 +1,73 @@
+<div class="container">
+
+  <div class="content">
+
+    <mat-card class="card-header-title">
+
+      <mat-card-title>Adicionar Vendas</mat-card-title>
+
+    </mat-card>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="content-form">
+
+    <mat-card class="card-form">
+
+      <mat-card-header class="card-header-form">
+
+
+
+        <form [formGroup]="formGroup">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nome do Produto</mat-label>
+            <input matInput placeholder="Nome" type="text" formControlName="nomeProduto">
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-error>{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Preço do Produto</mat-label>
+            <input matInput placeholder="Preço" type="number" formControlName="preco">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error>{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Quantidade Vendida</mat-label>
+            <input matInput placeholder="Quantidade" type="number" formControlName="quantidade">
+            <mat-icon matSuffix>tab_new_right</mat-icon>
+            <mat-error>{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Total da Venda</mat-label>
+            <input matInput placeholder="Total" type="number" readonly="readonly" formControlName="total">
+            <mat-icon matSuffix>gesture_select</mat-icon>
+            <mat-error>{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Forme de Pagamento</mat-label>
+            <mat-icon matSuffix>payments</mat-icon>
+            <mat-select formControlName="formaPagamento">
+              <mat-option value="DINHEIRO">DINHEIRO</mat-option>
+              <mat-option value="PIX">PIX</mat-option>
+              <mat-option value="DEBITO">DEBITO</mat-option>
+              <mat-option value="CREDITO">CREDITO</mat-option>
+            </mat-select>
+            <mat-error>{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </form>
+
+      </mat-card-header>
+      <mat-card-actions align="start">
+        <button mat-raised-button (click)="salvarVenda()" [disabled]="!formGroup.valid">Cadastrar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>

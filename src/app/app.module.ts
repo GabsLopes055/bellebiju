@@ -14,6 +14,8 @@ import { UsuariosEditComponent } from './pages/usuarios/component/usuarios-edit/
 import { UsuariosCreatedComponent } from './pages/usuarios/component/usuarios-created/usuarios-created.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { ListVendasComponent } from './pages/vendas/component/list-vendas/list-vendas.component';
+import { CreateVendaComponent } from './pages/vendas/component/create-venda/create-venda.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { MatRadioModule } from '@angular/material/radio';
     LayoutComponent,
     UsuariosComponent,
     UsuariosEditComponent,
-    UsuariosCreatedComponent
+    UsuariosCreatedComponent,
+    ListVendasComponent,
+    CreateVendaComponent
   ],
   imports: [
     BrowserModule,
