@@ -1,3 +1,4 @@
+import { VisualizarVendasModule } from './pages/visualizar-vendas/module/visualizar-vendas.module';
 import { UsuariosModule } from './pages/usuarios/module/usuarios.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -27,6 +28,13 @@ const routes: Routes = [
             (module) => module.VendasModule
           ),
       },
+      {
+        path: 'visualizarVenda',
+        loadChildren: () =>
+        import('../app/pages/visualizar-vendas/module/visualizar-vendas.module').then(
+          (module) => module.VisualizarVendasModule
+        ),
+      }
     ],
   },
   { path: '**', redirectTo: '' },

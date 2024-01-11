@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { ListVendasComponent } from './pages/vendas/component/list-vendas/list-vendas.component';
 import { CreateVendaComponent } from './pages/vendas/component/create-venda/create-venda.component';
+import { VizualizarVendasComponent } from './pages/visualizar-vendas/component/vizualizar-vendas/vizualizar-vendas.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CreateVendaComponent } from './pages/vendas/component/create-venda/crea
     UsuariosEditComponent,
     UsuariosCreatedComponent,
     ListVendasComponent,
-    CreateVendaComponent
+    CreateVendaComponent,
+    VizualizarVendasComponent
   ],
   imports: [
     BrowserModule,
