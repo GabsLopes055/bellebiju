@@ -1,0 +1,98 @@
+<div class="container">
+
+  <div class="content">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Vendas Realizardas</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <button class="button-cadastrar" mat-raised-button>Pesquisar por Data</button>
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="content">
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+        *ngFor="let venda of dataSource">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{venda.nomeProduto}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{venda.total | currency: "BRL"}}
+          </mat-panel-description>
+
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>Produto: {{venda.nomeProduto}}</mat-list-item>
+          <mat-list-item>Preço: {{venda.preco | currency: "BRL"}}</mat-list-item>
+          <mat-list-item>Quantidade: {{venda.quantidade}}</mat-list-item>
+          <mat-list-item>Total: {{venda.total | currency: "BRL"}}</mat-list-item>
+          <mat-list-item>Pagamento: {{venda.formaPagamento}}</mat-list-item>
+          <mat-list-item>Criado: {{venda.createAt | date : "dd/MM/yyyy"}}</mat-list-item>
+          <mat-list-item>Atualizado: {{venda.updateAt}}</mat-list-item>
+         </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> <mat-icon class="mat-18">person</mat-icon> </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="nomeProduto">
+        <th mat-header-cell *matHeaderCellDef> Produto </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomeProduto}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef> Preço </th>
+        <td mat-cell *matCellDef="let element"> {{element.preco}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="quantidade">
+        <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="formaPagamento">
+        <th mat-header-cell *matHeaderCellDef> Forma de Pagamento </th>
+        <td mat-cell *matCellDef="let element"> {{element.formaPagamento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <th mat-header-cell *matHeaderCellDef> Criado </th>
+        <td mat-cell *matCellDef="let element"> {{element.createAt | date : "dd/MM/yyyy"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updateAt">
+        <th mat-header-cell *matHeaderCellDef> Editado </th>
+        <td mat-cell *matCellDef="let element"> {{element.updateAt}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+    </table> -->
+
+
+  </div>
+
+</div>

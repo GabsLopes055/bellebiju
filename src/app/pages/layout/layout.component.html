@@ -38,14 +38,14 @@
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item routerLink="adicionarVenda" routerLinkActive="active">
+          <mat-list-item routerLink="adicionarVenda" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon matListItemIcon>add</mat-icon>
             <div matListItemTitle class="titleMenu"  (click)="sidenav.toggle()">Adicionar Venda</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item routerLink="visualizarVenda" routerLinkActive="active">
+          <mat-list-item routerLink="adicionarVenda/visualizarVenda" routerLinkActive="active">
             <mat-icon matListItemIcon>real_estate_agent</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Pesquisar Venda</div>
           </mat-list-item>

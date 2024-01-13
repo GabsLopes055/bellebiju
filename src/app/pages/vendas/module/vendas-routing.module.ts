@@ -4,7 +4,8 @@ import { ListVendasComponent } from '../component/list-vendas/list-vendas.compon
 import { CreateVendaComponent } from '../component/create-venda/create-venda.component';
 
 const routes: Routes = [
-  {path: '', component: CreateVendaComponent}
+  {path: '', component: CreateVendaComponent},
+  {path: 'visualizarVenda', component: ListVendasComponent}
 ];
 
 @NgModule({

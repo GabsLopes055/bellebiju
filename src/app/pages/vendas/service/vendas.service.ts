@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class VendasService {
-
   constructor(private http: HttpClient, private message: MatSnackBar) {}
 
   showMessage(msg: string, color: string) {
@@ -28,15 +27,16 @@ export class VendasService {
     return EMPTY;
   }
 
-  createNewVenda(venda: venda): Observable<any>{
-
-    return this.http.post<venda>(environment.url + "/vendas", venda).pipe(
+  createNewVenda(venda: venda): Observable<any> {
+    return this.http.post<venda>(environment.url + '/vendas', venda).pipe(
       map((response) => {
-        this.showMessage("Venda Cadastrada", "success"),
-        catchError((e) => this.errorHandler(e));
+        this.showMessage('Venda Cadastrada', 'success'),
+          catchError((e) => this.errorHandler(e));
       })
-    )
-
+    );
   }
 
+  listAllVendas(): Observable<any> {
+    return this.http.get<any>(environment.url + '/vendas');
+  }
 }

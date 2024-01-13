@@ -3,5 +3,7 @@ export interface venda {
   preco: number,
   quantidade: number,
   total: number,
-  formaPagamento: string
+  formaPagamento: string,
+  createAt: string,
+  updateAt: string
 }
