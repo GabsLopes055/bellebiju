@@ -1,0 +1,23 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+    *ngFor="let venda of dataSource">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{venda.nomeProduto}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{venda.total | currency: "BRL"}}
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item><strong>Produto:</strong> {{venda.nomeProduto}}</mat-list-item>
+      <mat-list-item><strong>Preço:</strong> {{venda.preco | currency: "BRL"}}</mat-list-item>
+      <mat-list-item><strong>Quantidade:</strong> {{venda.quantidade}}</mat-list-item>
+      <mat-list-item><strong>Total:</strong> {{venda.total | currency: "BRL"}}</mat-list-item>
+      <mat-list-item><strong>Pagamento:</strong> {{venda.formaPagamento}}</mat-list-item>
+      <mat-list-item><strong>Criado:</strong> {{venda.createAt | date : "dd/MM/yyyy"}}</mat-list-item>
+      <mat-list-item><strong>Atualizado:</strong> {{venda.updateAt}}</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -79,31 +79,35 @@
         <div class="grid-item">
           <div class="icon-and-text">
             <mat-icon class="mat-18">paid</mat-icon>
-            <h4> &nbsp; 1.897,98</h4>
+            <h4> &nbsp; {{totalVendido | currency: "BRL"}}</h4>
           </div>
           <span>Valor vendido</span>
         </div>
         <div class="grid-item border-left">
           <div class="icon-and-text">
             <mat-icon class="mat-18">production_quantity_limits</mat-icon>
-            <h4> &nbsp; 149</h4>
+            <h4> &nbsp; {{produtosVendidos}}</h4>
           </div>
           <span>Produtos vendidos</span>
         </div>
         <div class="grid-item">
           <div class="icon-and-text">
             <mat-icon class="mat-18">real_estate_agent</mat-icon>
-            <h4> &nbsp; 51</h4>
+            <h4> &nbsp; {{vendasRealizadas}}</h4>
           </div>
           <span>Quantidade de Vendas</span>
         </div>
       </mat-card-content>
 
     </mat-card>
+
+
+    <mat-divider></mat-divider>
+
+
+    <app-accordion-vendas></app-accordion-vendas>
+
+
   </div>
-
-  <mat-divider></mat-divider>
-
-  <app-list-vendas></app-list-vendas>
 
 </div>
