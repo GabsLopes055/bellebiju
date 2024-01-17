@@ -29,18 +29,19 @@
 
         <mat-list>
 
-          <mat-divider class="dividerMenuSidenav"></mat-divider>
+          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
           <!--  [routerLinkActiveOptions]="{ exact: true }" -->
-          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="this.permission">
             <mat-icon matListItemIcon>dashboard</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()" >Dashboard</div>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Dashboard</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item routerLink="adicionarVenda" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-list-item routerLink="adicionarVenda" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon matListItemIcon>add</mat-icon>
-            <div matListItemTitle class="titleMenu"  (click)="sidenav.toggle()">Adicionar Venda</div>
+            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Adicionar Venda</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
@@ -50,16 +51,16 @@
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Pesquisar Venda</div>
           </mat-list-item>
 
-          <mat-divider class="dividerMenuSidenav"></mat-divider>
+          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item>
+          <mat-list-item *ngIf="this.permission">
             <mat-icon matListItemIcon>equalizer</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Graficos</div>
           </mat-list-item>
 
-          <mat-divider class="dividerMenuSidenav"></mat-divider>
+          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item routerLink="usuarios" routerLinkActive="active">
+          <mat-list-item routerLink="usuarios" routerLinkActive="active" *ngIf="this.permission">
             <mat-icon matListItemIcon>person</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Usuários</div>
           </mat-list-item>
@@ -75,7 +76,7 @@
 
           <mat-list-item>
             <mat-icon matListItemIcon>logout</mat-icon>
-            <div matListItemTitle routerLink="/login" class="titleMenu">Sair</div>
+            <div matListItemTitle class="titleMenu" (click)="logout()">Sair</div>
           </mat-list-item>
           <mat-divider class="dividerMenuSidenav"></mat-divider>
         </mat-list>

@@ -4,16 +4,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, map, catchError, EMPTY } from 'rxjs';
 import { login } from 'src/app/shared/models/login';
 import { user } from 'src/app/shared/models/user';
+import { PermissionUser } from 'src/app/shared/userLogged/permissionUser.service';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  url = environment.url;
+  isAuthenticated = false;
 
-  url = environment.url
-
-  constructor(private http: HttpClient, private message: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private message: MatSnackBar,
+    private permission: PermissionUser
+  ) {}
 
   showMessage(msg: string, color: string) {
     this.message.open(msg, '', {
@@ -26,22 +31,36 @@ export class LoginService {
 
   errorHandler(e: any): Observable<any> {
     if (e.status == 401) {
-      this.showMessage("Senha incorreta", "warning")
-    } else if(e.status == 404) {
-      this.showMessage("Usuário não encontrado", "error")
+      this.showMessage('Senha incorreta', 'warning');
+    } else if (e.status == 404) {
+      this.showMessage('Usuário não encontrado', 'error');
     }
     return EMPTY;
   }
 
   isAuthentication(login: login): Observable<user> {
-    return this.http.post<user>(this.url + "/authentication", login).pipe(
-      map((response) => this.setInformationsLocalStorage(response)),
-      catchError(e => this.errorHandler(e))
-    )
+    return this.http.post<user>(this.url + '/authentication', login, {responseType: 'json'}).pipe(
+      map(
+        (response) => this.setInformationsLocalStorage(response),
+        (this.isAuthenticated = true)
+      ),
+      catchError((e) => this.errorHandler(e))
+    );
   }
 
-  setInformationsLocalStorage(user: user){
-    localStorage.setItem("user", JSON.stringify(user));
+  isLogout() {
+    this.isAuthenticated = false;
+    this.permission.setUserPermissions('');
   }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
+  setInformationsLocalStorage(user: user) {
+    this.permission.setUserPermissions(user.roles)
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
 
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/telaLogin/login.component';
 import { DashboardComponent } from './pages/dashboard/component/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usuarios.component';
+import { AuthGuardService } from './shared/Auth/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
       {
         path: 'usuarios',
         loadChildren: () =>
