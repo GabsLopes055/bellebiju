@@ -6,7 +6,7 @@
       <mat-card-header>
         <mat-card-title>Vendas</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content *ngIf="this.permissionPesquisar">
         <button class="button-cadastrar" mat-raised-button (click)="pesquisarPorData()">Pesquisar por Data</button>
       </mat-card-content>
 
