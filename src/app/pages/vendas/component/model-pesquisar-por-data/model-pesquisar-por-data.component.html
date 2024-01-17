@@ -1,0 +1,22 @@
+<div class="container">
+
+  <h1>Pesquisar Vendas</h1>
+
+  <form [formGroup]="formData">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Selecione as datas</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Data Inicial" readonly="readonly" formControlName="dataInicio">
+        <input matEndDate placeholder="Data Final" readonly="readonly" formControlName="dataFim">
+      </mat-date-range-input>
+      <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+      <mat-datepicker-toggle matIconSuffix [for]="picker">aqi</mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+  </form>
+
+  <button mat-raised-button color="warn" (click)="pesquisarVendas()">Pesquisar</button>
+
+</div>
