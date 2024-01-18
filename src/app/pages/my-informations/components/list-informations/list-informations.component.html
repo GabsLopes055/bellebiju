@@ -1,0 +1,25 @@
+<div class="container">
+
+  <div class="content">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Minhas Informações</mat-card-title>
+      </mat-card-header>
+
+    </mat-card>
+
+    <div class="informations">
+      <span><strong>Identificador:</strong> {{this.user.idUser}}</span>
+      <span><strong>Nome:</strong> {{this.user.nome}}</span>
+      <span><strong>Usuário:</strong> {{this.user.username}}</span>
+      <span><strong>Criado em:</strong> {{this.user.createdAt | date: 'dd/MM/YYYY'}}</span>
+      <span><strong>Permissão:</strong> {{this.user.roles}}</span>
+    </div>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+
+</div>

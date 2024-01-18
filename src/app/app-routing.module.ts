@@ -13,7 +13,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
+      {
+        path: '',
+        component: DashboardComponent,
+        canActivate: [AuthGuardService],
+      },
       {
         path: 'usuarios',
         loadChildren: () =>
@@ -27,6 +31,13 @@ const routes: Routes = [
           import('../app/pages/vendas/module/vendas.module').then(
             (module) => module.VendasModule
           ),
+      },
+      {
+        path: 'minhasInformacoes',
+        loadChildren: () =>
+          import(
+            '../app/pages/my-informations/module/my-informations.module'
+          ).then((module) => module.MyInformationsModule),
       },
     ],
   },

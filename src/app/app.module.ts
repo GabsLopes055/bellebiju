@@ -18,6 +18,7 @@ import { ListVendasComponent } from './pages/vendas/component/list-vendas/list-v
 import { CreateVendaComponent } from './pages/vendas/component/create-venda/create-venda.component';
 import { AccordionVendasComponent } from './pages/vendas/component/accordion-vendas/accordion-vendas.component';
 import { ModelPesquisarPorDataComponent } from './pages/vendas/component/model-pesquisar-por-data/model-pesquisar-por-data.component';
+import { ListInformationsComponent } from './pages/my-informations/components/list-informations/list-informations.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ModelPesquisarPorDataComponent } from './pages/vendas/component/model-p
     ListVendasComponent,
     CreateVendaComponent,
     AccordionVendasComponent,
-    ModelPesquisarPorDataComponent
+    ModelPesquisarPorDataComponent,
+    ListInformationsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,11 +5,11 @@ import { UsuariosComponent } from '../../usuarios/component/usuarios-list/usuari
 import { AuthGuardService } from 'src/app/shared/Auth/auth-guard.service';
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent, canActivate: [AuthGuardService]}
+  { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}
