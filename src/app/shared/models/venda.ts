@@ -1,4 +1,5 @@
 export interface venda {
+  id: string,
   nomeProduto: string,
   preco: number,
   quantidade: number,
