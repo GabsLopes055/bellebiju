@@ -3,7 +3,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { VendasService } from '../../vendas/service/vendas.service';
 import { venda } from 'src/app/shared/models/venda';
-import { PermissionUser } from 'src/app/shared/userLogged/permissionUser.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +19,7 @@ export class DashboardComponent {
 
   constructor(
     private router: Router,
-    private service: VendasService,
-    private permission: PermissionUser
+    private service: VendasService
   ) {
     this.service
       .listAllVendas()
@@ -34,11 +32,6 @@ export class DashboardComponent {
       );
   }
 
-  ngOnInit() {
-    if (this.permission.hasPermission('USER')) {
-      this.router.navigate(['dashboard/adicionarVenda']);
-    }
-  }
 
   usuarios() {
     this.router.navigate(['dashboard/usuarios']);

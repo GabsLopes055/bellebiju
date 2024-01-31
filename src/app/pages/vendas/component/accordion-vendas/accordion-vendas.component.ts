@@ -4,7 +4,6 @@ import { VendasService } from '../../service/vendas.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteVendaComponent } from '../delete-venda/delete-venda.component';
 import { EditVendaComponent } from '../edit-venda/edit-venda.component';
-import { PermissionUser } from 'src/app/shared/userLogged/permissionUser.service';
 
 @Component({
   selector: 'app-accordion-vendas',
@@ -18,13 +17,11 @@ export class AccordionVendasComponent {
 
   constructor(
     private service: VendasService,
-    private dialog: MatDialog,
-    private permissionUser: PermissionUser
+    private dialog: MatDialog
   ) {
     this.service
       .listAllVendas()
       .subscribe((response) => (this.dataSource = response));
-      this.permission = this.permissionUser.hasPermission("ADMIN")
   }
 
   deleteVenda(idVenda: string) {

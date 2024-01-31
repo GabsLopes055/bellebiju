@@ -12,7 +12,7 @@ export class VendasService {
   constructor(private http: HttpClient, private message: MatSnackBar) {}
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, '', {
+    this.message.open(msg, 'X', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
@@ -23,6 +23,8 @@ export class VendasService {
   errorHandler(e: any): Observable<any> {
     if (e.status == 500) {
       this.showMessage('Erro Interno', 'error');
+    } else if (e.status == 403) {
+      this.showMessage('Token Ausente. Contate o administrador', 'error');
     }
     return EMPTY;
   }
@@ -37,6 +39,8 @@ export class VendasService {
   }
 
   listAllVendas(): Observable<any> {
-    return this.http.get<any>(environment.url + '/vendas');
+    return this.http.get<any>(environment.url + '/vendas').pipe(
+      catchError((e) => this.errorHandler(e))
+    );
   }
 }

@@ -29,9 +29,9 @@
 
         <mat-list>
 
-          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
           <!--  [routerLinkActiveOptions]="{ exact: true }" -->
-          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="this.permission">
+          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon matListItemIcon>dashboard</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Dashboard</div>
           </mat-list-item>
@@ -51,16 +51,16 @@
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Pesquisar Venda</div>
           </mat-list-item>
 
-          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item *ngIf="this.permission">
+          <mat-list-item>
             <mat-icon matListItemIcon>equalizer</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Graficos</div>
           </mat-list-item>
 
-          <mat-divider *ngIf="this.permission" class="dividerMenuSidenav"></mat-divider>
+          <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item routerLink="usuarios" routerLinkActive="active" *ngIf="this.permission">
+          <mat-list-item routerLink="usuarios" routerLinkActive="active">
             <mat-icon matListItemIcon>person</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Usuários</div>
           </mat-list-item>

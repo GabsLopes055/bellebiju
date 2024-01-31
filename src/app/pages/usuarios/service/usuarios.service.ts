@@ -12,7 +12,7 @@ export class UsuariosService {
   constructor(private http: HttpClient, private message: MatSnackBar) {}
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, '', {
+    this.message.open(msg, 'X', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'bottom',

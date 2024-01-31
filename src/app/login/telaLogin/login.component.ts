@@ -14,7 +14,6 @@ import { user } from 'src/app/shared/models/user';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   loadLogin: boolean = true;
   hide: boolean = true;
   formGroup!: FormGroup;
@@ -40,7 +39,8 @@ export class LoginComponent {
     this.service
       .isAuthentication(this.formGroup.value)
       .subscribe((response) => {
-          this.router.navigate(['dashboard']);
+        // console.log(response);
+        this.router.navigate(['dashboard']);
 
         // if (response.roles == "ADMIN") {
         // } else {

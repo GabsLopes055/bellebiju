@@ -4,20 +4,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, map, catchError, EMPTY } from 'rxjs';
 import { login } from 'src/app/shared/models/login';
 import { user } from 'src/app/shared/models/user';
-import { PermissionUser } from 'src/app/shared/userLogged/permissionUser.service';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+
+  token: string = '';
   url = environment.url;
   isAuthenticated = false;
 
   constructor(
     private http: HttpClient,
-    private message: MatSnackBar,
-    private permission: PermissionUser
+    private message: MatSnackBar
   ) {}
 
   showMessage(msg: string, color: string) {
@@ -34,14 +34,16 @@ export class LoginService {
       this.showMessage('Senha incorreta', 'warning');
     } else if (e.status == 404) {
       this.showMessage('Usuário não encontrado', 'error');
+    } else if (e.status == 403) {
+      this.showMessage('Não foi possível validar o token. Por favor, refaça o login', 'error');
     }
     return EMPTY;
   }
 
-  isAuthentication(login: login): Observable<user> {
-    return this.http.post<user>(this.url + '/authentication', login, {responseType: 'json'}).pipe(
+  isAuthentication(login: login): Observable<any> {
+    return this.http.post<any>(this.url + '/authentication/login', login).pipe(
       map(
-        (response) => this.setInformationsLocalStorage(response),
+        (response) => this.setToken(response),
         (this.isAuthenticated = true)
       ),
       catchError((e) => this.errorHandler(e))
@@ -50,17 +52,18 @@ export class LoginService {
 
   isLogout() {
     this.isAuthenticated = false;
-    this.permission.setUserPermissions('');
   }
 
   isLoggedIn(): boolean {
     return this.isAuthenticated;
   }
 
-  setInformationsLocalStorage(user: user) {
-    this.permission.setUserPermissions(user.roles)
-    localStorage.setItem('user', JSON.stringify(user));
+  setToken(token: any): void {
+    this.token = token.token;
   }
 
+  getToken(): any {
+    return this.token;
+  }
 
 }

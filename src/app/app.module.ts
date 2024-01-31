@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/telaLogin/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/component/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usuarios.component';
@@ -21,6 +21,7 @@ import { ModelPesquisarPorDataComponent } from './pages/vendas/component/model-p
 import { ListInformationsComponent } from './pages/my-informations/components/list-informations/list-informations.component';
 import { EditVendaComponent } from './pages/vendas/component/edit-venda/edit-venda.component';
 import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/delete-venda.component';
+import { InterceptorToken } from './login/service/InterceptorToken';
 
 
 @NgModule({
@@ -50,7 +51,14 @@ import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/dele
     FormsModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorToken,
+      multi: true
+    },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
