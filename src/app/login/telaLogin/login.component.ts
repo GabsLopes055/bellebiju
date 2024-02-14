@@ -29,6 +29,7 @@ export class LoginComponent {
       password: ['123', [Validators.required, Validators.minLength(1)]],
     });
     this.loadLogin = false;
+    localStorage.clear();
   }
 
   getErrorMessage() {

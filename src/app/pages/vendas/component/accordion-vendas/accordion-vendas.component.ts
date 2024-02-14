@@ -38,7 +38,7 @@ export class AccordionVendasComponent {
       width: '90%',
       height: 'auto',
       data: {
-        idvenda: venda,
+        venda: venda,
       },
     });
   }

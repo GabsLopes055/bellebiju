@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Route, Router } from '@angular/router';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { venda } from 'src/app/shared/models/venda';
 import { environment } from 'src/environments/environment.development';
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class VendasService {
-  constructor(private http: HttpClient, private message: MatSnackBar) {}
+  constructor(private http: HttpClient, private message: MatSnackBar, private route: Router) {}
 
   showMessage(msg: string, color: string) {
     this.message.open(msg, 'X', {
@@ -24,7 +25,8 @@ export class VendasService {
     if (e.status == 500) {
       this.showMessage('Erro Interno', 'error');
     } else if (e.status == 403) {
-      this.showMessage('Token Ausente. Contate o administrador', 'error');
+      this.route.navigate(['/login']);
+      this.showMessage("Por favor, refaça o login", "warning")
     }
     return EMPTY;
   }

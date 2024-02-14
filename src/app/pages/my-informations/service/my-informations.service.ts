@@ -6,9 +6,8 @@ import { user } from 'src/app/shared/models/user';
 })
 export class MyInformationsService {
 
-  user: user;
 
   constructor() {
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+
   }
 }

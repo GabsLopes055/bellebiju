@@ -11,14 +11,16 @@ import { environment } from 'src/environments/environment.development';
 })
 export class LoginService {
 
-  token: string = '';
+  private readonly TOKEN_KEY = 'authToken';
   url = environment.url;
-  isAuthenticated = false;
+  private isAuthenticated = false;
 
   constructor(
     private http: HttpClient,
     private message: MatSnackBar
-  ) {}
+  ) {
+    this.isAuthenticated = !!localStorage.getItem(this.TOKEN_KEY);
+  }
 
   showMessage(msg: string, color: string) {
     this.message.open(msg, '', {
@@ -43,14 +45,17 @@ export class LoginService {
   isAuthentication(login: login): Observable<any> {
     return this.http.post<any>(this.url + '/authentication/login', login).pipe(
       map(
-        (response) => this.setToken(response),
-        (this.isAuthenticated = true)
+        (response) => {
+          this.setToken(response.token);
+          this.isAuthenticated = true;
+        }
       ),
       catchError((e) => this.errorHandler(e))
     );
   }
 
   isLogout() {
+    localStorage.removeItem(this.TOKEN_KEY);
     this.isAuthenticated = false;
   }
 
@@ -58,12 +63,12 @@ export class LoginService {
     return this.isAuthenticated;
   }
 
-  setToken(token: any): void {
-    this.token = token.token;
+  private setToken(token: string): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  getToken(): any {
-    return this.token;
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
 }
