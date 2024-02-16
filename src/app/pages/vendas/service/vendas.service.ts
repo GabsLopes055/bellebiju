@@ -45,4 +45,11 @@ export class VendasService {
       catchError((e) => this.errorHandler(e))
     );
   }
+
+  deleteVenda(venda: venda): Observable<any> {
+    return this.http.delete<any>(environment.url + "/vendas/" + venda.id).pipe(
+      map((response) => response),
+      catchError((e) => this.errorHandler(e))
+    )
+  }
 }

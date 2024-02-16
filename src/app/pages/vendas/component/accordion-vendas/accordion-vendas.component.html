@@ -23,7 +23,7 @@
       <button mat-icon-button color="accent" (click)="editVenda(venda)">
           <mat-icon class="mat-18">edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" *ngIf="this.permission" (click)="deleteVenda(venda.id)">
+      <button mat-icon-button color="warn" (click)="deleteVenda(venda)">
         <mat-icon class="mat-18">delete</mat-icon>
     </button>
     </div>

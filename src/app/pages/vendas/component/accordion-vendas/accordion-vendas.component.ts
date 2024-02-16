@@ -11,25 +11,21 @@ import { EditVendaComponent } from '../edit-venda/edit-venda.component';
   styleUrls: ['./accordion-vendas.component.scss'],
 })
 export class AccordionVendasComponent {
-  permission!: boolean;
   dataSource!: venda[];
   panelOpenState: boolean = false;
 
-  constructor(
-    private service: VendasService,
-    private dialog: MatDialog
-  ) {
+  constructor(private service: VendasService, private dialog: MatDialog) {
     this.service
       .listAllVendas()
       .subscribe((response) => (this.dataSource = response));
   }
 
-  deleteVenda(idVenda: string) {
+  deleteVenda(venda: venda) {
     this.dialog.open(DeleteVendaComponent, {
       width: '90%',
       height: 'auto',
       data: {
-        idvenda: idVenda,
+        venda: venda,
       },
     });
   }
@@ -42,4 +38,10 @@ export class AccordionVendasComponent {
       },
     });
   }
+
+  modal = this.dialog.afterAllClosed.subscribe(() => {
+    this.service
+      .listAllVendas()
+      .subscribe((response) => (this.dataSource = response));
+  });
 }

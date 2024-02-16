@@ -9,13 +9,5 @@ import { MyInformationsService } from '../../service/my-informations.service';
 })
 export class ListInformationsComponent {
 
-  user: user
-
-  constructor(
-    private service: MyInformationsService
-  )
-  {
-    this.user = this.service.user;
-  }
 
 }
