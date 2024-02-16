@@ -17,7 +17,7 @@
       <mat-list-item><strong>Total:</strong> {{venda.total | currency: "BRL"}}</mat-list-item>
       <mat-list-item><strong>Pagamento:</strong> {{venda.formaPagamento}}</mat-list-item>
       <mat-list-item><strong>Criado:</strong> {{venda.createAt | date : "dd/MM/yyyy"}}</mat-list-item>
-      <mat-list-item><strong>Editado:</strong> {{venda.updateAt}}</mat-list-item>
+      <mat-list-item><strong>Editado:</strong> {{venda.updateAt | date : "dd/MM/yyyy"}}</mat-list-item>
     </mat-list>
     <div class="actions">
       <button mat-icon-button color="accent" (click)="editVenda(venda)">

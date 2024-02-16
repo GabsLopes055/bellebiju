@@ -1,0 +1,20 @@
+.card-header-title {
+  padding: 20px;
+}
+
+.card-header-form > form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+form {
+  width: 100%;
+}
+
+mat-card-actions > button {
+  width: 100%;
+  background-color: #ffd740;
+  color: white;
+}

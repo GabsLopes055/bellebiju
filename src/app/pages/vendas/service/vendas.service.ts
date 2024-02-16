@@ -52,4 +52,11 @@ export class VendasService {
       catchError((e) => this.errorHandler(e))
     )
   }
+
+  editarVenda(idvenda: string, venda: venda): Observable<any> {
+    return this.http.put<any>(environment.url + "/vendas/" + idvenda, venda).pipe(
+      map((response) => response),
+      catchError((e) => this.errorHandler(e))
+    )
+  }
 }
