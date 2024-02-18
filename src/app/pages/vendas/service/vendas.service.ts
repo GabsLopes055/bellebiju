@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
-import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, catchError, map } from 'rxjs';
 import { venda } from 'src/app/shared/models/venda';
 import { environment } from 'src/environments/environment.development';
 
@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class VendasService {
+
+  private vendasModal!: venda[];
+
   constructor(private http: HttpClient, private message: MatSnackBar, private route: Router) {}
 
   showMessage(msg: string, color: string) {
@@ -59,4 +62,20 @@ export class VendasService {
       catchError((e) => this.errorHandler(e))
     )
   }
+
+  pesquisarPorVenda(dataInicio: string, dataFim: string): Observable<venda[]> {
+    return this.http.post<venda[]>(environment.url + "/vendas/" + dataInicio + "/" + dataFim, null).pipe(
+      catchError((e) => this.errorHandler(e))
+    )
+  }
+
+  getData() {
+    return this.vendasModal;
+  }
+
+  setData(vendas: venda[]) {
+    this.vendasModal = vendas;
+  }
+
+
 }

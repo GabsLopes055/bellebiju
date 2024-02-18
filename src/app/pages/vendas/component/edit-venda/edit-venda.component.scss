@@ -13,8 +13,13 @@ form {
   width: 100%;
 }
 
+mat-card-actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
 mat-card-actions > button {
   width: 100%;
-  background-color: #ffd740;
-  color: white;
 }

@@ -11,6 +11,7 @@ import { EditVendaComponent } from '../edit-venda/edit-venda.component';
   styleUrls: ['./accordion-vendas.component.scss'],
 })
 export class AccordionVendasComponent {
+
   dataSource!: venda[];
   panelOpenState: boolean = false;
 
@@ -40,8 +41,8 @@ export class AccordionVendasComponent {
   }
 
   modal = this.dialog.afterAllClosed.subscribe(() => {
-    this.service
-      .listAllVendas()
-      .subscribe((response) => (this.dataSource = response));
+    this.service.listAllVendas().subscribe((response) => (
+      this.dataSource = response
+    ));
   });
 }

@@ -64,8 +64,9 @@
         </form>
 
       </mat-card-header>
-      <mat-card-actions align="start">
+      <mat-card-actions>
         <button mat-raised-button color="accent" (click)="editarVenda()" [disabled]="!formGroup.valid">Editar</button>
+        <button mat-button mat-dialog-close>Fechar</button>
       </mat-card-actions>
     </mat-card>
   </div>

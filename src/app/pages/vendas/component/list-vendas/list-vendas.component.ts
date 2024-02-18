@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModelPesquisarPorDataComponent } from '../model-pesquisar-por-data/model-pesquisar-por-data.component';
+import { VendasService } from '../../service/vendas.service';
 
 @Component({
   selector: 'app-list-vendas',
@@ -8,9 +9,11 @@ import { ModelPesquisarPorDataComponent } from '../model-pesquisar-por-data/mode
   styleUrls: ['./list-vendas.component.scss'],
 })
 export class ListVendasComponent {
-  permissionPesquisar!: boolean;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private service: VendasService
+    ) {}
 
   pesquisarPorData() {
     this.dialog.open(ModelPesquisarPorDataComponent, {
@@ -18,4 +21,8 @@ export class ListVendasComponent {
       height: 'auto',
     });
   }
+
+  modal = this.dialog.afterAllClosed.subscribe((response) => {
+    console.log(this.service.getData())
+  })
 }
