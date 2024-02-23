@@ -10,15 +10,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class LoginService {
-
   private readonly TOKEN_KEY = 'authToken';
   url = environment.url;
   private isAuthenticated = false;
 
-  constructor(
-    private http: HttpClient,
-    private message: MatSnackBar
-  ) {
+  constructor(private http: HttpClient, private message: MatSnackBar) {
     this.isAuthenticated = !!localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -37,19 +33,20 @@ export class LoginService {
     } else if (e.status == 404) {
       this.showMessage('Usuário não encontrado', 'error');
     } else if (e.status == 403) {
-      this.showMessage('Não foi possível validar o token. Por favor, refaça o login', 'error');
+      this.showMessage(
+        'Não foi possível validar o token. Por favor, refaça o login',
+        'error'
+      );
     }
     return EMPTY;
   }
 
   isAuthentication(login: login): Observable<any> {
     return this.http.post<any>(this.url + '/authentication/login', login).pipe(
-      map(
-        (response) => {
-          this.setToken(response.token);
-          this.isAuthenticated = true;
-        }
-      ),
+      map((response) => {
+        this.setToken(response.token);
+        this.isAuthenticated = true;
+      }),
       catchError((e) => this.errorHandler(e))
     );
   }
@@ -70,5 +67,4 @@ export class LoginService {
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
-
 }

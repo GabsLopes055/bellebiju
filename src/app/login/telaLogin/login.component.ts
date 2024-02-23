@@ -7,6 +7,7 @@ import { login } from 'src/app/shared/models/login';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { user } from 'src/app/shared/models/user';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent {
     });
     this.loadLogin = false;
     localStorage.clear();
+
   }
 
   getErrorMessage() {
@@ -39,14 +41,8 @@ export class LoginComponent {
   logar() {
     this.service
       .isAuthentication(this.formGroup.value)
-      .subscribe((response) => {
-        // console.log(response);
+      .subscribe(() => {
         this.router.navigate(['dashboard']);
-
-        // if (response.roles == "ADMIN") {
-        // } else {
-        //   this.router.navigate(['dashboard/adicionarVenda']);
-        // }
       });
   }
 }

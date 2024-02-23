@@ -16,8 +16,8 @@ export class InterceptorToken implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.service.getToken();
 
+    const token = this.service.getToken();
 
 
     if (token) {

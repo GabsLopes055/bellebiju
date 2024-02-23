@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CanActivate } from '@angular/router';
 import { LoginService } from 'src/app/login/service/login.service';
+import { SessionLoginComponent } from 'src/app/pages/session-login/session-login.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
+  constructor(private authService: LoginService, private dialog: MatDialog) {}
 
-  constructor(private authService: LoginService, private router: Router) {}
-
-  canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): boolean {
-
-    if(this.authService.isLoggedIn()) {
+  canActivate() {
+    if (this.authService.isLoggedIn()) {
+      // this.abrirModalSessao();
       return true;
     }
-
-    this.router.navigate(['/login']);
-    this.authService.showMessage("Por favor, refaça o login", "warning")
+    this.abrirModalSessao();
     return false;
+  }
+
+  abrirModalSessao() {
+    this.dialog.open(SessionLoginComponent, {
+      width: '100%',
+      height: 'auto',
+      disableClose: true,
+    });
   }
 }

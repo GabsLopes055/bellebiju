@@ -22,6 +22,7 @@ import { ListInformationsComponent } from './pages/my-informations/components/li
 import { EditVendaComponent } from './pages/vendas/component/edit-venda/edit-venda.component';
 import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/delete-venda.component';
 import { InterceptorToken } from './login/service/InterceptorToken';
+import { SessionLoginComponent } from './pages/session-login/session-login.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { InterceptorToken } from './login/service/InterceptorToken';
     ModelPesquisarPorDataComponent,
     ListInformationsComponent,
     EditVendaComponent,
-    DeleteVendaComponent
+    DeleteVendaComponent,
+    SessionLoginComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ export class AccordionVendasComponent {
 
   deleteVenda(venda: venda) {
     this.dialog.open(DeleteVendaComponent, {
-      width: '90%',
+      width: '80%',
       height: 'auto',
       data: {
         venda: venda,
@@ -32,8 +32,8 @@ export class AccordionVendasComponent {
   }
   editVenda(venda: venda) {
     this.dialog.open(EditVendaComponent, {
-      width: '90%',
-      height: 'auto',
+      width: '80%',
+      height: '80%',
       data: {
         venda: venda,
       },

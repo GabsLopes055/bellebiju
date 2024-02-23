@@ -36,7 +36,7 @@ export class UsuariosService {
   }
 
   saveUser(formUser: user): Observable<any> {
-    return this.http.post<user>(environment.url + '/users', formUser).pipe(
+    return this.http.post<user>(environment.url + '/users/register', formUser).pipe(
       map(
         () => {
           this.showMessage('Usuario Cadastrado', 'success');

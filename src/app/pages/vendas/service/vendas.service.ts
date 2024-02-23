@@ -28,8 +28,8 @@ export class VendasService {
     if (e.status == 500) {
       this.showMessage('Erro Interno', 'error');
     } else if (e.status == 403) {
-      this.route.navigate(['/login']);
-      this.showMessage("Por favor, refaça o login", "warning")
+      // this.route.navigate(['/login']);
+      // this.showMessage("Por favor, refaça o login", "warning")
     }
     return EMPTY;
   }
