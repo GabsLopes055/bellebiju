@@ -41,6 +41,7 @@ export class ModelPesquisarPorDataComponent {
   }
 
   onClose(vendas: venda[]) {
+    this.service.vendasPorData = true;
     this.service.setData(vendas);
     this.dialog.closeAll()
   }

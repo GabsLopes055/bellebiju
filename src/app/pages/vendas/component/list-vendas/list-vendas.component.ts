@@ -22,7 +22,4 @@ export class ListVendasComponent {
     });
   }
 
-  modal = this.dialog.afterAllClosed.subscribe((response) => {
-    console.log(this.service.getData())
-  })
 }

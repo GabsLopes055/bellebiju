@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment.development';
 export class VendasService {
 
   private vendasModal!: venda[];
+  public vendasPorData!: boolean
 
   constructor(private http: HttpClient, private message: MatSnackBar, private route: Router) {}
 
