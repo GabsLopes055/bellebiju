@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CanActivate } from '@angular/router';
+import { Observable, interval, startWith, switchMap } from 'rxjs';
 import { LoginService } from 'src/app/login/service/login.service';
 import { SessionLoginComponent } from 'src/app/pages/session-login/session-login.component';
 
@@ -8,15 +9,28 @@ import { SessionLoginComponent } from 'src/app/pages/session-login/session-login
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  constructor(private authService: LoginService, private dialog: MatDialog) {}
+
+
+  constructor(private authService: LoginService, private dialog: MatDialog) {
+
+  }
 
   canActivate() {
-    if (this.authService.isLoggedIn()) {
-      // this.abrirModalSessao();
-      return true;
+
+    const expirationToken = this.authService.getExpirationToken();
+
+    if(expirationToken) {
+
+      const currentDate = new Date().getTime().toLocaleString();
+
+      if (expirationToken < currentDate) {
+        this.abrirModalSessao()
     }
-    this.abrirModalSessao();
-    return false;
+
+    }
+
+
+    return true;
   }
 
   abrirModalSessao() {
@@ -26,4 +40,8 @@ export class AuthGuardService implements CanActivate {
       disableClose: true,
     });
   }
+
+
+
+
 }

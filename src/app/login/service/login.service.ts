@@ -10,9 +10,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class LoginService {
+
   private readonly TOKEN_KEY = 'authToken';
   url = environment.url;
   private isAuthenticated = false;
+  private expirationToken!: null | string
 
   constructor(private http: HttpClient, private message: MatSnackBar) {
     this.isAuthenticated = !!localStorage.getItem(this.TOKEN_KEY);
@@ -61,10 +63,18 @@ export class LoginService {
   }
 
   private setToken(token: string): void {
+
+    const expiration = new Date().getTime() + 1800000;
+
+    localStorage.setItem("expirationToken", expiration.toLocaleString())
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  getExpirationToken(): string | null {
+    return localStorage.getItem("expirationToken");
   }
 }

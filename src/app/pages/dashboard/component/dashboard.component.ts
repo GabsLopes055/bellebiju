@@ -10,6 +10,7 @@ import { venda } from 'src/app/shared/models/venda';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+
   date = new Date();
   opened: boolean = false;
   dataSource!: venda[];
@@ -30,6 +31,7 @@ export class DashboardComponent {
           this.calcularTotalVendido()
         )
       );
+      this.service.vendasPorData = false
   }
 
 
