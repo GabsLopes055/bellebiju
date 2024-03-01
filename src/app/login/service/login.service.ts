@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, '', {
+    this.message.open(msg, 'x', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
@@ -30,8 +30,8 @@ export class LoginService {
   }
 
   errorHandler(e: any): Observable<any> {
-    if (e.status == 401) {
-      this.showMessage('Senha incorreta', 'warning');
+    if (e.status == 400) {
+      this.showMessage(e.error, 'error');
     } else if (e.status == 404) {
       this.showMessage('Usuário não encontrado', 'error');
     } else if (e.status == 403) {
