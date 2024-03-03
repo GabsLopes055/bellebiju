@@ -26,8 +26,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.formGroup = formBuilder.group({
-      username: ['teste', [Validators.required, Validators.minLength(1)]],
-      password: ['123', [Validators.required, Validators.minLength(1)]],
+      username: ['', [Validators.required, Validators.minLength(1)]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
     });
     this.loadLogin = false;
     localStorage.clear();
