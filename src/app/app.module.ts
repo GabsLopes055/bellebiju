@@ -23,6 +23,7 @@ import { EditVendaComponent } from './pages/vendas/component/edit-venda/edit-ven
 import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/delete-venda.component';
 import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
+import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SessionLoginComponent } from './pages/session-login/session-login.compo
     ListInformationsComponent,
     EditVendaComponent,
     DeleteVendaComponent,
-    SessionLoginComponent
+    SessionLoginComponent,
+    GraficosComponent
   ],
   imports: [
     BrowserModule,

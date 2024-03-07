@@ -39,6 +39,13 @@ const routes: Routes = [
             '../app/pages/my-informations/module/my-informations.module'
           ).then((module) => module.MyInformationsModule),
       },
+      {
+        path: 'graficos',
+        loadChildren: () =>
+          import(
+            '../app/pages/graficos/module/graficos.module'
+          ).then((module) => module.GraficosModule),
+      }
     ],
   },
   { path: '**', redirectTo: '' },

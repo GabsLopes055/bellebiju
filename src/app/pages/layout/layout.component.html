@@ -5,7 +5,7 @@
         <img src="../../../../assets/img/logo.jpeg" alt="">
       </div>
       <div class="center">
-        <h1 class="title">Dashboard</h1>
+        <!-- <h1 class="title">Dashboard</h1> -->
       </div>
       <div class="right">
         <button mat-icon-button (click)="opened = !opened">
@@ -53,7 +53,7 @@
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item>
+          <mat-list-item  routerLink="graficos" routerLinkActive="active">
             <mat-icon matListItemIcon>equalizer</mat-icon>
             <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Graficos</div>
           </mat-list-item>

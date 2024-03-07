@@ -25,10 +25,10 @@ mat-card {
   color: white;
   margin: 10px 0px 10px 0px;
   width: 98%;
+  height: auto  ;
 }
 
-mat-card-content > button {
-  background-color: #138182;
-  color: white;
+mat-card-title {
+  padding: 20px;
 }
 
