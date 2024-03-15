@@ -16,23 +16,23 @@ export class CreateVendaComponent {
       nomeProduto: ['', [Validators.required, Validators.minLength(3)]],
       preco: ['', [Validators.required, Validators.minLength(3)]],
       quantidade: ['', [Validators.required, Validators.minLength(3)]],
-      total: [0, [Validators.required, Validators.minLength(3)]],
+      total: ['', [Validators.required, Validators.minLength(3)]],
       formaPagamento: ['', [Validators.required, Validators.minLength(3)]],
     });
 
-    this.formGroup.controls['preco'].valueChanges.subscribe(() => this.calcularTotal());
-    this.formGroup.controls['quantidade'].valueChanges.subscribe(() => this.calcularTotal());
+    // this.formGroup.controls['preco'].valueChanges.subscribe(() => this.calcularTotal());
+    // this.formGroup.controls['quantidade'].valueChanges.subscribe(() => this.calcularTotal());
   }
 
-  calcularTotal() {
-    const preco = this.formGroup.controls['preco'].value;
-    const quantidade = this.formGroup.controls['quantidade'].value;
+  // calcularTotal() {
+  //   const preco = this.formGroup.controls['preco'].value;
+  //   const quantidade = this.formGroup.controls['quantidade'].value;
 
-    const total = preco * quantidade;
+  //   const total = preco * quantidade;
 
-    // Atualize o valor do controle 'total' no formulário
-    this.formGroup.controls['total'].setValue(total);
-  }
+  //   // Atualize o valor do controle 'total' no formulário
+  //   this.formGroup.controls['total'].setValue(total);
+  // }
 
   getErrorMessage() {
     return 'Campo não pode ser vazio';
