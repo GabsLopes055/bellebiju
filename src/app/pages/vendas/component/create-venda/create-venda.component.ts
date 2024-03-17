@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VendasService } from '../../service/vendas.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-venda',
@@ -11,7 +12,7 @@ export class CreateVendaComponent {
   totalVenda: number = 6;
   formGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: VendasService) {
+  constructor(private fb: FormBuilder, private service: VendasService, private dialog: MatDialog) {
     this.formGroup = this.fb.group({
       nomeProduto: ['', [Validators.required, Validators.minLength(3)]],
       preco: ['', [Validators.required, Validators.minLength(3)]],
@@ -45,6 +46,7 @@ export class CreateVendaComponent {
       this.service.showMessage("Venda Cadastrada", "success")
     });
 
+    this.dialog.closeAll();
     this.formGroup.reset()
   }
 

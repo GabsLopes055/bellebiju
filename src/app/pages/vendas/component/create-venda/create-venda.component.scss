@@ -1,5 +1,4 @@
 .container {
-  background-image: url("../../../../../assets/img/bg-login.jpg");
   width: 100%;
   height: 100%;
   align-items: center;
@@ -7,16 +6,7 @@
   flex-direction: column;
 }
 
-.content {
-  // height: 100%;
-  width: 98%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 8px;
-}
-
-mat-card-content > button {
+mat-card-content>button {
   background-color: #138182;
   color: white;
 }
@@ -30,20 +20,21 @@ mat-card-content > button {
   width: 100%;
 }
 
-mat-card-title {
-  padding: 20px;
-}
+// mat-card-title {
+//   padding: 20px;
+// }
 
 .content-form {
-  margin-top: 10px;
+  // margin: 30px;
   width: 98%;
 }
 
 .card-form {
   gap: 20px;
+  // padding: 30px;
 }
 
-.card-header-form > form {
+.card-header-form>form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -54,8 +45,17 @@ form {
   width: 100%;
 }
 
-mat-card-actions > button {
+mat-card-actions>button {
   width: 100%;
   background-color: #138182;
   color: white;
+}
+
+.header {
+  // padding: 20px;
+  align-items: baseline;
+  width: 92%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
