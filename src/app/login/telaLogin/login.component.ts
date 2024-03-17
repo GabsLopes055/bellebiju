@@ -29,9 +29,11 @@ export class LoginComponent {
       username: ['', [Validators.required, Validators.minLength(1)]],
       password: ['', [Validators.required, Validators.minLength(1)]],
     });
+    this.formGroup.get('username')?.valueChanges.subscribe((value) => {
+      this.formGroup.get('username')?.setValue(value.toLowerCase())
+    })
     this.loadLogin = false;
     localStorage.clear();
-
   }
 
   getErrorMessage() {
@@ -39,10 +41,8 @@ export class LoginComponent {
   }
 
   logar() {
-    this.service
-      .isAuthentication(this.formGroup.value)
-      .subscribe(() => {
-        this.router.navigate(['dashboard']);
-      });
+    this.service.isAuthentication(this.formGroup.value).subscribe(() => {
+      this.router.navigate(['dashboard']);
+    });
   }
 }
