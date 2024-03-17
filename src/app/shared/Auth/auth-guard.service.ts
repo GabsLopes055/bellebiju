@@ -35,7 +35,7 @@ export class AuthGuardService implements CanActivate {
 
   abrirModalSessao() {
     this.dialog.open(SessionLoginComponent, {
-      width: '100%',
+      width: '40%',
       height: 'auto',
       disableClose: true,
     });

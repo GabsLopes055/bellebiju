@@ -14,7 +14,7 @@ import { UsuariosCreatedComponent } from '../usuarios-created/usuarios-created.c
 export class UsuariosComponent {
 
   users!: user[];
-  headersTable: string[] = ['idUser', 'nome', 'username', 'createdAt', 'roles'];
+  headersTable: string[] = ['idUser', 'nome', 'username', 'createdAt', 'roles', 'editar', 'deletar'];
 
   constructor(private service: UsuariosService, private dialog: MatDialog) {
     this.listAllUsers()
@@ -32,18 +32,22 @@ export class UsuariosComponent {
 
   createNewUser() {
     this.dialog.open(UsuariosCreatedComponent, {
-      width: '90%',
+      width: '40%',
       height: 'auto',
     });
   }
 
-  manterUsuario(element: user) {
+  editarUsuario(element: user) {
     this.dialog.open(UsuariosEditComponent, {
-      width: '90%',
+      width: '40%',
       height: 'auto',
       data: {
         user: element,
       },
     });
+  }
+
+  deleteVenda(element: user) {
+
   }
 }

@@ -1,9 +1,10 @@
+import { venda } from './../../../../shared/models/venda';
 import { Component } from '@angular/core';
-import { venda } from 'src/app/shared/models/venda';
 import { VendasService } from '../../service/vendas.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteVendaComponent } from '../delete-venda/delete-venda.component';
 import { EditVendaComponent } from '../edit-venda/edit-venda.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-accordion-vendas',
@@ -11,7 +12,16 @@ import { EditVendaComponent } from '../edit-venda/edit-venda.component';
   styleUrls: ['./accordion-vendas.component.scss'],
 })
 export class AccordionVendasComponent {
-  dataSource!: venda[];
+  columnsTable: string[] = [
+    'produto',
+    'preco',
+    'quantidade',
+    'total',
+    'pagamento',
+    'editar',
+    'deletar',
+  ];
+  dataSource = new MatTableDataSource<venda[]>;
   vendasData!: venda[];
 
   panelOpenState: boolean = false;
@@ -22,7 +32,7 @@ export class AccordionVendasComponent {
 
   deleteVenda(venda: venda) {
     this.dialog.open(DeleteVendaComponent, {
-      width: '80%',
+      width: '40%',
       height: 'auto',
       data: {
         venda: venda,
@@ -31,7 +41,7 @@ export class AccordionVendasComponent {
   }
   editVenda(venda: venda) {
     this.dialog.open(EditVendaComponent, {
-      width: '80%',
+      width: '40%',
       height: 'auto',
       data: {
         venda: venda,
@@ -44,12 +54,14 @@ export class AccordionVendasComponent {
   });
 
   vendas() {
-    if (this.service.vendasPorData) {
-      this.dataSource = this.service.getData();
-    } else {
-      this.service
-        .listAllVendas()
-        .subscribe((response) => (this.dataSource = response));
-    }
+    this.service
+      .listAllVendas()
+      .subscribe((response) => (this.dataSource = response));
   }
+
+  pesquisar(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue.valueOf())
+    this.dataSource.filter = filterValue.valueOf().trim().toLowerCase();
+}
 }
