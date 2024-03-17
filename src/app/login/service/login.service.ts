@@ -24,7 +24,7 @@ export class LoginService {
     this.message.open(msg, 'x', {
       duration: 5000,
       horizontalPosition: 'right',
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       panelClass: color,
     });
   }

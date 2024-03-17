@@ -20,7 +20,7 @@ export class VendasService {
     this.message.open(msg, 'X', {
       duration: 5000,
       horizontalPosition: 'right',
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       panelClass: color,
     });
   }
