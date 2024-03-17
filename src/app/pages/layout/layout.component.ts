@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/login/service/login.service';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent {
+
   opened: boolean = false;
 
   constructor(

@@ -3,6 +3,7 @@
   background-image: url("../../../assets/img/bg-login.jpg");
   height: 100%;
   width: 100%;
+  // opacity: 1.9;
 }
 
 .content {
@@ -20,7 +21,7 @@ mat-card {
 }
 
 mat-card {
-  width: 90%;
+  width: 30%;
   height: auto;
   padding: 20px;
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
@@ -61,4 +62,10 @@ mat-divider {
 mat-card-actions > button {
   background-color: #770d7c;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  mat-card {
+      width: 90%; /* Ou o tamanho desejado em pixels */
+  }
 }

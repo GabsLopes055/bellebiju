@@ -14,7 +14,7 @@ import { UsuariosCreatedComponent } from '../usuarios-created/usuarios-created.c
 export class UsuariosComponent {
 
   users!: user[];
-  headersTable: string[] = [ 'nome', 'username', 'roles'];
+  headersTable: string[] = ['idUser', 'nome', 'username', 'createdAt', 'roles'];
 
   constructor(private service: UsuariosService, private dialog: MatDialog) {
     this.listAllUsers()

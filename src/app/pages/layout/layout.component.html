@@ -1,39 +1,21 @@
 <mat-sidenav-container>
-  <mat-toolbar>
-    <mat-toolbar-row class="toolbar-row">
-      <div class="left">
-        <img src="../../../../assets/img/logo.jpeg" alt="">
-      </div>
-      <div class="center">
-        <!-- <h1 class="title">Dashboard</h1> -->
-      </div>
-      <div class="right">
-        <button mat-icon-button (click)="opened = !opened">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-    </mat-toolbar-row>
-  </mat-toolbar>
 
 
-  <mat-sidenav [(opened)]="opened" mode="over" #sidenav>
-
-    <div class="close-menu">
-      <button mat-icon-button (click)="opened = !opened">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+  <mat-sidenav opened mode="side">
 
     <div class="container-sidenav">
       <div class="content-actions-sidenav">
 
+        <div class="img">
+          <img src="../../../assets/img/logo.jpeg" alt="">
+        </div>
+
         <mat-list>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
-          <!--  [routerLinkActiveOptions]="{ exact: true }" -->
           <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon matListItemIcon>dashboard</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Dashboard</div>
+            <div matListItemTitle class="titleMenu">Dashboard</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
@@ -41,35 +23,35 @@
           <mat-list-item routerLink="adicionarVenda" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon matListItemIcon>add</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Adicionar Venda</div>
+            <div matListItemTitle class="titleMenu">Adicionar Venda</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
           <mat-list-item routerLink="adicionarVenda/visualizarVenda" routerLinkActive="active">
             <mat-icon matListItemIcon>real_estate_agent</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Pesquisar Venda</div>
+            <div matListItemTitle class="titleMenu">Pesquisar Venda</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
-          <mat-list-item  routerLink="graficos" routerLinkActive="active">
+          <mat-list-item routerLink="graficos" routerLinkActive="active">
             <mat-icon matListItemIcon>equalizer</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Graficos</div>
+            <div matListItemTitle class="titleMenu">Graficos</div>
           </mat-list-item>
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
 
           <mat-list-item routerLink="usuarios" routerLinkActive="active">
             <mat-icon matListItemIcon>person</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Usuários</div>
+            <div matListItemTitle class="titleMenu">Usuários</div>
           </mat-list-item>
 
           <!-- <mat-divider class="dividerMenuSidenav"></mat-divider> -->
 
           <!-- <mat-list-item routerLink="minhasInformacoes" routerLinkActive="active">
             <mat-icon matListItemIcon>informations</mat-icon>
-            <div matListItemTitle class="titleMenu" (click)="sidenav.toggle()">Minhas Informações</div>
+            <div matListItemTitle class="titleMenu">Minhas Informações</div>
           </mat-list-item> -->
 
           <mat-divider class="dividerMenuSidenav"></mat-divider>
@@ -87,3 +69,53 @@
   <router-outlet></router-outlet>
 
 </mat-sidenav-container>
+
+<!-- <mat-drawer-container class="container">
+  <mat-drawer mode="side" opened>
+    <div class="container-sidenav">
+      <div class="content-actions-sidenav">
+
+        <div class="img">
+          <img src="../../../assets/img/logo.jpeg" alt="Imagem da logo da loja">
+        </div>
+
+        <mat-list>
+          <mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon matListItemIcon>dashboard</mat-icon>
+            <div matListItemTitle class="titleMenu">Dashboard</div>
+          </mat-list-item>
+
+          <mat-list-item routerLink="adicionarVenda" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon matListItemIcon>add</mat-icon>
+            <div matListItemTitle class="titleMenu">Adicionar Venda</div>
+          </mat-list-item>
+
+          <mat-list-item routerLink="adicionarVenda/visualizarVenda" routerLinkActive="active">
+            <mat-icon matListItemIcon>real_estate_agent</mat-icon>
+            <div matListItemTitle class="titleMenu">Pesquisar Venda</div>
+          </mat-list-item>
+
+          <mat-list-item routerLink="graficos" routerLinkActive="active">
+            <mat-icon matListItemIcon>equalizer</mat-icon>
+            <div matListItemTitle class="titleMenu">Graficos</div>
+          </mat-list-item>
+
+          <mat-list-item routerLink="usuarios" routerLinkActive="active">
+            <mat-icon matListItemIcon>person</mat-icon>
+            <div matListItemTitle class="titleMenu">Usuários</div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>logout</mat-icon>
+            <div matListItemTitle class="titleMenu" (click)="logout()">Sair</div>
+            </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container> -->
