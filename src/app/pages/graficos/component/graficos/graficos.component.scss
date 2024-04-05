@@ -32,3 +32,19 @@ mat-card-title {
   padding: 20px;
 }
 
+.graficos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  // align-items: center; /* Adicionei align-items para centralizar verticalmente */
+}
+
+
+.graficoBar {
+  min-width: 800px;
+}
+
+.graficoPizza {
+  min-width: 400px;
+}
+

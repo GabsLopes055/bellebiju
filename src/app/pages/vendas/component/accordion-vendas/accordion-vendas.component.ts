@@ -21,7 +21,7 @@ export class AccordionVendasComponent {
     'editar',
     'deletar',
   ];
-  dataSource = new MatTableDataSource<venda[]>;
+  dataSource: venda[] = [];
   vendasData!: venda[];
 
   panelOpenState: boolean = false;
@@ -53,15 +53,22 @@ export class AccordionVendasComponent {
     this.vendas();
   });
 
-  vendas() {
+  vendas(): any {
     this.service
       .listAllVendas()
       .subscribe((response) => (this.dataSource = response));
   }
 
-  pesquisar(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue.valueOf())
-    this.dataSource.filter = filterValue.valueOf().trim().toLowerCase();
-}
+  pesquisar(event: any) {
+
+    const filterValue = event.target.value;
+
+    if (filterValue == '') {
+      this.dataSource = this.vendas()
+    } else {
+      this.dataSource = this.dataSource.filter((item) => {
+        return item.nomeProduto.toLowerCase().includes(filterValue);
+      });
+    }
+  }
 }
