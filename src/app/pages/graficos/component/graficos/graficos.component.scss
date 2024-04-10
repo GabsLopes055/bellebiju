@@ -41,12 +41,24 @@ mat-card-content > button {
 .graficos {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  background-color: white;
-  margin: 30px;
+  justify-content: space-between;
+  align-items: baseline;
+  // border-left: #138182 solid 2px;
+  // background-color: #770d7c;
+  // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+  // color: white;
+  margin: 10px 0px 10px 0px;
+  width: 98%;
+  height: auto;
+  overflow-y: scroll;
   // align-items: center; /* Adicionei align-items para centralizar verticalmente */
 }
 
+.content-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
 .graficoBar {
   min-width: 800px;

@@ -17,19 +17,15 @@ export class GraficosComponent {
 
   labels: any[] = [];
   gerarGraficoPizza: any;
-  gerarGraficoTotalVendas: any
+  gerarGraficoTotalVendas: any;
   chartBar: any;
   chartPizza: any;
+  loadGrafico: boolean = false;
 
   constructor(
     private service: GraficosServiceService,
     private dialog: MatDialog
   ) {}
-
-  ngOnInit(): void {
-    this.createChartBar(this.service.getDadosGraficosTotalVendas());
-    this.createChartPizza(this.service.getDadosGraficosPizza());
-  }
 
   pesquisarPorData() {
     this.dialog
@@ -39,34 +35,48 @@ export class GraficosComponent {
       })
       .afterClosed()
       .subscribe(() => {
+
+        this.loadGrafico = true
+
         // Recriar o gráfico de pizza com os novos dados
-        if (this.chartPizza || this.chartBar) {
+        if (this.chartPizza && this.chartBar) {
           this.chartPizza.destroy();
           this.chartBar.destroy();
         }
-        this.createChartPizza(this.service.getDadosGraficosPizza());
-        this.createChartBar(this.service.getDadosGraficosTotalVendas());
+
+        setTimeout(() => {
+          this.loadGrafico = false;
+          this.createChartPizza(this.service.getDadosGraficosPizza());
+          this.createChartBar(this.service.getDadosGraficosTotalVendas());
+        }, 2000);
+
+
       });
   }
 
   createChartBar(data: any): void {
 
-    this.gerarGraficoTotalVendas = this.graficoBar.nativeElement.getContext('2d');
+    this.gerarGraficoTotalVendas =
+      this.graficoBar.nativeElement.getContext('2d');
 
-
-      this.chartBar = new Chart(this.gerarGraficoTotalVendas, {
-        type: 'bar',
-        data: {
-          labels: ['Dinheiro: ' + data[0], 'PIX: ' + data[1], 'Cartão de Débito: ' + data[2], 'Cartão de Crédito: ' + data[3]],
-          datasets: [
-            {
-              label: 'Valor Vendido',
-              data: [data[0], data[1], data[2], data[3]],
-              backgroundColor: ['#138182', '#770d7c', '#7f5410', '#822b0e']
-            },
-          ],
-        },
-      });
+    this.chartBar = new Chart(this.gerarGraficoTotalVendas, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Dinheiro: ' + data[0],
+          'PIX: ' + data[1],
+          'Cartão de Débito: ' + data[2],
+          'Cartão de Crédito: ' + data[3],
+        ],
+        datasets: [
+          {
+            label: 'Valor Vendido',
+            data: [data[0], data[1], data[2], data[3]],
+            backgroundColor: ['#138182', '#770d7c', '#7f5410', '#822b0e'],
+          },
+        ],
+      },
+    });
   }
 
   createChartPizza(data: any) {
@@ -88,7 +98,6 @@ export class GraficosComponent {
   }
 
   gerar_cor_hexadecimal(curto = false): any {
-
     // const graficoBar = this.graficoBar.nativeElement.getContext('2d');
 
     var cores = [];
