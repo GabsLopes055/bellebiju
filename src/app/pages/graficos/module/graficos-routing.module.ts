@@ -7,5 +7,6 @@ const routes: Routes = [{ path: '', component: GraficosComponent }];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  declarations: []
 })
 export class GraficosRoutingModule {}

@@ -1,3 +1,4 @@
+import { GraficosServiceService } from './../../../graficos/service/graficos-service.service';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
@@ -5,6 +6,8 @@ import { format } from 'date-fns';
 import { VendasService } from '../../service/vendas.service';
 import { venda } from 'src/app/shared/models/venda';
 import { MatDialog } from '@angular/material/dialog';
+import { GraficosComponent } from 'src/app/pages/graficos/component/graficos/graficos.component';
+// import { GraficosServiceService } from 'src/app/pages/graficos/service/graficos-service.service';
 
 @Component({
   selector: 'app-model-pesquisar-por-data',
@@ -21,7 +24,8 @@ export class ModelPesquisarPorDataComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private _adapter: DateAdapter<any>,
     private fb: FormBuilder,
-    private service: VendasService,
+    private service: GraficosServiceService,
+    private graficoPizza: GraficosServiceService,
     private dialog: MatDialog
   ) {
     this._adapter.setLocale(this._locale);
@@ -32,17 +36,18 @@ export class ModelPesquisarPorDataComponent {
   }
 
   pesquisarVendas() {
+
     let inicio = format(this.formData.value.dataInicio, 'yyyy-MM-dd');
     let fim = format(this.formData.value.dataFim, 'yyyy-MM-dd');
 
-    this.service.pesquisarPorVenda(inicio, fim).subscribe((response) => {
-      this.onClose(response)
-    });
-  }
+    this.service.gerarGraficoPizza(inicio, fim).subscribe((response) => {
+      this.graficoPizza.setDadosGraficoPizza(response);
+    })
 
-  onClose(vendas: venda[]) {
-    this.service.vendasPorData = true;
-    this.service.setData(vendas);
+    this.service.gerarGraficoTotalVendas(inicio, fim).subscribe((response) => {
+      this.graficoPizza.setDadosGraficoTotalVendas(response);
+    })
+
     this.dialog.closeAll()
   }
 }

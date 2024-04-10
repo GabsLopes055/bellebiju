@@ -1,5 +1,10 @@
+// import { ModelPesquisarPorDataComponent } from 'src/app/pages/vendas/component/model-pesquisar-por-data/model-pesquisar-por-data.component';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+// import { GraficosServiceService } from '../../service/graficos-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModelPesquisarPorDataComponent } from 'src/app/pages/vendas/component/model-pesquisar-por-data/model-pesquisar-por-data.component';
+import { GraficosServiceService } from '../../service/graficos-service.service';
 
 @Component({
   selector: 'app-graficos',
@@ -11,76 +16,86 @@ export class GraficosComponent {
   @ViewChild('graficopizza', { static: true }) graficopizza!: ElementRef;
 
   labels: any[] = [];
+  gerarGraficoPizza: any;
+  gerarGraficoTotalVendas: any
+  chartBar: any;
+  chartPizza: any;
 
-  constructor() {}
+  constructor(
+    private service: GraficosServiceService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.createChartBar();
-    this.creatChartPizza();
-    alert('PAGINA EM DESENVOLVIMENTO')
+    this.createChartBar(this.service.getDadosGraficosTotalVendas());
+    this.createChartPizza(this.service.getDadosGraficosPizza());
   }
 
-  createChartBar(): void {
+  pesquisarPorData() {
+    this.dialog
+      .open(ModelPesquisarPorDataComponent, {
+        width: '40%',
+        height: 'auto',
+      })
+      .afterClosed()
+      .subscribe(() => {
+        // Recriar o gráfico de pizza com os novos dados
+        if (this.chartPizza || this.chartBar) {
+          this.chartPizza.destroy();
+          this.chartBar.destroy();
+        }
+        this.createChartPizza(this.service.getDadosGraficosPizza());
+        this.createChartBar(this.service.getDadosGraficosTotalVendas());
+      });
+  }
 
-    const graficoBar = this.graficoBar.nativeElement.getContext('2d');
+  createChartBar(data: any): void {
+
+    this.gerarGraficoTotalVendas = this.graficoBar.nativeElement.getContext('2d');
+
+
+      this.chartBar = new Chart(this.gerarGraficoTotalVendas, {
+        type: 'bar',
+        data: {
+          labels: ['Dinheiro: ' + data[0], 'PIX: ' + data[1], 'Cartão de Débito: ' + data[2], 'Cartão de Crédito: ' + data[3]],
+          datasets: [
+            {
+              label: 'Valor Vendido',
+              data: [data[0], data[1], data[2], data[3]],
+              backgroundColor: ['#138182', '#770d7c', '#7f5410', '#822b0e']
+            },
+          ],
+        },
+      });
+  }
+
+  createChartPizza(data: any) {
+
+    this.gerarGraficoPizza = this.graficopizza.nativeElement.getContext('2d');
+
+    this.chartPizza = new Chart(this.gerarGraficoPizza, {
+      type: 'doughnut',
+      data: {
+        labels: ['Dinheiro', 'PIX', 'Cartão de Débito', 'Cartão de Crédito'],
+        datasets: [
+          {
+            data: [data[0], data[1], data[2], data[3]],
+            backgroundColor: ['#138182', '#770d7c', '#7f5410', '#822b0e'],
+          },
+        ],
+      },
+    });
+  }
+
+  gerar_cor_hexadecimal(curto = false): any {
+
+    // const graficoBar = this.graficoBar.nativeElement.getContext('2d');
 
     var cores = [];
 
     for (var i = 0; i < 7; i++) {
-        cores.push(this.gerar_cor_hexadecimal());
+      cores.push(this.gerar_cor_hexadecimal());
     }
-
-    if (graficoBar) {
-      new Chart(graficoBar, {
-        type: 'bar',
-        options: {
-          indexAxis: 'x',
-        },
-        data: {
-          labels: [
-            'Segunda',
-            'Terça',
-            'Quarta',
-            'Quinta',
-            'Sexta',
-            'Sábado',
-            'Domingo',
-          ],
-          datasets: [
-            {
-              data: [65, 59, 80, 81, 56, 55, 40],
-              backgroundColor: '#AAB7B8',
-              borderWidth: 1,
-            },
-          ],
-        },
-      });
-    } else {
-      console.error('Failed to get canvas context');
-    }
-  }
-
-  creatChartPizza() {
-    const graficoPizza = this.graficopizza.nativeElement.getContext('2d');
-
-    if (graficoPizza) {
-      new Chart(graficoPizza, {
-        type: 'doughnut',
-        data: {
-          labels: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'PIX'],
-          datasets: [
-            {
-              data: [289, 211, 229, 172],
-              backgroundColor: ['#AAB7B8', '#AAB7B8', '#AAB7B8', '#AAB7B8'],
-              borderWidth: 4,
-            },
-          ],
-        },
-      });
-    }
-  }
-
-  gerar_cor_hexadecimal(curto = false): any {
 
     const max_hex = curto ? 0xfff : 0xffffff;
 
@@ -90,5 +105,5 @@ export class GraficosComponent {
         .toString(16)
         .padStart(curto ? 3 : 6, '0')
     );
-}
+  }
 }

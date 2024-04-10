@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { VendasRoutingModule } from './vendas-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GraficosModule } from '../../graficos/module/graficos.module';
+import { GraficosComponent } from '../../graficos/component/graficos/graficos.component';
 
 
 @NgModule({
@@ -10,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     VendasRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class VendasModule { }
