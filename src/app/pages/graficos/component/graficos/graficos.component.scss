@@ -22,35 +22,26 @@
   align-items: baseline;
   border-left: #138182 solid 2px;
   background-color: #770d7c;
-  // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
   color: white;
   margin: 10px 0px 10px 0px;
   width: 98%;
-  height: auto  ;
+  height: auto;
 }
 
-mat-card-title {
-  padding: 20px;
-}
-
-mat-card-content > button {
+mat-card-content>button {
   background-color: #138182;
   color: white;
 }
 
 .graficos {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  // border-left: #138182 solid 2px;
-  // background-color: #770d7c;
-  // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-  // color: white;
-  margin: 10px 0px 10px 0px;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+  // align-items: baseline;
   width: 98%;
-  height: auto;
-  overflow-y: scroll;
+  margin-bottom: 20px;
+  padding: 10px;
+  // background-color: aqua;
   // align-items: center; /* Adicionei align-items para centralizar verticalmente */
 }
 
@@ -61,10 +52,85 @@ mat-card-content > button {
 }
 
 .graficoBar {
-  min-width: 800px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: auto;
+  //  justify-content: space-between;
+  //  align-items: baseline;
+  //  background-color: #138182;
 }
+
+.divGraficoBar {
+  padding-top: 40px;
+  min-width: 50%;
+  padding: 10px;
+  height: auto;
+
+  // background-color: #770d7c;
+}
+
+.divInformacoesGraficoBar {
+  display: grid;
+  width: 100%;
+  height: auto;
+  align-content: center;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  // background-color: #2196F3;
+  // padding: 10px;
+}
+
+.dinheiro,
+.pix,
+.debito,
+.credito,
+.valotTotal {
+  // background-color: rgba(255, 255, 255, 0.8);
+  // border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+  // padding: 0;
+  // margin: 0;
+}
+
+.valotTotal {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  text-align: center;
+  background-color: #2196F3;
+}
+
+.dinheiro {
+  background-color: #138182;
+}
+
+.pix {
+  background-color: #770d7c;
+}
+
+.debito {
+  background-color: #7f5410;
+}
+
+.credito {
+  background-color: #822b0e;
+}
+
 
 .graficoPizza {
-  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: auto;
+  //  justify-content: space-between;
+  //  align-items: baseline;
+  //  background-color: #138182;
 }
 
+.progress {
+  padding: 10px;
+  width: 98%;
+}

@@ -14,7 +14,7 @@
 }
 
 
-mat-card {
+.card-superior {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,6 +37,19 @@ mat-divider {
   padding: 10px 0px 10px 0px;
 }
 
-.tableUsers {
+// .tableUsers {
+//   width: 98%;
+// }
+
+.progress {
+  padding: 0;
+  margin: 0;
+  padding: 10px;
   width: 98%;
+}
+
+.card-table-users {
+  width: 98%;
+  height: 100%;
+  padding: 20px;
 }

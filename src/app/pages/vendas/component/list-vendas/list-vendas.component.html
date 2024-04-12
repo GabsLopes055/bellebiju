@@ -4,7 +4,7 @@
 
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Vendas</mat-card-title>
+        <mat-card-title><p>Vendas</p></mat-card-title>
         <!-- <button mat-icon-button><mat-icon class="mat-18">add</mat-icon></button> -->
       </mat-card-header>
       <mat-card-content>
@@ -16,7 +16,10 @@
 
   </div>
 
-  <mat-divider></mat-divider>
+  <div class="progress">
+    <mat-divider></mat-divider>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  </div>
 
   <div class="content">
     <app-accordion-vendas></app-accordion-vendas>

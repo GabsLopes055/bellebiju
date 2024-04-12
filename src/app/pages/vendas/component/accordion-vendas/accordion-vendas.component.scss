@@ -14,10 +14,20 @@
 table {
   width: 100%;
   overflow-x: scroll;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
 }
 
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+.card-table {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.progress {
+  padding: 10px;
+  width: 98%;
 }

@@ -15,9 +15,11 @@ export class UsuariosComponent {
 
   users!: user[];
   headersTable: string[] = ['idUser', 'nome', 'username', 'createdAt', 'roles', 'editar', 'deletar'];
+  isLoading: boolean = true
 
   constructor(private service: UsuariosService, private dialog: MatDialog) {
-    this.listAllUsers()
+    this.listAllUsers();
+    this.isLoading = false
   }
 
   listAllUsers() {

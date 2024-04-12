@@ -10,18 +10,15 @@ import { venda } from 'src/app/shared/models/venda';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-
   date = new Date();
   opened: boolean = false;
   dataSource!: venda[];
   vendasRealizadas!: number;
   totalVendido!: number;
   produtosVendidos!: number;
+  isLoading: boolean = true;
 
-  constructor(
-    private router: Router,
-    private service: VendasService
-  ) {
+  constructor(private router: Router, private service: VendasService) {
     this.service
       .listAllVendas()
       .subscribe(
@@ -31,12 +28,8 @@ export class DashboardComponent {
           this.calcularTotalVendido()
         )
       );
-      this.service.vendasPorData = false
-  }
-
-
-  usuarios() {
-    this.router.navigate(['dashboard/usuarios']);
+    this.service.vendasPorData = false;
+    this.isLoading = false
   }
 
   preencherModalInformacoes() {

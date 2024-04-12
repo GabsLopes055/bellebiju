@@ -1,104 +1,94 @@
 <div class="container">
   <div class="content">
 
-    <mat-card class="mat-card">
+    <mat-card class="mat-card mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title>Gráficos</mat-card-title>
+        <mat-card-title>
+          <p>Gráficos</p>
+        </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <button class="button-cadastrar" mat-raised-button (click)="pesquisarPorData()">Pesquisar por Data</button>
       </mat-card-content>
     </mat-card>
 
-    <mat-progress-spinner mode="indeterminate" *ngIf="loadGrafico" color="primary"></mat-progress-spinner>
+    <div class="progress">
+      <mat-divider></mat-divider>
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    </div>
 
 
-    <!-- <div class="content-actions">
 
-      <mat-card>
-        <mat-card-header>
-          <div class="card-header-title">
-            <mat-card-title>Elaborar</mat-card-title>
-          </div>
-          <div class="card-header-icon">
-            <mat-icon class="mat-24">shopping_cart</mat-icon>
-          </div>
-
-        </mat-card-header>
-
-        <mat-card-content>
-          Text content
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card>
-        <mat-card-header>
-          <div class="card-header-title">
-            <mat-card-title>Elaborar</mat-card-title>
-          </div>
-          <div class="card-header-icon">
-            <mat-icon class="mat-18">shopping_cart</mat-icon>
-          </div>
-
-        </mat-card-header>
-
-        <mat-card-content>
-          Text content
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card>
-        <mat-card-header>
-          <div class="card-header-title">
-            <mat-card-title>Elaborar</mat-card-title>
-          </div>
-          <div class="card-header-icon">
-            <mat-icon class="mat-18">shopping_cart</mat-icon>
-          </div>
-
-        </mat-card-header>
-
-        <mat-card-content>
-          Text content
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card>
-
-        <mat-card-header>
-          <div class="card-header-title">
-            <mat-card-title>Usuários</mat-card-title>
-          </div>
-          <div class="card-header-icon">
-            <mat-icon class="mat-18">person</mat-icon>
-          </div>
-        </mat-card-header>
-
-        <mat-card-content>
-          Visualizar Usuários
-        </mat-card-content>
-      </mat-card>
-
-    </div> -->
 
     <mat-card class="graficos">
-      <div class="graficoBar">
-        <canvas #graficoBar></canvas>
-      </div>
-      <div class="graficoPizza">
-        <canvas #graficopizza></canvas>
-      </div>
-      <!-- <div class="graficoPizza"> -->
-      <!-- <h3>Conteudo aqui</h3> -->
-      <!-- </div> -->
-    </mat-card>
-    <br>
-    <!-- <mat-card class="graficos"> -->
 
-    <!-- <div class="graficoBar">
-        <h3>Conteudo aqui</h3>
-      </div> -->
-    <!-- </mat-card> -->
+      <div class="graficoBar">
+
+        <mat-card class="divGraficoBar mat-elevation-z8">
+          <canvas #graficoBar></canvas>
+        </mat-card>
+
+        <div class="divInformacoesGraficoBar">
+
+          <!--  -->
+          <!--  -->
+
+          <mat-card class="dinheiro">
+            <h4>Dinheiro</h4>
+            <mat-divider></mat-divider>
+            <br>
+            <h4>{{this.valoresGraficoBarras[0] | currency: 'BRL'}}</h4>
+          </mat-card>
+          <mat-card class="pix">
+            <h4>PIX</h4>
+            <mat-divider></mat-divider>
+            <br>
+            <h4>{{ " " +this.valoresGraficoBarras[1]  | currency: 'BRL'}}</h4>
+          </mat-card>
+          <mat-card class="debito">
+            <h4>Cartão de Débito</h4>
+            <mat-divider></mat-divider>
+            <br>
+            <h4>{{this.valoresGraficoBarras[2] | currency: 'BRL'}}</h4>
+          </mat-card>
+          <mat-card class="credito">
+            <h4>Cartão de Crédito</h4>
+            <mat-divider></mat-divider>
+            <br>
+            <h4>{{this.valoresGraficoBarras[3] | currency: 'BRL'}}</h4>
+          </mat-card>
+          <mat-card class="valotTotal">
+
+            <h4>Total Vendido</h4>
+            <mat-divider></mat-divider>
+            <br>
+            <h4>{{this.valoresGraficoBarras[0] + this.valoresGraficoBarras[1] + this.valoresGraficoBarras[2] +this.valoresGraficoBarras[3] | currency: "BRL"}}</h4>
+          </mat-card>
+
+        </div>
+
+      </div>
+
+      <div class="progress">
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="graficoPizza">
+
+        <mat-card class="divGraficoDoughnut">
+          <canvas #graficopizza></canvas>
+        </mat-card>
+
+        <div class="divInformacoesDoughnut">
+          <h6>Em desenvolvimento</h6>
+        </div>
+
+
+      </div>
+
+
+
+    </mat-card>
 
   </div>
 </div>

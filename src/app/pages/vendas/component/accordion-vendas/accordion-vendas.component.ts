@@ -21,6 +21,7 @@ export class AccordionVendasComponent {
     'editar',
     'deletar',
   ];
+  isLoading: boolean = true;
   dataSource: venda[] = [];
   vendasData!: venda[];
 
@@ -28,6 +29,7 @@ export class AccordionVendasComponent {
 
   constructor(private service: VendasService, private dialog: MatDialog) {
     this.vendas();
+    this.isLoading = false
   }
 
   deleteVenda(venda: venda) {

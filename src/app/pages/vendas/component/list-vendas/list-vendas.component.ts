@@ -10,7 +10,12 @@ import { CreateVendaComponent } from '../create-venda/create-venda.component';
   styleUrls: ['./list-vendas.component.scss'],
 })
 export class ListVendasComponent {
-  constructor(private dialog: MatDialog, private service: VendasService) {}
+
+  isLoading: boolean = true;
+
+  constructor(private dialog: MatDialog, private service: VendasService) {
+    this.isLoading = false
+  }
 
   adicionarVenda() {
     this.dialog.open(CreateVendaComponent, {

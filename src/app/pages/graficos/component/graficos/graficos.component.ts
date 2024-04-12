@@ -20,7 +20,9 @@ export class GraficosComponent {
   gerarGraficoTotalVendas: any;
   chartBar: any;
   chartPizza: any;
-  loadGrafico: boolean = false;
+  isLoading: boolean = false;
+  isCard: boolean = false
+  valoresGraficoBarras: number[] = [];
 
   constructor(
     private service: GraficosServiceService,
@@ -35,8 +37,7 @@ export class GraficosComponent {
       })
       .afterClosed()
       .subscribe(() => {
-
-        this.loadGrafico = true
+        this.isLoading = true;
 
         // Recriar o gráfico de pizza com os novos dados
         if (this.chartPizza && this.chartBar) {
@@ -45,16 +46,19 @@ export class GraficosComponent {
         }
 
         setTimeout(() => {
-          this.loadGrafico = false;
+          this.valoresGraficoBarras = this.service.getDadosGraficosTotalVendas();
           this.createChartPizza(this.service.getDadosGraficosPizza());
           this.createChartBar(this.service.getDadosGraficosTotalVendas());
         }, 2000);
-
-
       });
   }
 
   createChartBar(data: any): void {
+
+    this.isLoading = false;
+    this.isCard = true
+
+    console.log(this.valoresGraficoBarras)
 
     this.gerarGraficoTotalVendas =
       this.graficoBar.nativeElement.getContext('2d');
@@ -63,10 +67,10 @@ export class GraficosComponent {
       type: 'bar',
       data: {
         labels: [
-          'Dinheiro: ' + data[0],
-          'PIX: ' + data[1],
-          'Cartão de Débito: ' + data[2],
-          'Cartão de Crédito: ' + data[3],
+          'Dinheiro',
+          'PIX',
+          'Débito',
+          'Crédito',
         ],
         datasets: [
           {
@@ -80,13 +84,15 @@ export class GraficosComponent {
   }
 
   createChartPizza(data: any) {
+    this.isLoading = false;
+    this.isCard = true
 
     this.gerarGraficoPizza = this.graficopizza.nativeElement.getContext('2d');
 
     this.chartPizza = new Chart(this.gerarGraficoPizza, {
       type: 'doughnut',
       data: {
-        labels: ['Dinheiro', 'PIX', 'Cartão de Débito', 'Cartão de Crédito'],
+        labels: ['Dinheiro', 'PIX', 'Débito', 'Crédito'],
         datasets: [
           {
             data: [data[0], data[1], data[2], data[3]],

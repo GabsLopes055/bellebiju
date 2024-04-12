@@ -6,7 +6,20 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Roboto Mono" !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+table {
+  font-family: "Roboto Mono" !important;
 }
 
 :root {
@@ -39,3 +52,4 @@ body {
   --mdc-snackbar-container-color: var(--secondary-color);
   --mat-mdc-snack-bar-button-color: var(--white-color);
 }
+
