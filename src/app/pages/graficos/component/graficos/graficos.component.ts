@@ -15,7 +15,6 @@ export class GraficosComponent {
   @ViewChild('graficoBar', { static: true }) graficoBar!: ElementRef;
   @ViewChild('graficopizza', { static: true }) graficopizza!: ElementRef;
 
-  labels: any[] = [];
   gerarGraficoPizza: any;
   gerarGraficoTotalVendas: any;
   chartBar: any;
@@ -23,6 +22,7 @@ export class GraficosComponent {
   isLoading: boolean = false;
   isCard: boolean = false
   valoresGraficoBarras: number[] = [];
+  valoresGraficoPizza: number[] = [];
 
   constructor(
     private service: GraficosServiceService,
@@ -47,6 +47,7 @@ export class GraficosComponent {
 
         setTimeout(() => {
           this.valoresGraficoBarras = this.service.getDadosGraficosTotalVendas();
+          this.valoresGraficoPizza = this.service.getDadosGraficosPizza();
           this.createChartPizza(this.service.getDadosGraficosPizza());
           this.createChartBar(this.service.getDadosGraficosTotalVendas());
         }, 2000);
@@ -58,10 +59,7 @@ export class GraficosComponent {
     this.isLoading = false;
     this.isCard = true
 
-    console.log(this.valoresGraficoBarras)
-
-    this.gerarGraficoTotalVendas =
-      this.graficoBar.nativeElement.getContext('2d');
+    this.gerarGraficoTotalVendas = this.graficoBar.nativeElement.getContext('2d');
 
     this.chartBar = new Chart(this.gerarGraficoTotalVendas, {
       type: 'bar',
@@ -84,8 +82,6 @@ export class GraficosComponent {
   }
 
   createChartPizza(data: any) {
-    this.isLoading = false;
-    this.isCard = true
 
     this.gerarGraficoPizza = this.graficopizza.nativeElement.getContext('2d');
 
@@ -101,24 +97,5 @@ export class GraficosComponent {
         ],
       },
     });
-  }
-
-  gerar_cor_hexadecimal(curto = false): any {
-    // const graficoBar = this.graficoBar.nativeElement.getContext('2d');
-
-    var cores = [];
-
-    for (var i = 0; i < 7; i++) {
-      cores.push(this.gerar_cor_hexadecimal());
-    }
-
-    const max_hex = curto ? 0xfff : 0xffffff;
-
-    return (
-      '#' +
-      parseInt((Math.random() * max_hex).toString(), 16)
-        .toString(16)
-        .padStart(curto ? 3 : 6, '0')
-    );
   }
 }

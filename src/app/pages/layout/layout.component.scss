@@ -43,6 +43,7 @@ mat-sidenav {
 
 mat-list {
   width: 80%;
+  color: white;
 }
 
 .dividerMenuSidenav {
@@ -55,12 +56,14 @@ mat-list {
 
 .titleMenu {
   color: white;
+  cursor: pointer;
 }
 
 .active {
   border-left: #770d7c solid 4px;
   background-color: rgb(0, 0, 0, 0.1);
   border-radius: 400px;
+  color: white;
 }
 
 mat-list-item {

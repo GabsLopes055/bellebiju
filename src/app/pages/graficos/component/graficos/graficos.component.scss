@@ -70,12 +70,31 @@ mat-card-content>button {
   // background-color: #770d7c;
 }
 
+.divGraficoDoughnut {
+  // padding-top: 40px;
+  min-width: 35%;
+  padding: 10px;
+  height: auto;
+}
+
 .divInformacoesGraficoBar {
   display: grid;
   width: 100%;
   height: auto;
   align-content: center;
   grid-template-columns: auto auto;
+  gap: 10px;
+  // background-color: #2196F3;
+  // padding: 10px;
+}
+
+.divInformacoesGraficoPizza {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  text-align: center;
+  align-content: center;
   gap: 10px;
   // background-color: #2196F3;
   // padding: 10px;
@@ -92,6 +111,7 @@ mat-card-content>button {
   font-size: 30px;
   text-align: center;
   color: white;
+
   // padding: 0;
   // margin: 0;
 }
@@ -119,13 +139,16 @@ mat-card-content>button {
   background-color: #822b0e;
 }
 
+.quantidadeVendas {
+  padding-top: 10px;
+}
+
 
 .graficoPizza {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  height: auto;
-  //  justify-content: space-between;
+  gap: 40px;
+   justify-content: space-between;
   //  align-items: baseline;
   //  background-color: #138182;
 }
@@ -134,3 +157,4 @@ mat-card-content>button {
   padding: 10px;
   width: 98%;
 }
+
