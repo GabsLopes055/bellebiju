@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class ListarProdutosComponent {
 
+  isLoading: boolean = true
+
+  constructor() {
+  }
+
 }

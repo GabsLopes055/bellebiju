@@ -5,7 +5,7 @@ import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { format } from 'date-fns';
 import { VendasService } from '../../service/vendas.service';
 import { venda } from 'src/app/shared/models/venda';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GraficosComponent } from 'src/app/pages/graficos/component/graficos/graficos.component';
 // import { GraficosServiceService } from 'src/app/pages/graficos/service/graficos-service.service';
 
@@ -21,6 +21,7 @@ export class ModelPesquisarPorDataComponent {
   vendas!: venda[];
 
   constructor(
+    public dialogRef: MatDialogRef<ModelPesquisarPorDataComponent>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private _adapter: DateAdapter<any>,
     private fb: FormBuilder,
@@ -50,4 +51,9 @@ export class ModelPesquisarPorDataComponent {
 
     this.dialog.closeAll()
   }
+
+  fecharModal() {
+    this.dialogRef.close()
+  }
+
 }
