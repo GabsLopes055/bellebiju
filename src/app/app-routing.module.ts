@@ -33,18 +33,18 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'minhasInformacoes',
-        loadChildren: () =>
-          import(
-            '../app/pages/my-informations/module/my-informations.module'
-          ).then((module) => module.MyInformationsModule),
-      },
-      {
         path: 'graficos',
         loadChildren: () =>
           import(
             '../app/pages/graficos/module/graficos.module'
           ).then((module) => module.GraficosModule),
+      },
+      {
+        path: 'produtos',
+        loadChildren: () =>
+          import(
+            './pages/produtos/module/produtos.module'
+          ).then((module) => module.ProdutosModule),
       }
     ],
   },

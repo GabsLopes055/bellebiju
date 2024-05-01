@@ -24,6 +24,7 @@ import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/dele
 import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
 import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
+import { ListarProdutosComponent } from './pages/produtos/components/listar-produtos/listar-produtos.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { GraficosComponent } from './pages/graficos/component/graficos/graficos.
     EditVendaComponent,
     DeleteVendaComponent,
     SessionLoginComponent,
-    GraficosComponent
+    GraficosComponent,
+    ListarProdutosComponent
   ],
   imports: [
     BrowserModule,
