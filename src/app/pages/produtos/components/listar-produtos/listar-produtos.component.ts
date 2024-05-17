@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { produto } from 'src/app/shared/models/produto.model';
+import { ProdutoService } from '../../service/produto.service';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -8,8 +10,20 @@ import { Component } from '@angular/core';
 export class ListarProdutosComponent {
 
   isLoading: boolean = true
+  produtos: produto[] = [];
+  headersTable : string[] = ["idProduto", "nomeProduto", "precoProduto", "editar", "deletar"]
 
-  constructor() {
+  constructor(
+    private service: ProdutoService
+  ) {
+    this.isLoading = false
+    this.listAllProducts()
+  }
+
+  listAllProducts() {
+    return this.service.listAllProducts().subscribe((response) => {
+      this.produtos = response;
+    });
   }
 
 }
