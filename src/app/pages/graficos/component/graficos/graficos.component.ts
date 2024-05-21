@@ -21,6 +21,7 @@ export class GraficosComponent {
   chartPizza: any;
   isLoading: boolean = false;
   isCard: boolean = false
+  imagem: boolean = true
   valoresGraficoBarras: number[] = [];
   valoresGraficoPizza: number[] = [];
 
@@ -30,33 +31,38 @@ export class GraficosComponent {
   ) {}
 
   pesquisarPorData() {
-    this.dialog
+    const dialogRef = this.dialog
       .open(ModelPesquisarPorDataComponent, {
         width: '40%',
         height: 'auto',
       })
-      .afterClosed()
-      .subscribe(() => {
-        this.isLoading = true;
 
-        // Recriar o gráfico de pizza com os novos dados
-        if (this.chartPizza && this.chartBar) {
-          this.chartPizza.destroy();
-          this.chartBar.destroy();
+      dialogRef.afterClosed().subscribe((response) => {
+        if(response) {
+
+          this.isLoading = true;
+
+          // Recriar o gráfico de pizza com os novos dados
+          if (this.chartPizza && this.chartBar) {
+            this.chartPizza.destroy();
+            this.chartBar.destroy();
+          }
+
+          setTimeout(() => {
+            this.valoresGraficoBarras = this.service.getDadosGraficosTotalVendas();
+            this.valoresGraficoPizza = this.service.getDadosGraficosPizza();
+            this.createChartPizza(this.service.getDadosGraficosPizza());
+            this.createChartBar(this.service.getDadosGraficosTotalVendas());
+            this.imagem = false
+          }, 2000);
         }
-
-        setTimeout(() => {
-          this.valoresGraficoBarras = this.service.getDadosGraficosTotalVendas();
-          this.valoresGraficoPizza = this.service.getDadosGraficosPizza();
-          this.createChartPizza(this.service.getDadosGraficosPizza());
-          this.createChartBar(this.service.getDadosGraficosTotalVendas());
-        }, 2000);
       });
   }
 
   createChartBar(data: any): void {
 
     this.isLoading = false;
+
     this.isCard = true
 
     this.gerarGraficoTotalVendas = this.graficoBar.nativeElement.getContext('2d');

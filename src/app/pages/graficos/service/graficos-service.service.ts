@@ -17,6 +17,7 @@ export class GraficosServiceService {
   ) {}
 
   url = environment.url;
+
   private dadosGraficoPizza: any
   private dadosGraficoTotalVendas: any
 

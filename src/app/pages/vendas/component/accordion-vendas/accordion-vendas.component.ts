@@ -29,7 +29,7 @@ export class AccordionVendasComponent {
 
   constructor(private service: VendasService, private dialog: MatDialog) {
     this.vendas();
-    this.isLoading = false
+    // this.isLoading = false;
   }
 
   deleteVenda(venda: venda) {
@@ -58,15 +58,16 @@ export class AccordionVendasComponent {
   vendas(): any {
     this.service
       .listAllVendas()
-      .subscribe((response) => (this.dataSource = response));
+      .subscribe(
+        (response) => ((this.dataSource = response), (this.isLoading = false))
+      );
   }
 
   pesquisar(event: any) {
-
     const filterValue = event.target.value;
 
     if (filterValue == '') {
-      this.dataSource = this.vendas()
+      this.dataSource = this.vendas();
     } else {
       this.dataSource = this.dataSource.filter((item) => {
         return item.nomeProduto.toLowerCase().includes(filterValue);

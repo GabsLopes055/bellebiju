@@ -12,25 +12,31 @@ import { UsuariosCreatedComponent } from '../usuarios-created/usuarios-created.c
   styleUrls: ['./usuarios.component.scss'],
 })
 export class UsuariosComponent {
-
   users!: user[];
-  headersTable: string[] = ['idUser', 'nome', 'username', 'createdAt', 'roles', 'editar', 'deletar'];
-  isLoading: boolean = true
+  headersTable: string[] = [
+    'idUser',
+    'nome',
+    'username',
+    'createdAt',
+    'roles',
+    'editar',
+    'deletar',
+  ];
+  isLoading: boolean = true;
 
   constructor(private service: UsuariosService, private dialog: MatDialog) {
     this.listAllUsers();
-    this.isLoading = false
   }
 
   listAllUsers() {
     this.service.listAllUsers().subscribe((response) => {
-      this.users = response;
+      (this.users = response), (this.isLoading = false);
     });
   }
 
   closedDialog = this.dialog.afterAllClosed.subscribe(() => {
-    this.listAllUsers()
-  })
+    this.listAllUsers();
+  });
 
   createNewUser() {
     this.dialog.open(UsuariosCreatedComponent, {
@@ -49,7 +55,5 @@ export class UsuariosComponent {
     });
   }
 
-  deleteVenda(element: user) {
-
-  }
+  deleteVenda(element: user) {}
 }

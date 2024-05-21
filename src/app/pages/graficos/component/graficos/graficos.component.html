@@ -17,7 +17,11 @@
       <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
     </div>
 
-    <mat-card class="graficos">
+    <div class="graficos">
+
+      <div class="imagem-fundo" *ngIf="this.imagem">
+        <img src="../../../../../assets/img/grafico.svg">
+      </div>
 
       <div class="graficoBar">
 
@@ -105,7 +109,7 @@
 
 
 
-    </mat-card>
+    </div>
 
   </div>
 </div>

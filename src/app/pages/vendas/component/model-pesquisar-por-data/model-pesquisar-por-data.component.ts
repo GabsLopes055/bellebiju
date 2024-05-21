@@ -19,6 +19,7 @@ export class ModelPesquisarPorDataComponent {
 
   formData!: FormGroup;
   vendas!: venda[];
+  modal: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<ModelPesquisarPorDataComponent>,
@@ -26,8 +27,7 @@ export class ModelPesquisarPorDataComponent {
     private _adapter: DateAdapter<any>,
     private fb: FormBuilder,
     private service: GraficosServiceService,
-    private graficoPizza: GraficosServiceService,
-    private dialog: MatDialog
+    private graficoPizza: GraficosServiceService
   ) {
     this._adapter.setLocale(this._locale);
     this.formData = this.fb.group({
@@ -49,11 +49,15 @@ export class ModelPesquisarPorDataComponent {
       this.graficoPizza.setDadosGraficoTotalVendas(response);
     })
 
-    this.dialog.closeAll()
+    this.fecharModal(this.formData.value);
   }
 
-  fecharModal() {
-    this.dialogRef.close()
+  fecharModal(formData: any | null) {
+    if(formData) {
+      this.dialogRef.close(this.modal)
+    } else {
+      this.dialogRef.close()
+    }
   }
 
 }

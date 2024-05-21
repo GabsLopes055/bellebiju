@@ -16,13 +16,14 @@ export class ListarProdutosComponent {
   constructor(
     private service: ProdutoService
   ) {
-    this.isLoading = false
     this.listAllProducts()
+
   }
 
   listAllProducts() {
     return this.service.listAllProducts().subscribe((response) => {
       this.produtos = response;
+      this.isLoading = false
     });
   }
 
