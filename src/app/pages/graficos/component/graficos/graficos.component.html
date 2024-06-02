@@ -8,7 +8,7 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <button class="button-cadastrar" mat-raised-button (click)="pesquisarPorData()">Pesquisar por Data</button>
+        <button class="button-cadastrar" mat-raised-button (click)="pesquisarPorData(false)">Pesquisar por Data</button>
       </mat-card-content>
     </mat-card>
 
@@ -20,7 +20,7 @@
     <div class="graficos">
 
       <div class="imagem-fundo" *ngIf="this.imagem">
-        <img src="../../../../../assets/img/grafico.svg">
+        <mat-spinner></mat-spinner>
       </div>
 
       <div class="graficoBar">
