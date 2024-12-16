@@ -25,6 +25,7 @@ import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
 import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
 import { ListarProdutosComponent } from './pages/produtos/components/listar-produtos/listar-produtos.component';
+import { ButtonComponent } from "./shared/button/button.component";
 
 
 @NgModule({
@@ -55,8 +56,9 @@ import { ListarProdutosComponent } from './pages/produtos/components/listar-prod
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule
-  ],
+    MatRadioModule,
+    ButtonComponent
+],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

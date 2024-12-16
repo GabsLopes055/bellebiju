@@ -1,0 +1,92 @@
+// // input:-webkit-autofill {
+// //     -webkit-box-shadow: 0 0 0px 1000px white inset;
+// // }
+
+// .main {
+//     width: 100%;
+
+//     .input {
+//         width: -webkit-fill-available;
+//         display: flex;
+//         align-items: center;
+//         gap: 8px;
+//         border: solid 1px #000;
+//         border-radius: 8px;
+//         padding: 12px;
+
+//         .color-icon {
+//             color: #898989;
+//         }
+
+
+
+
+
+//         input {
+//             width: 100%;
+//             padding: 4px;
+//             border: none;
+//             outline: none;
+//             background-color: rgba(0,0,0,0);
+//             color: #2b2b2b;
+//         }
+//     }
+// }
+
+@import '../../../assets/styles/colors.scss';
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: solid 1px #000;
+  border-radius: 4px;
+  padding: 12px;
+
+  .color-icon {
+    color: red
+  }
+
+  .input-wrapper {
+    position: relative;
+    flex: 1;
+
+    input {
+      width: 100%;
+      padding: 4px;
+      border: none;
+      outline: none;
+
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        transform: translate(5px, -25px) scale(0.8);
+        // color: #F44336; // Ajuste a cor conforme necessário
+      }
+    }
+
+    label {
+      position: absolute;
+      top: 3px;
+      // left: 12px;
+      font-size: 14px;
+      background-color: white;
+      padding: 0 5px;
+      // color: #999;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      transform-origin: left top;
+
+    }
+
+    .active {
+      transform: translate(-10px, -20px) scale(0.8);
+      color: #39693B; // Ajuste a cor conforme necessário
+    }
+  }
+
+}
+h6 {
+  padding: 3px 0px 0 18px;
+  font-weight: 700;
+  color: #ff0000;
+}

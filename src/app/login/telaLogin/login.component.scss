@@ -1,5 +1,5 @@
 .container {
-   background-color: #f6f8fA;
+  background-color: #f6f8fa;
   // background-image: url("../../../assets/img/bg-login.jpg");
   height: 100%;
   width: 100%;
@@ -40,7 +40,7 @@ mat-card-content {
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
 }
 
 mat-card > mat-card-actions {
@@ -66,6 +66,6 @@ mat-card-actions > button {
 
 @media only screen and (max-width: 600px) {
   mat-card {
-      width: 90%; /* Ou o tamanho desejado em pixels */
+    width: 90%; /* Ou o tamanho desejado em pixels */
   }
 }

@@ -1,0 +1,61 @@
+main {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 999999;
+
+    animation: initMain .8s;
+
+    .notification {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 383px;
+        height: Hug (56px)px;
+        padding: 16px;
+        justify-content: space-between;
+        border-radius: 8px;
+        animation: .6s initMain;
+        // background-color: #000;
+        ;
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17.07px;
+            text-align: left;
+
+        }
+    }
+}
+
+@keyframes initMain {
+    from {
+        opacity: 0;
+        right: -140px;
+    }
+    to {
+        opacity: 1;
+        right: 40px;
+    }
+}
+
+@keyframes initContent {
+    from {
+        opacity: 0;
+        margin-left: 140px;
+    }
+    to {
+        opacity: 1;
+        margin-left: 0px;
+    }
+}
+

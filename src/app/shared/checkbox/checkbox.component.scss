@@ -1,0 +1,54 @@
+@import "../../../assets/styles/colors.scss";
+
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  /* Define o tamanho do checkbox */
+  input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: relative;
+    height: 16px;
+    width: 16px;
+    // background-color: #eee;
+    border-radius: 4px;
+    border: 2px solid #eee;
+    transition: background-color 0.3s;
+  }
+
+  /* Define o estilo quando o checkbox está marcado */
+  input:checked~.checkmark {
+    background-color: $color-primary;
+    border: $color-primary;
+    height: 20px;
+    width: 20px;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  input:checked~.checkmark:after {
+    display: block;
+    left: 7px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+}

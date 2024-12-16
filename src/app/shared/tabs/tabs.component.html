@@ -1,0 +1,15 @@
+<main>
+    <div class="main-tabs" [ngStyle]="{'border-bottom': border ? 'solid 1px #CDCDCC' : 'none'}">
+        <div class="tabs">
+            @for(item of tabs; track item) {
+                <div [ngClass]="{selected: item.selected}" class="tab" (click)="chosen(item, $index)">
+                    <span class="material-symbols-outlined" [ngStyle]="{'color': darkMode ? '#F3F4F3' : '#000'}">
+                        {{ item.icon }}
+                    </span>
+                    <span class="label" [ngStyle]="{'color': darkMode ? '#F3F4F3' : '#000'}">{{ item.label }}</span>
+                </div>
+            }
+        </div>
+    </div>
+
+</main>

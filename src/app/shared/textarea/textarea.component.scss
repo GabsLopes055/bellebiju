@@ -1,0 +1,38 @@
+.main {
+  position: relative;
+
+  .input {
+    position: relative;
+    font-size: 14px;
+
+    &__field {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      // border: 1px solid #5e5e5e;
+      padding: 1rem 0.8rem 0.5rem;
+      // color: #5e5e5e;
+      background: transparent;
+      border-radius: 4px;
+      resize: none;
+
+      &:focus + .input__label, // Quando em foco
+      &.has-value + .input__label { // Quando há um valor no FormControl
+        transform: translate(0, -120%);
+        font-size: 12px;
+        // color: var(--color-accent);
+      }
+    }
+
+    &__label {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      transform: translate(0, 0);
+      transform-origin: 0 0;
+      background-color: #fff;
+      padding: 0 4px;
+      transition: transform 120ms ease-in, font-size 120ms ease-in, color 120ms ease-in;
+    }
+  }
+}

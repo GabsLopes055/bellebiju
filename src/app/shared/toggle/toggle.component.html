@@ -1,0 +1,13 @@
+<main>
+  <div class="toggle-switch">
+    <input class="toggle-input" type="checkbox" [checked]="isChecked" [formControl]="control" [disabled]="disabled">
+    <label class="toggle-label" (click)="change()" [style.opacity]="disabled ? 0.5 : 1"
+      [style.cursor]="disabled ? 'not-allowed' : 'pointer'"></label>
+  </div>
+  <div class="label">
+    <span>{{label}}</span>
+    <span class="material-symbols-outlined" [style.color]="'#51514D'" [style.font-size]="'16px'">
+      {{icon}}
+    </span>
+  </div>
+</main>

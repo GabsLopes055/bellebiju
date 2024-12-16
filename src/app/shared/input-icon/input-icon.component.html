@@ -1,0 +1,31 @@
+<!-- <div class="main">
+    <div class="input" [style.border-color]="control.value ? '#BAF0B6' : '#000'" [style.background]="backGround" [style.border]="border ? '' : 'none'">
+        @if(iconPosition == 'left') {
+            <span class="material-symbols-outlined color-icon">
+                {{icon}}
+            </span>
+        }
+        <input [type]="type" [placeholder]="placeholder" [formControl]="control" [mask]="mask">
+        @if(iconPosition == 'right') {
+            <span class="material-symbols-outlined color-icon">
+                {{icon}}
+            </span>
+        }
+    </div>
+</div> -->
+
+
+<div class="input" [style.border-color]="control.value ? '#39693B' : error ? '#ff0000' :'#000'" [style.background]="backGround"
+  [style.border]="border ? '' : 'none'">
+  <div class="input-wrapper">
+    <input [style.background]="backGround" [mask]="mask" (change)="validarValor()" [disabled]="disabled ? true : false" [type]="type" [formControl]="control"
+      [placeholder]="isFocused ? placeholder : ''">
+    <label [class.active]="isFocused || control.value" [style.color]="error ? '#ff0000' : ''" [style.background]="backGround">{{ placeholder }}</label>
+  </div>
+  <span class="material-symbols-outlined color-icon" [style.color]="control.value ? '#39693B' : error ? '#ff0000' :'#000'">
+    {{icon}}
+  </span>
+</div>
+@if(error) {
+  <h6>Campo Obrigatorio</h6>
+}

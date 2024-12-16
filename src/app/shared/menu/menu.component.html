@@ -1,0 +1,42 @@
+<div class="menu" [style.width]="isOpen ? '240px' : '80px'">
+    <div class="content" [style.width]="isOpen ? '190px' : '36px'" [ngClass]="{content_close: !isOpen}">
+        <div class="logo">
+            @if(isOpen) {
+                <img src="../../../assets/images/image-menu.png" alt="" srcset="" (click)="openClose()">
+            } @else {
+            <span class="material-symbols-outlined hamb" (click)="openClose()">
+              <img src="../../../assets/images/Vector.png" alt="">
+            </span>
+            }
+        </div>
+
+
+        <ul class="items">
+            @for(item of menu; track item){
+                <li class="item" [ngClass]="{li_close: !isOpen}"  [appTooltip]="item.label" [tooltipPosition]="'right'">
+                    <a href="" [ngClass]="{selected: item.checked}" [routerLink]="item.route">
+                        <span class="material-symbols-outlined">
+                            {{item.icon}}
+                        </span>
+                        <div class="item-description" [ngClass]="{item_description_close: !isOpen}">{{item.label}}</div>
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+
+
+
+    <div class="item-help" [style.width]="isOpen ? '222px' : '56px'" [appTooltip]="'Ajuda'" [tooltipPosition]="'right'">
+      <a [routerLink]="['/admin/']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact : true}" [style.color]="'#000'">
+
+          <span class="material-symbols-outlined">
+              help
+          </span>
+          <div class="item-description" [ngClass]="{item_description_close: !isOpen}">Ajuda</div>
+      </a>
+  </div>
+
+
+</div>

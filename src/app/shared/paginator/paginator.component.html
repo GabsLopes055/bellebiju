@@ -1,0 +1,39 @@
+@if(totalItems) {
+  <main>
+    <span class="material-symbols-outlined item-arrow"
+          (click)="changeInitialPage()">
+        keyboard_double_arrow_left
+    </span>
+    @if (totalItems == 0) {
+      <div class="item">
+        <span>0</span>
+      </div>
+    } @else {
+
+      @if (currentPage > 0) {
+        <div class="item" (click)="changePageBack()">
+          <span>{{ currentPage - 1 }}</span>
+        </div>
+      }
+      <div class="item clicked">
+        <span>{{ currentPage }}</span>
+      </div>
+      @if (pages > 1 && currentPage < pages) {
+        <div class="item" (click)="changePageNext()">
+          <span>{{ currentPage + 1 }}</span>
+        </div>
+      }
+      @if (pages >= 3 && currentPage < pages) {
+        <div class="item2">
+          <span>...</span>
+        </div>
+      }
+
+    }
+
+    <span class="material-symbols-outlined item-arrow" (click)="changeLastPage();">
+        keyboard_double_arrow_right
+    </span>
+  </main>
+}
+

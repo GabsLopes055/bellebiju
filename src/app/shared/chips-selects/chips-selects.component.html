@@ -1,0 +1,17 @@
+<div class="chip"
+
+     [style.width]="'auto'"
+     [style.color]="mode == 'outline' ? colors[color] : '#000'"
+     [style.border]="mode == 'outline' ? 'solid 1px ' : 'none'"
+     [style.border-color]="mode == 'outline' ? colors[color] : 'trasparent'"
+
+     [style.background-color]="mode == 'default' ? colors[color] : 'trasparent'">
+  {{ label }}
+
+  @if(_clicked) {
+    <span class="material-symbols-outlined" (click)="clickAction()">
+      close
+    </span>
+  }
+
+</div>

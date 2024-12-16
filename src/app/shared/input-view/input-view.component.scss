@@ -1,0 +1,26 @@
+.input-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 20px 16px 20px;
+  border-radius: 30px;
+  border: 1px solid #A9ACAC;
+
+  .label {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: left;
+  }
+  .value {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: right;
+
+  }
+}

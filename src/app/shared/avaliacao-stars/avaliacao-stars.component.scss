@@ -1,0 +1,21 @@
+body{text-align: center; padding-top: 50px}
+
+.estrelas {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+}
+.estrelas input[type=radio] {
+  display: none;
+}
+.estrelas label i.fa{
+  font-size: 2em;
+  cursor: pointer;
+}
+.estrelas label i.fa:before {
+  content:'\f005';
+  color: #FC0;
+}
+.estrelas input[type=radio]:checked ~ label i.fa:before {
+  color: #CCC;
+}

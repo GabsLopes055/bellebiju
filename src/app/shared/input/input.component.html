@@ -1,0 +1,14 @@
+<div class="main" [style.border-color]="control.value ? '#FDD22A' : '#000'">
+  <label class="input">
+      <input class="input__field"
+      [formControl]="control"
+      [type]="type"
+      [placeholder]="placeholder"
+      [readOnly]="readonly"
+      [style.cursor]="readonly ? 'not-allowed' : 'pointer'"
+      [style.background-color]="readonly ? '#f7f7f7' : '#fff'"
+      [mask]="mask" [style.border-color]="control.value ? '#FDD22A' : '#000'"
+      [style.outline-color]="control.value ? '#FDD22A' : '#000'"/>
+      <span class="input__label">{{ label }}</span>
+  </label>
+</div>

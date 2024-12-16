@@ -1,0 +1,21 @@
+<main>
+  <div
+    class="input-wrapper" [style.border-color]="control.value ? '#39693b' : '#000'"
+    [class.floating]="control.value || isOpenModal"
+    (click)="openModal()">
+    <label [style.color]="control.value ? '#39693b' : '#000'" class="label">{{ label }}</label>
+    <span [style.padding-left]="'15px'" [style.font-size]="'13px'">{{valueOptionSelected.label}}</span>
+    <div class="input">
+      <span class="material-symbols-outlined">{{ icon }}</span>
+    </div>
+  </div>
+  @if (isOpenModal) {
+  <div class="modal">
+    <div class="content">
+      @for(option of options; track option) {
+      <span class="value" (click)="optionSelect(option)">{{ option.label }}</span>
+      }
+    </div>
+  </div>
+  }
+</main>
