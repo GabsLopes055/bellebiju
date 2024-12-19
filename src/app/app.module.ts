@@ -25,8 +25,6 @@ import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
 import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
 import { ListarProdutosComponent } from './pages/produtos/components/listar-produtos/listar-produtos.component';
-import { ButtonComponent } from "./shared/button/button.component";
-
 
 @NgModule({
   declarations: [
@@ -57,7 +55,6 @@ import { ButtonComponent } from "./shared/button/button.component";
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    ButtonComponent
 ],
   providers: [
     {
