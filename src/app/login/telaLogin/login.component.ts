@@ -26,8 +26,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.formGroup = formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(1)]],
-      password: ['', [Validators.required, Validators.minLength(1)]],
+      username: ['teste', [Validators.required, Validators.minLength(1)]],
+      password: ['teste', [Validators.required, Validators.minLength(1)]],
     });
     this.formGroup.get('username')?.valueChanges.subscribe((value) => {
       this.formGroup.get('username')?.setValue(value.toLowerCase())
