@@ -1,17 +1,58 @@
-.content-actions {
+.dialog-title {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: #770d7c;
+  font-size: 20px;
+  margin-bottom: 4px;
+
+  mat-icon {
+    color: #138182;
+  }
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 10px;
+  gap: 4px;
+  padding-top: 16px;
+
+  mat-form-field {
+    width: 100%;
+  }
 }
 
-.checkbox {
+.actions-container {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.main-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  button[color="primary"] {
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+button[color="warn"] {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-spinner {
+  display: inline-block;
+  ::ng-deep circle {
+    stroke: white;
+  }
 }

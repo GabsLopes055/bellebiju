@@ -1,23 +1,28 @@
 <div class="container">
+  <h2 class="dialog-title">
+    <mat-icon>date_range</mat-icon>
+    Selecionar Período
+  </h2>
 
-  <h1>Pesquisar Datas</h1>
+  <mat-divider></mat-divider>
 
-  <form [formGroup]="formData">
-
-    <mat-form-field appearance="outline">
-      <mat-label>Selecione as datas</mat-label>
+  <form [formGroup]="formData" class="form">
+    <mat-form-field appearance="outline" class="date-field">
+      <mat-label>Período de análise</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Data Inicial" readonly="readonly" formControlName="dataInicio">
-        <input matEndDate placeholder="Data Final" readonly="readonly" formControlName="dataFim">
+        <input matStartDate placeholder="Data inicial" readonly formControlName="dataInicio">
+        <input matEndDate placeholder="Data final" readonly formControlName="dataFim">
       </mat-date-range-input>
-      <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
-      <mat-datepicker-toggle matIconSuffix [for]="picker">aqi</mat-datepicker-toggle>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-
   </form>
 
-  <button mat-raised-button color="warn" (click)="pesquisarVendas()">Pesquisar</button>
-  <button mat-button (click)="fecharModal(null)">Fechar</button>
-
+  <div class="actions">
+    <button mat-raised-button class="btn-pesquisar" (click)="pesquisarVendas()" [disabled]="formData.invalid">
+      <mat-icon>search</mat-icon>
+      Pesquisar
+    </button>
+    <button mat-button (click)="fecharModal()">Cancelar</button>
+  </div>
 </div>

@@ -1,13 +1,15 @@
-import { GraficosServiceService } from './../../../graficos/service/graficos-service.service';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { format } from 'date-fns';
-import { VendasService } from '../../service/vendas.service';
-import { venda } from 'src/app/shared/models/venda';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { GraficosComponent } from 'src/app/pages/graficos/component/graficos/graficos.component';
-// import { GraficosServiceService } from 'src/app/pages/graficos/service/graficos-service.service';
+
+export interface DateRangeResult {
+  dataInicio: string;
+  dataFim: string;
+  displayInicio: string;
+  displayFim: string;
+}
 
 @Component({
   selector: 'app-model-pesquisar-por-data',
@@ -16,18 +18,13 @@ import { GraficosComponent } from 'src/app/pages/graficos/component/graficos/gra
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
 })
 export class ModelPesquisarPorDataComponent {
-
   formData!: FormGroup;
-  vendas!: venda[];
-  modal: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<ModelPesquisarPorDataComponent>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private _adapter: DateAdapter<any>,
     private fb: FormBuilder,
-    private service: GraficosServiceService,
-    private graficoPizza: GraficosServiceService
   ) {
     this._adapter.setLocale(this._locale);
     this.formData = this.fb.group({
@@ -37,27 +34,19 @@ export class ModelPesquisarPorDataComponent {
   }
 
   pesquisarVendas() {
+    if (this.formData.invalid) return;
 
-    let inicio = format(this.formData.value.dataInicio, 'yyyy-MM-dd');
-    let fim = format(this.formData.value.dataFim, 'yyyy-MM-dd');
+    const result: DateRangeResult = {
+      dataInicio: format(this.formData.value.dataInicio, 'yyyy-MM-dd'),
+      dataFim: format(this.formData.value.dataFim, 'yyyy-MM-dd'),
+      displayInicio: format(this.formData.value.dataInicio, 'dd/MM/yyyy'),
+      displayFim: format(this.formData.value.dataFim, 'dd/MM/yyyy'),
+    };
 
-    this.service.gerarGraficoPizza(inicio, fim).subscribe((response) => {
-      this.graficoPizza.setDadosGraficoPizza(response);
-    })
-
-    this.service.gerarGraficoTotalVendas(inicio, fim).subscribe((response) => {
-      this.graficoPizza.setDadosGraficoTotalVendas(response);
-    })
-
-    this.fecharModal(this.formData.value);
+    this.dialogRef.close(result);
   }
 
-  fecharModal(formData: any | null) {
-    if(formData) {
-      this.dialogRef.close(this.modal)
-    } else {
-      this.dialogRef.close()
-    }
+  fecharModal() {
+    this.dialogRef.close(null);
   }
-
 }

@@ -1,44 +1,82 @@
-<div class="container mat-elevation-z8">
-  <div class="content">
-    <mat-card>
-      <mat-progress-bar mode="indeterminate" *ngIf="loadLogin"></mat-progress-bar>
-      <mat-card-header>
-        <img class="mat-elevation-z8" mat-card-image src="../../../assets/img/logo.jpeg" alt="Imagem da logo da loja">
-        <!-- <mat-card-title>Belle Biju</mat-card-title> -->
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <form [formGroup]="formGroup" (keydown.enter)="logar()">
-          <mat-form-field appearance="outline">
-            <mat-label>Informe seu Login</mat-label>
-            <input type="text" matInput placeholder="Usuário" formControlName="username" required="required">
-            <mat-icon matSuffix>person</mat-icon>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
+<div class="login-page">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Informe sua senha</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required="required">
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-        </form>
+  <!-- Painel esquerdo: marca -->
+  <div class="brand-panel">
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+    <div class="deco-circle deco-3"></div>
 
-        <section class="section">
-          <mat-checkbox class="example-margin">Mantenha-me conectado</mat-checkbox>
-        </section>
+    <div class="brand-content">
+      <div class="logo-wrap">
+        <img src="../../../assets/img/logo.jpeg" alt="Belle Biju">
+      </div>
+      <h1 class="brand-name">Belle Biju</h1>
+      <p class="brand-tagline">Gestão de Bijuterias</p>
 
-      </mat-card-content>
-
-      <mat-divider></mat-divider>
-
-      <mat-card-actions>
-        <!-- <button class="cadastrar" mat-button>Cadastra-se</button> -->
-        <button class="login" mat-raised-button [disabled]="!formGroup.valid" (click)="logar()">Acessar<mat-icon class="mat-18">login</mat-icon></button>
-      </mat-card-actions>
-    </mat-card>
+      <div class="brand-features">
+        <div class="feature-item">
+          <mat-icon>point_of_sale</mat-icon>
+          <span>Controle de Vendas</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>bar_chart</mat-icon>
+          <span>Relatórios e Gráficos</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>inventory_2</mat-icon>
+          <span>Gestão de Produtos</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
+  <!-- Painel direito: formulário -->
+  <div class="form-panel">
+    <div class="form-container">
+
+      <div class="form-header">
+        <div class="form-logo-mobile">
+          <img src="../../../assets/img/logo.jpeg" alt="Belle Biju">
+          <span>Belle Biju</span>
+        </div>
+        <h2 class="form-title">Bem-vindo de volta</h2>
+        <p class="form-subtitle">Faça login para acessar o sistema</p>
+      </div>
+
+      <form [formGroup]="formGroup" (keydown.enter)="logar()" class="login-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuário</mat-label>
+          <input type="text" matInput formControlName="username"
+            placeholder="seu.usuario" autocomplete="username">
+          <mat-icon matSuffix>person_outline</mat-icon>
+          <mat-error>Usuário é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'"
+            formControlName="password" placeholder="••••••••"
+            autocomplete="current-password">
+          <button mat-icon-button matSuffix type="button"
+            (click)="hide = !hide" [attr.aria-label]="hide ? 'Mostrar senha' : 'Ocultar senha'">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>Senha é obrigatória</mat-error>
+        </mat-form-field>
+
+      </form>
+
+      <button mat-raised-button class="btn-login"
+        (click)="logar()" [disabled]="formGroup.invalid || isLoading">
+        <mat-spinner *ngIf="isLoading" diameter="20" class="btn-spinner"></mat-spinner>
+        <mat-icon *ngIf="!isLoading">login</mat-icon>
+        {{ isLoading ? 'Entrando...' : 'Acessar' }}
+      </button>
+
+      <p class="form-footer">Belle Biju &copy; {{ currentYear }}</p>
+
+    </div>
+  </div>
+
+</div>

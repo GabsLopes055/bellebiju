@@ -1,11 +1,9 @@
 .container {
-  // background-image: url("../../../../../assets/img/bg-login.jpg");
   width: 100%;
   height: 100%;
 }
 
 .content {
-  // height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,33 +11,69 @@
   margin-top: 8px;
 }
 
-
 .card-superior {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
-  border-left: #138182 solid 2px;
+  align-items: center;
+  border-left: #138182 solid 4px;
   background-color: #770d7c;
-  // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
   color: white;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0;
   width: 98%;
+
+  mat-card-subtitle {
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 2px;
+  }
 }
 
-mat-card-content > button {
-  background-color: #138182;
-  color: white;
+.card-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.search-field {
+  min-width: 260px;
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  ::ng-deep .mat-mdc-floating-label,
+  ::ng-deep input,
+  ::ng-deep .mat-icon {
+    color: white !important;
+  }
+
+  ::ng-deep .mdc-notched-outline__leading,
+  ::ng-deep .mdc-notched-outline__notch,
+  ::ng-deep .mdc-notched-outline__trailing {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
+.button-cadastrar {
+  background-color: #138182 !important;
+  color: white !important;
+  white-space: nowrap;
+
+  mat-icon {
+    margin-right: 4px;
+    vertical-align: middle;
+  }
 }
 
 mat-divider {
   width: 98%;
-  padding: 10px 0px 10px 0px;
 }
-
-// .tableUsers {
-//   width: 98%;
-// }
 
 .progress {
   padding: 10px;
@@ -50,4 +84,70 @@ mat-divider {
   width: 98%;
   height: 100%;
   padding: 20px;
+  margin-bottom: 16px;
+}
+
+.tableUsers {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-icon {
+  color: #770d7c;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background-color: rgba(119, 13, 124, 0.12);
+  color: #770d7c;
+  border: 1px solid #770d7c;
+}
+
+.role-user {
+  background-color: rgba(19, 129, 130, 0.12);
+  color: #138182;
+  border: 1px solid #138182;
+}
+
+.no-data-cell {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px !important;
+  color: #999;
+  gap: 8px;
+
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    opacity: 0.35;
+  }
+
+  span {
+    font-size: 14px;
+  }
 }

@@ -1,25 +1,46 @@
-.card-header-title {
-  padding: 20px;
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #1a1a1a;
+  padding: 16px 20px 12px !important;
+
+  mat-icon { color: #138182; }
 }
 
-.card-header-form > form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 20px;
+.dialog-content {
+  padding: 16px 20px !important;
+  min-width: 320px;
 }
 
 form {
-  width: 100%;
-}
-
-mat-card-actions {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 10px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-mat-card-actions > button {
+.full-width {
   width: 100%;
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  mat-form-field { width: 100%; }
+}
+
+.btn-salvar {
+  background: linear-gradient(135deg, #138182, #0f9090) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  mat-spinner { display: inline-block; }
 }

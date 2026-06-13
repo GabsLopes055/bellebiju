@@ -1,33 +1,254 @@
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 8px;
+.table-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
-.actions{
+// ===== TOOLBAR =====
+.card-toolbar {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
+  padding: 18px 20px 0;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+
+  mat-icon {
+    color: #138182;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.filtro-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(119, 13, 124, 0.08);
+  border: 1px solid rgba(119, 13, 124, 0.25);
+  border-radius: 20px;
+  padding: 4px 6px 4px 10px;
+  font-size: 12px;
+  color: #770d7c;
+  font-weight: 500;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.chip-close {
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  color: #770d7c;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-periodo {
+  border-color: #138182 !important;
+  color: #138182 !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+
+  mat-icon { margin-right: 4px; font-size: 18px; }
+}
+
+.btn-nova-venda {
+  background: linear-gradient(135deg, #138182, #0f9090) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(19, 129, 130, 0.35) !important;
+
+  mat-icon { margin-right: 4px; }
+}
+
+// ===== SEARCH =====
+.search-bar {
+  padding: 14px 20px 0;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 380px;
+}
+
+.loading-bar {
+  margin: 8px 0;
+}
+
+// ===== TABLE =====
+.table-wrapper {
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
-  overflow-x: scroll;
-  // margin-bottom: 30px;
+  min-width: 700px;
 }
 
-.mat-mdc-form-field {
+.mat-mdc-header-row {
+  background: #f8f9fa;
+}
+
+th.mat-mdc-header-cell {
+  color: #666;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #ebebeb !important;
+}
+
+td.mat-mdc-cell {
   font-size: 14px;
-  width: 100%;
+  color: #333;
+  border-bottom: 1px solid #f5f5f5 !important;
 }
 
-.card-table {
-  padding: 10px;
-  margin-bottom: 20px;
+.table-row {
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
 }
 
-.progress {
-  padding: 10px;
-  width: 98%;
+// Células especiais
+.produto-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .produto-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #770d7c;
+    opacity: 0.7;
+  }
+}
+
+.total-cell {
+  font-weight: 600;
+  color: #138182 !important;
+}
+
+.data-cell {
+  color: #888 !important;
+  font-size: 13px !important;
+}
+
+// Badge de pagamento
+.pagamento-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Ações
+.acoes-cell {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.btn-edit {
+  color: #138182;
+
+  &:hover { background: rgba(19, 129, 130, 0.1) !important; }
+}
+
+.btn-delete {
+  color: #dc3545;
+
+  &:hover { background: rgba(220, 53, 69, 0.1) !important; }
+}
+
+// Sem dados
+.no-data-row td {
+  padding: 40px !important;
+}
+
+.no-data-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #aaa;
+  font-size: 14px;
+
+  mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    opacity: 0.5;
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 600px) {
+  .card-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar-actions {
+    width: 100%;
+
+    button { flex: 1; }
+  }
+
+  .search-bar {
+    padding: 12px 14px 0;
+  }
+
+  .search-field {
+    max-width: 100%;
+  }
 }

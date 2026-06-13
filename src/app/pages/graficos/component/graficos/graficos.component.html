@@ -1,114 +1,122 @@
-<div class="container">
-  <div class="content">
+<div class="page-wrapper">
 
-    <mat-card class="mat-card mat-elevation-z8">
-      <mat-card-header>
-        <mat-card-title>
-          <p>Gráficos</p>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <button class="button-cadastrar" mat-raised-button (click)="pesquisarPorData()">Pesquisar por Data</button>
-      </mat-card-content>
-    </mat-card>
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <h1 class="page-heading">
+          <mat-icon>bar_chart</mat-icon>
+          Gráficos
+        </h1>
+        <p class="periodo-label" *ngIf="periodo">
+          <mat-icon>date_range</mat-icon>
+          {{ periodo.displayInicio }} — {{ periodo.displayFim }}
+        </p>
+      </div>
+      <button mat-raised-button class="btn-pesquisar" (click)="pesquisarPorData()">
+        <mat-icon>search</mat-icon>
+        {{ hasData ? 'Alterar Período' : 'Pesquisar por Período' }}
+      </button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="loading-bar"></mat-progress-bar>
+  </div>
 
-    <div class="progress">
-      <mat-divider></mat-divider>
-      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!hasData && !isLoading">
+    <img src="../../../../../assets/img/grafico.svg" class="empty-img" alt="Sem dados">
+    <h3>Nenhum dado para exibir</h3>
+    <p>Selecione um período para visualizar os gráficos e análises de vendas.</p>
+    <button mat-raised-button class="btn-pesquisar" (click)="pesquisarPorData()">
+      <mat-icon>search</mat-icon>
+      Selecionar Período
+    </button>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content" *ngIf="hasData">
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-teal">
+          <mat-icon>attach_money</mat-icon>
+        </div>
+        <div class="kpi-body">
+          <span class="kpi-label">Total Vendido</span>
+          <span class="kpi-value">{{ totalVendido | currency:'BRL' }}</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-purple">
+          <mat-icon>receipt_long</mat-icon>
+        </div>
+        <div class="kpi-body">
+          <span class="kpi-label">Total de Transações</span>
+          <span class="kpi-value">{{ totalTransacoes }}</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-brown">
+          <mat-icon>trending_up</mat-icon>
+        </div>
+        <div class="kpi-body">
+          <span class="kpi-label">Ticket Médio</span>
+          <span class="kpi-value">{{ ticketMedio | currency:'BRL' }}</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-red">
+          <mat-icon>star</mat-icon>
+        </div>
+        <div class="kpi-body">
+          <span class="kpi-label">Método Principal</span>
+          <span class="kpi-value kpi-text">{{ metodoPrincipal }}</span>
+        </div>
+      </div>
     </div>
 
-    <div class="graficos">
-
-      <div class="imagem-fundo" *ngIf="this.imagem">
-        <img src="../../../../../assets/img/grafico.svg">
-      </div>
-
-      <div class="graficoBar">
-
-        <div class="divGraficoBar">
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <mat-icon>bar_chart</mat-icon>
+          <span class="chart-title">Valor por Forma de Pagamento</span>
+        </div>
+        <div class="chart-body">
           <canvas #graficoBar></canvas>
         </div>
-
-        <div class="divInformacoesGraficoBar" *ngIf="this.isCard">
-
-          <mat-card class="dinheiro">
-            <h4>Dinheiro</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoBarras[0] | currency: 'BRL'}}</h4>
-          </mat-card>
-          <mat-card class="pix">
-            <h4>PIX</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{ " " + this.valoresGraficoBarras[1] | currency: 'BRL'}}</h4>
-          </mat-card>
-          <mat-card class="debito">
-            <h4>Cartão de Débito</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoBarras[2] | currency: 'BRL'}}</h4>
-          </mat-card>
-          <mat-card class="credito">
-            <h4>Cartão de Crédito</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoBarras[3] | currency: 'BRL'}}</h4>
-          </mat-card>
-
-          <mat-card class="valotTotal">
-
-            <h4>Total Vendido</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoBarras[0] + this.valoresGraficoBarras[1] + this.valoresGraficoBarras[2]
-              +this.valoresGraficoBarras[3] | currency: "BRL"}}</h4>
-          </mat-card>
-        </div>
-
       </div>
 
-      <div class="graficoPizza">
-
-        <div class="divGraficoDoughnut">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <mat-icon>donut_large</mat-icon>
+          <span class="chart-title">Distribuição de Transações</span>
+        </div>
+        <div class="chart-body">
           <canvas #graficopizza></canvas>
         </div>
+      </div>
+    </div>
 
-        <div class="divInformacoesGraficoPizza" *ngIf="this.isCard">
-
-          <div class="quantidadeVendas">
-            <h1>Quantidade de Vendas</h1>
+    <!-- Pagamentos Breakdown -->
+    <div class="pagamentos-grid">
+      <div class="pagamento-card" *ngFor="let p of pagamentos">
+        <div class="pagamento-header" [style.background]="p.cor">
+          <mat-icon>{{ p.icone }}</mat-icon>
+          <span>{{ p.label }}</span>
+        </div>
+        <div class="pagamento-body">
+          <div class="pagamento-valor">{{ p.valor | currency:'BRL' }}</div>
+          <div class="pagamento-qtd">{{ p.quantidade }} transaç{{ p.quantidade !== 1 ? 'ões' : 'ão' }}</div>
+          <div class="pagamento-progress">
+            <div class="progress-fill" [style.width.%]="p.percentual" [style.background]="p.cor"></div>
           </div>
-
-          <mat-card class="dinheiro">
-            <h4>Dinheiro</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoPizza[0]}}</h4>
-          </mat-card>
-          <mat-card class="pix">
-            <h4>PIX</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoPizza[1]}}</h4>
-          </mat-card>
-          <mat-card class="debito">
-            <h4>Cartão de Débito</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoPizza[2]}}</h4>
-          </mat-card>
-          <mat-card class="credito">
-            <h4>Cartão de Crédito</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <h4>{{this.valoresGraficoPizza[3]}}</h4>
-          </mat-card>
+          <div class="pagamento-pct">{{ p.percentual.toFixed(1) }}%</div>
         </div>
       </div>
-
-
-
     </div>
 
   </div>

@@ -1,9 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { user } from 'src/app/shared/models/user';
-import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../service/usuarios.service';
 
 @Component({
@@ -13,46 +11,57 @@ import { UsuariosService } from '../../service/usuarios.service';
 })
 export class UsuariosEditComponent {
   formGroup!: FormGroup;
-
   allRoles: string[] = ['ADMIN', 'USER'];
-  selectedPermission: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private service: UsuariosService,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) private user: { user: user }
+    @Inject(MAT_DIALOG_DATA) private data: { user: user }
   ) {
-    // console.log(this.permissions)
     this.formGroup = this.fb.group({
-      nome: [user.user.nome, [Validators.required, Validators.minLength(1)]],
-      username: [
-        user.user.username,
-        [Validators.required, Validators.minLength(1)],
-      ],
-      roles: [user.user.roles, [Validators.required, Validators.minLength(1)]],
+      nome: [data.user.nome, [Validators.required, Validators.minLength(3)]],
+      username: [data.user.username, [Validators.required, Validators.minLength(3)]],
+      roles: [data.user.roles, Validators.required],
     });
-    this.selectedPermission = user.user.roles
   }
 
-  getErrorMessage() {
-    return 'Campo não pode ser vazio';
-  }
-
-  onPermissionChange() {
-    this.formGroup.controls['roles'].setValue(this.selectedPermission);
+  getErrorMessage(field: string): string {
+    const control = this.formGroup.get(field);
+    if (control?.hasError('required')) return 'Campo obrigatório';
+    if (control?.hasError('minlength')) {
+      const min = control.getError('minlength').requiredLength;
+      return `Mínimo ${min} caracteres`;
+    }
+    return '';
   }
 
   updateUser() {
-    this.service.updateUser(this.formGroup.value, this.user.user.idUser).subscribe(() => {
-      this.dialog.closeAll();
-    })
+    if (this.formGroup.invalid) return;
+    this.isLoading = true;
+    this.service.updateUser(this.formGroup.value, this.data.user.idUser).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.dialog.closeAll();
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   deletarUser() {
-    this.service.deleteUser(this.user.user.idUser).subscribe()
-    this.service.showMessage('Usuario Excluido', 'success');
-    this.dialog.closeAll();
+    this.isLoading = true;
+    this.service.deleteUser(this.data.user.idUser).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.dialog.closeAll();
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }
 

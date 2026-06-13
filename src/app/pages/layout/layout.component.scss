@@ -1,80 +1,441 @@
+// ===== CONTAINER =====
 mat-sidenav-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
-img {
-  width: 100px;
-}
-
+// ===== SIDENAV =====
 mat-sidenav {
-  width: 18%;
-  background-color: #138182;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  width: 230px;
+  background: linear-gradient(160deg, #0d6e6f 0%, #138182 60%, #0f9090 100%);
+  border-right: none;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 
-.left {
-  display: flex;
-  align-items: flex-end;
-}
+  &.collapsed {
+    width: 68px;
 
-.center {
-  margin-left: -35px;
-  flex: 1;
-  text-align: center;
-}
+    .brand-text,
+    .nav-label,
+    .nav-section-label,
+    .user-details {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
 
-.container-sidenav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
+    .sidenav-header {
+      padding: 20px 0 16px;
+      justify-content: center;
+    }
 
-.content-actions-sidenav {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
+    .brand-block {
+      justify-content: center;
+    }
 
-mat-list {
-  width: 80%;
-  color: white;
-}
+    .logo-wrapper {
+      width: 40px;
+      height: 40px;
+      margin: 0;
+    }
 
-.dividerMenuSidenav {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 1em auto;
-  width: 90%;
-}
+    .collapse-btn {
+      position: absolute;
+      right: -2px;
+      top: 18px;
+    }
 
-.titleMenu {
-  color: white;
-  cursor: pointer;
-}
+    .nav-item {
+      justify-content: center;
+      padding: 12px 0;
+      margin: 0 8px;
+      width: calc(100% - 16px);
+      border-left: 3px solid transparent;
 
-.active {
-  border-left: #770d7c solid 4px;
-  background-color: rgb(0, 0, 0, 0.1);
-  border-radius: 400px;
-  color: white;
-}
+      &.active {
+        border-left-color: #c94fd0;
+      }
+    }
 
-mat-list-item {
-  border-radius: 5px !important;
- }
+    .user-card {
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0 8px;
+      gap: 0;
+    }
 
-@media only screen and (max-width: 600px) {
-  mat-sidenav {
-      width: 14%; /* Ou o tamanho desejado em pixels */
+    .logout-btn {
+      justify-content: center;
+      margin: 4px 8px 0;
+      width: calc(100% - 16px);
+    }
   }
-  .img {
+}
+
+.sidenav-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+// ===== HEADER / MARCA =====
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10px 16px 16px;
+  flex-shrink: 0;
+  position: relative;
+  transition: padding 0.28s ease;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
+
+.logo-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+  transition: width 0.28s ease, height 0.28s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity 0.2s ease, width 0.28s ease;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10px;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+.collapse-btn {
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// ===== DIVISOR =====
+.brand-divider {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  margin: 0 14px;
+  flex-shrink: 0;
+}
+
+// ===== LABEL DE SEÇÃO =====
+.nav-section-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 14px 18px 6px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &.hidden {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+  }
+}
+
+// ===== ITENS DE NAVEGAÇÃO =====
+.sidenav-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 10px;
+  gap: 2px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-left: 3px solid transparent;
+  background: transparent;
+  width: 100%;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    padding 0.28s ease;
+
+  mat-icon {
+    font-size: 21px;
+    height: 21px;
+    width: 21px;
+    flex-shrink: 0;
+    transition: color 0.18s ease;
+  }
+
+  .nav-label {
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.15s ease, width 0.28s ease;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &.active {
+    background-color: rgba(119, 13, 124, 0.28);
+    color: #fff;
+    border-left-color: #d060d8;
+    font-weight: 600;
+
+    mat-icon {
+      color: #e490ea;
+    }
+  }
+}
+
+// ===== RODAPÉ =====
+.sidenav-footer {
+  flex-shrink: 0;
+  padding-bottom: 12px;
+}
+
+// Card do usuário
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 10px 10px 4px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: padding 0.28s ease, gap 0.28s ease;
+
+  &.collapsed {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #770d7c, #c94fd0);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(119, 13, 124, 0.5);
+  letter-spacing: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity 0.2s ease, width 0.28s ease;
+}
+
+.user-display-name {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+.user-role {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+// Botão de logout
+.logout-btn {
+  margin: 4px 10px 0;
+  width: calc(100% - 20px);
+  color: rgba(255, 255, 255, 0.65);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    margin 0.28s ease,
+    width 0.28s ease;
+
+  &:hover {
+    background-color: rgba(220, 53, 69, 0.22);
+    color: #ff8888;
+
+    mat-icon {
+      color: #ff8888;
+    }
+  }
+}
+
+// ===== CONTEÚDO PRINCIPAL =====
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
+}
+
+// ===== TOOLBAR SUPERIOR =====
+.top-toolbar {
+  background-color: #fff;
+  color: #2d2d2d;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  padding: 0 20px 0 4px;
+  gap: 4px;
+}
+
+.menu-toggle {
+  color: #666;
+  flex-shrink: 0;
+
+  &:hover {
+    color: #138182;
+  }
+}
+
+.page-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 4px;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+// Avatar + nome no toolbar
+.toolbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f6f8fa;
+  border: 1px solid #e8eaed;
+  border-radius: 24px;
+  padding: 5px 14px 5px 6px;
+  cursor: default;
+}
+
+.toolbar-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #770d7c, #c94fd0);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.toolbar-username {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ===== MAIN CONTENT =====
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+// Faz o conteúdo acompanhar a animação de colapso do sidenav
+::ng-deep .mat-drawer-content {
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+// ===== RESPONSIVO MOBILE =====
+@media only screen and (max-width: 768px) {
+  .page-title {
+    font-size: 15px;
+  }
+
+  .toolbar-username {
+    display: none;
+  }
+
+  .toolbar-user {
+    padding: 5px;
+    border-radius: 50%;
+    background: transparent;
+    border-color: transparent;
   }
 }

@@ -1,13 +1,7 @@
-import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from '../service/login.service';
-import { login } from 'src/app/shared/models/login';
-import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { Router } from '@angular/router';
-import { user } from 'src/app/shared/models/user';
-import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,34 +9,34 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loadLogin: boolean = true;
-  hide: boolean = true;
-  formGroup!: FormGroup;
-  user!: user;
+  formGroup: FormGroup;
+  hide = true;
+  isLoading = false;
+  currentYear = new Date().getFullYear();
 
   constructor(
-    formBuilder: FormBuilder,
+    fb: FormBuilder,
     private service: LoginService,
-    private router: Router
+    private router: Router,
   ) {
-    this.formGroup = formBuilder.group({
-      username: ['teste', [Validators.required, Validators.minLength(1)]],
-      password: ['teste', [Validators.required, Validators.minLength(1)]],
+    this.formGroup = fb.group({
+      username: ['', [Validators.required, Validators.minLength(1)]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
     });
-    this.formGroup.get('username')?.valueChanges.subscribe((value) => {
-      this.formGroup.get('username')?.setValue(value.toLowerCase())
-    })
-    this.loadLogin = false;
-    localStorage.clear();
-  }
 
-  getErrorMessage() {
-    return 'Campo não pode ser vazio';
+    this.formGroup.get('username')?.valueChanges.subscribe((value: string) => {
+      if (value && value !== value.toLowerCase()) {
+        this.formGroup.get('username')?.setValue(value.toLowerCase(), { emitEvent: false });
+      }
+    });
   }
 
   logar() {
-    this.service.isAuthentication(this.formGroup.value).subscribe(() => {
-      this.router.navigate(['dashboard']);
+    if (this.formGroup.invalid) return;
+    this.isLoading = true;
+    this.service.isAuthentication(this.formGroup.value).subscribe({
+      next: () => this.router.navigate(['dashboard']),
+      complete: () => { this.isLoading = false; },
     });
   }
 }

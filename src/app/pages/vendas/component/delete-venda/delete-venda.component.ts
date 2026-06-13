@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { VendasService } from '../../service/vendas.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { venda } from 'src/app/shared/models/venda';
+import { VendasService } from '../../service/vendas.service';
 
 @Component({
   selector: 'app-delete-venda',
@@ -9,15 +9,25 @@ import { venda } from 'src/app/shared/models/venda';
   styleUrls: ['./delete-venda.component.scss'],
 })
 export class DeleteVendaComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private venda: { venda: venda },
-    private service: VendasService,
-    private dialog: MatDialog
-  ) {}
+  venda: venda;
+  isLoading = false;
 
-  deleteVenda() {
-    this.service.deleteVenda(this.venda.venda).subscribe((response) => {});
-    this.dialog.closeAll();
-    this.service.showMessage('Venda Excluída !', 'success');
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: { venda: venda },
+    private service: VendasService,
+    private dialogRef: MatDialogRef<DeleteVendaComponent>,
+  ) {
+    this.venda = data.venda;
+  }
+
+  confirmarExclusao() {
+    this.isLoading = true;
+    this.service.deleteVenda(this.venda).subscribe({
+      next: () => {
+        this.service.showMessage('Venda excluída!', 'success');
+        this.dialogRef.close(true);
+      },
+      error: () => { this.isLoading = false; },
+    });
   }
 }

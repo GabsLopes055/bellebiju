@@ -25,6 +25,7 @@ import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
 import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
 import { ListarProdutosComponent } from './pages/produtos/components/listar-produtos/listar-produtos.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ListarProdutosComponent } from './pages/produtos/components/listar-prod
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
+    LayoutModule,
 ],
   providers: [
     {

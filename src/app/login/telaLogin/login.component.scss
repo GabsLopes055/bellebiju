@@ -1,71 +1,237 @@
-.container {
-  background-color: #f6f8fa;
-  // background-image: url("../../../assets/img/bg-login.jpg");
-  height: 100%;
-  width: 100%;
-  // opacity: 1.9;
+// ===== LAYOUT =====
+.login-page {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.content {
-  height: 100%;
-  width: 100%;
+// ===== PAINEL ESQUERDO (MARCA) =====
+.brand-panel {
+  flex: 0 0 42%;
+  background: linear-gradient(145deg, #0d6e6f 0%, #138182 40%, #5a0a5e 85%, #770d7c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.content,
-mat-card {
+// Círculos decorativos
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+.deco-1 { width: 300px; height: 300px; top: -80px;  left: -80px; }
+.deco-2 { width: 220px; height: 220px; bottom: -60px; right: -60px; background: rgba(255,255,255,0.04); }
+.deco-3 { width: 140px; height: 140px; bottom: 120px; left: -40px; background: rgba(255,255,255,0.05); }
+
+.brand-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 32px;
+}
+
+.logo-wrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.brand-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// ===== PAINEL DIREITO (FORMULÁRIO) =====
+.form-panel {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
+  padding: 40px 24px;
+  overflow-y: auto;
 }
 
-mat-card {
-  width: 30%;
-  height: auto;
-  padding: 20px;
-  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-}
-
-img {
-  border-radius: 8px !important;
-  width: 100%; /* Garante que a imagem se ajuste ao contêiner */
-  height: 100%; /* Adicione essa linha */
-}
-
-mat-card-content {
+.form-container {
   width: 100%;
-}
-
-form {
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
-mat-card > mat-card-actions {
+// Logo mobile (só aparece em telas pequenas)
+.form-logo-mobile {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(19, 129, 130, 0.3);
+  }
+
+  span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #138182;
+  }
+}
+
+.form-header {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+}
+
+.form-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.form-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+}
+
+// ===== FORMULÁRIO =====
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-width {
   width: 100%;
-  padding: 0;
 }
 
-button {
+// ===== BOTÃO =====
+.btn-login {
   width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #138182, #0d6e6f) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: 0 4px 16px rgba(19, 129, 130, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+
+  &:not([disabled]):hover {
+    box-shadow: 0 6px 20px rgba(19, 129, 130, 0.5) !important;
+    transform: translateY(-1px);
+  }
+
+  &[disabled] {
+    opacity: 0.65 !important;
+    box-shadow: none !important;
+  }
+
+  mat-icon { font-size: 20px; width: 20px; height: 20px; }
 }
 
-mat-divider {
-  width: 100%;
+.btn-spinner {
+  display: inline-block;
+
+  ::ng-deep circle {
+    stroke: #fff !important;
+  }
 }
 
-mat-card-actions > button {
-  background-color: #770d7c;
-  color: white;
+// ===== RODAPÉ =====
+.form-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #bbb;
+  margin: 0;
 }
 
-@media only screen and (max-width: 600px) {
-  mat-card {
-    width: 90%; /* Ou o tamanho desejado em pixels */
+// ===== RESPONSIVO MOBILE =====
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .form-logo-mobile {
+    display: flex;
+  }
+
+  .form-panel {
+    padding: 32px 20px;
+    justify-content: flex-start;
+    padding-top: 48px;
+  }
+
+  .form-container {
+    max-width: 100%;
+  }
+
+  .form-title {
+    font-size: 22px;
   }
 }

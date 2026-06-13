@@ -1,4 +1,3 @@
-import { datasForGraficos } from './../../../shared/models/datasForGraficos';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,18 +9,27 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class GraficosServiceService {
+  private url = environment.url;
+
   constructor(
     private http: HttpClient,
     private message: MatSnackBar,
-    private route: Router
+    private route: Router,
   ) {}
 
-  url = environment.url;
+  gerarGraficoPizza(dataInicio: string, dataFim: string): Observable<any> {
+    return this.http
+      .post<any>(this.url + '/graficos/gerarGraficoPizza', { dataInicio, dataFim })
+      .pipe(catchError((e) => this.errorHandler(e)));
+  }
 
-  private dadosGraficoPizza: any
-  private dadosGraficoTotalVendas: any
+  gerarGraficoTotalVendas(dataInicio: string, dataFim: string): Observable<any> {
+    return this.http
+      .post<any>(this.url + '/graficos/gerarGraficoTotalVendas', { dataInicio, dataFim })
+      .pipe(catchError((e) => this.errorHandler(e)));
+  }
 
-  showMessage(msg: string, color: string) {
+  private showMessage(msg: string, color: string) {
     this.message.open(msg, 'X', {
       duration: 5000,
       horizontalPosition: 'right',
@@ -30,47 +38,13 @@ export class GraficosServiceService {
     });
   }
 
-  errorHandler(e: any): Observable<any> {
-    if (e.status == 500) {
+  private errorHandler(e: any): Observable<never> {
+    if (e.status === 500) {
       this.showMessage('Erro Interno', 'error');
-    } else if (e.status == 403) {
+    } else if (e.status === 403) {
       this.route.navigate(['/login']);
       this.showMessage('Por favor, refaça o login', 'warning');
     }
     return EMPTY;
-  }
-
-  gerarGraficoPizza(dataInicio: any, dataFim: any): Observable<any> {
-
-    const datasForGraficos = { dataInicio, dataFim };
-
-    return this.http
-      .post<any>(this.url + '/graficos/gerarGraficoPizza', datasForGraficos)
-      .pipe(catchError((e) => this.errorHandler(e)));
-  }
-
-  gerarGraficoTotalVendas(dataInicio: any, dataFim: any): Observable<any> {
-
-    const datasForGraficos = { dataInicio, dataFim };
-
-    return this.http
-      .post<any>(this.url + '/graficos/gerarGraficoTotalVendas', datasForGraficos)
-      .pipe(catchError((e) => this.errorHandler(e)));
-  }
-
-  public setDadosGraficoPizza(dados: any) {
-    this.dadosGraficoPizza = dados
-  }
-
-  public getDadosGraficosPizza() : any {
-    return this.dadosGraficoPizza;
-  }
-
-  public setDadosGraficoTotalVendas(dados: any) {
-    this.dadosGraficoTotalVendas = dados
-  }
-
-  public getDadosGraficosTotalVendas() : any {
-    return this.dadosGraficoTotalVendas;
   }
 }

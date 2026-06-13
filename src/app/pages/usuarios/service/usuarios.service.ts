@@ -22,52 +22,40 @@ export class UsuariosService {
     });
   }
 
-  errorHandler(e: any): Observable<any> {
-    if (e.status == 500) {
+  private errorHandler(e: any): Observable<any> {
+    if (e.status === 500) {
       this.showMessage('Erro Interno', 'error');
-    } else if (e.status == 403) {
+    } else if (e.status === 403) {
       this.route.navigate(['/login']);
-      this.showMessage("Por favor, refaça o login", "warning")
+      this.showMessage('Por favor, refaça o login', 'warning');
     }
     return EMPTY;
   }
 
   listAllUsers(): Observable<user[]> {
-    return this.http.get<user[]>(environment.url + '/users');
+    return this.http.get<user[]>(environment.url + '/users').pipe(
+      catchError((e) => this.errorHandler(e))
+    );
   }
 
   saveUser(formUser: user): Observable<any> {
     return this.http.post<user>(environment.url + '/users/register', formUser).pipe(
-      map(
-        () => {
-          this.showMessage('Usuario Cadastrado', 'success');
-        },
-        catchError((e) => this.errorHandler(e))
-      )
+      map(() => this.showMessage('Usuário Cadastrado', 'success')),
+      catchError((e) => this.errorHandler(e))
     );
   }
 
   updateUser(formUser: user, idUser: string): Observable<any> {
-    return this.http
-      .put<user>(environment.url + '/users/' + idUser, formUser)
-      .pipe(
-        map(
-          () => {
-            this.showMessage('Usuario Editado', 'warning');
-          },
-          catchError((e) => this.errorHandler(e))
-        )
-      );
+    return this.http.put<user>(environment.url + '/users/' + idUser, formUser).pipe(
+      map(() => this.showMessage('Usuário Editado', 'warning')),
+      catchError((e) => this.errorHandler(e))
+    );
   }
 
   deleteUser(idUser: string): Observable<any> {
     return this.http.delete(environment.url + '/users/' + idUser).pipe(
-      map(
-        () => {
-          this.showMessage('Usuario Excluido', 'success');
-        },
-        catchError((e) => this.errorHandler(e))
-      )
+      map(() => this.showMessage('Usuário Excluído', 'success')),
+      catchError((e) => this.errorHandler(e))
     );
   }
 }

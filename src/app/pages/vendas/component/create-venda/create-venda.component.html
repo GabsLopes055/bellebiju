@@ -1,74 +1,65 @@
-<div class="container">
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon>add_shopping_cart</mat-icon>
+  Nova Venda
+</h2>
 
-  <div class="content">
+<mat-divider></mat-divider>
 
-    <mat-card class="card-header-title">
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="formGroup">
 
-      <mat-card-title>Cadastrar Venda</mat-card-title>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome do Produto</mat-label>
+      <input matInput formControlName="nomeProduto" placeholder="Ex: Brinco dourado">
+      <mat-icon matSuffix>diamond</mat-icon>
+      <mat-error *ngIf="formGroup.controls['nomeProduto'].hasError('required')">Campo obrigatório</mat-error>
+      <mat-error *ngIf="formGroup.controls['nomeProduto'].hasError('minlength')">Mínimo 3 caracteres</mat-error>
+    </mat-form-field>
 
-    </mat-card>
+    <div class="row-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Preço (R$)</mat-label>
+        <input matInput type="number" formControlName="preco" placeholder="0,00" min="0.01" step="0.01">
+        <mat-icon matSuffix>attach_money</mat-icon>
+        <mat-error>Preço inválido</mat-error>
+      </mat-form-field>
 
-  </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Quantidade</mat-label>
+        <input matInput type="number" formControlName="quantidade" placeholder="1" min="1">
+        <mat-icon matSuffix>tag</mat-icon>
+        <mat-error>Quantidade inválida</mat-error>
+      </mat-form-field>
+    </div>
 
-  <mat-divider></mat-divider>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Total da Venda</mat-label>
+      <input matInput formControlName="total" [value]="(formGroup.controls['total'].value | currency:'BRL') ?? '—'">
+      <mat-icon matSuffix>calculate</mat-icon>
+      <mat-hint>Calculado automaticamente</mat-hint>
+    </mat-form-field>
 
-  <div class="content-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Forma de Pagamento</mat-label>
+      <mat-select formControlName="formaPagamento">
+        <mat-option value="DINHEIRO">Dinheiro</mat-option>
+        <mat-option value="PIX">PIX</mat-option>
+        <mat-option value="DEBITO">Cartão de Débito</mat-option>
+        <mat-option value="CREDITO">Cartão de Crédito</mat-option>
+      </mat-select>
+      <mat-icon matSuffix>payments</mat-icon>
+      <mat-error>Selecione a forma de pagamento</mat-error>
+    </mat-form-field>
 
-    <mat-card class="card-form">
+  </form>
+</mat-dialog-content>
 
-      <mat-card-header class="card-header-form">
-
-
-
-        <form [formGroup]="formGroup">
-
-          <mat-form-field appearance="outline">
-            <mat-label>Nome do Produto</mat-label>
-            <input matInput placeholder="Nome" type="text" formControlName="nomeProduto">
-            <mat-icon matSuffix>diamond</mat-icon>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Preço do Produto</mat-label>
-            <input matInput placeholder="Preço" type="number" formControlName="preco">
-            <mat-icon matSuffix>attach_money</mat-icon>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Quantidade Vendida</mat-label>
-            <input matInput placeholder="Quantidade" type="number" formControlName="quantidade">
-            <mat-icon matSuffix>tab_new_right</mat-icon>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Total da Venda</mat-label>
-            <input matInput placeholder="Total" type="number" formControlName="total">
-            <mat-icon matSuffix>gesture_select</mat-icon>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Forme de Pagamento</mat-label>
-            <mat-icon matSuffix>payments</mat-icon>
-            <mat-select formControlName="formaPagamento">
-              <mat-option value="DINHEIRO">DINHEIRO</mat-option>
-              <mat-option value="PIX">PIX</mat-option>
-              <mat-option value="DEBITO">DEBITO</mat-option>
-              <mat-option value="CREDITO">CREDITO</mat-option>
-            </mat-select>
-            <mat-error>{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-        </form>
-
-      </mat-card-header>
-      <mat-card-actions align="start">
-        <button mat-raised-button color="primary" (click)="salvarVenda()" [disabled]="!formGroup.valid">Cadastrar</button>
-        <button mat-stroked-button color="warn" mat-dialog-close>Fechar</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-
-</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button class="btn-salvar" (click)="salvarVenda()"
+    [disabled]="formGroup.invalid || isLoading">
+    <mat-spinner *ngIf="isLoading" diameter="18"></mat-spinner>
+    <mat-icon *ngIf="!isLoading">save</mat-icon>
+    Cadastrar
+  </button>
+</mat-dialog-actions>
