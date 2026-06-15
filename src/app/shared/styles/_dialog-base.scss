@@ -1,0 +1,357 @@
+// ─── Tokens ──────────────────────────────────────────────────────────────────
+$teal:   #0f8182;
+$purple: #9b23a0;
+$red:    #ef4444;
+$border: #f1f3f5;
+
+// ─── Wrapper ─────────────────────────────────────────────────────────────────
+.dialog-wrap {
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", system-ui, sans-serif;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+// ══ HEADER ═══════════════════════════════════════════════════════════════════
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 18px;
+  border-bottom: 1px solid $border;
+  gap: 12px;
+
+  &.danger { border-bottom-color: rgba(239, 68, 68, 0.15); }
+}
+
+.dialog-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dialog-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .material-icons { font-size: 20px !important; color: #fff; }
+
+  &.teal   { background: linear-gradient(135deg, $teal, #0a6465);   box-shadow: 0 3px 8px rgba(15,129,130,0.30); }
+  &.purple { background: linear-gradient(135deg, #5a0a5e, $purple);  box-shadow: 0 3px 8px rgba(155,35,160,0.30); }
+  &.red    { background: linear-gradient(135deg, #b91c1c, $red);     box-shadow: 0 3px 8px rgba(239,68,68,0.30);  }
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dialog-sub {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.14s ease, color 0.14s ease;
+
+  .material-icons { font-size: 18px !important; }
+  &:hover { background: #f3f4f6; color: #374151; }
+}
+
+// ══ BODY ═════════════════════════════════════════════════════════════════════
+.dialog-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+// ── Campo de formulário
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.field-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 11px;
+  font-size: 17px !important;
+  color: #9ca3af;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.field-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 9px;
+  font-size: 13.5px;
+  color: #111827;
+  background: #f9fafb;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+  appearance: none;
+
+  &.has-icon { padding-left: 38px; }
+  &.has-suffix { padding-right: 42px; }
+
+  &::placeholder { color: #9ca3af; }
+
+  &:focus {
+    background: #fff;
+    border-color: $teal;
+    box-shadow: 0 0 0 3px rgba(15, 129, 130, 0.10);
+  }
+
+  &[readonly] {
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: default;
+
+    &.total-field {
+      color: $teal;
+      font-weight: 600;
+    }
+  }
+}
+
+// Select customizado (mantém seta nativa)
+select.field-input {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%239ca3af'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+// Botão de sufixo (ex: olho da senha)
+.field-suffix-btn {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #9ca3af;
+  border-radius: 6px;
+  transition: color 0.14s ease, background-color 0.14s ease;
+
+  .material-icons { font-size: 17px !important; }
+  &:hover { color: $teal; background: rgba(15, 129, 130, 0.08); }
+}
+
+.field-error {
+  font-size: 11.5px;
+  color: $red;
+  font-weight: 500;
+}
+
+.field-hint {
+  font-size: 11.5px;
+  color: #9ca3af;
+}
+
+// ── Caixa de confirmação (delete)
+.confirm-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0 8px;
+  text-align: center;
+}
+
+.confirm-icon {
+  font-size: 48px !important;
+  color: #fbbf24;
+}
+
+.confirm-text {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+
+  strong { color: #111827; }
+}
+
+// ══ FOOTER ═══════════════════════════════════════════════════════════════════
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid $border;
+
+  &.space-between { justify-content: space-between; }
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// ── Botões
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, $teal, #0a6465);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(15, 129, 130, 0.28);
+  transition: opacity 0.15s ease, transform 0.12s ease;
+
+  .material-icons { font-size: 16px !important; }
+
+  &:hover:not([disabled]) { opacity: 0.88; transform: translateY(-1px); }
+  &[disabled] { opacity: 0.45; cursor: default; pointer-events: none; }
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #b91c1c, $red);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.28);
+  transition: opacity 0.15s ease;
+
+  .material-icons { font-size: 16px !important; }
+
+  &:hover:not([disabled]) { opacity: 0.88; }
+  &[disabled] { opacity: 0.45; cursor: default; pointer-events: none; }
+}
+
+.btn-danger-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1.5px solid rgba(239, 68, 68, 0.40);
+  border-radius: 9px;
+  background: transparent;
+  color: $red;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  .material-icons { font-size: 16px !important; }
+
+  &:hover:not([disabled]) { background: rgba(239, 68, 68, 0.06); border-color: $red; }
+  &[disabled] { opacity: 0.45; cursor: default; pointer-events: none; }
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.14s ease;
+
+  &:hover { background: #f3f4f6; color: #374151; }
+  &[disabled] { opacity: 0.45; cursor: default; pointer-events: none; }
+}
+
+// ── Spinner CSS
+.btn-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ══ RESPONSIVO ═══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+  .row-2 { grid-template-columns: 1fr; }
+  .dialog-body { max-height: 50vh; }
+}

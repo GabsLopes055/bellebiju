@@ -1,0 +1,23 @@
+@import '../../../../shared/styles/dialog-base';
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.footer-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-right {
+  display: flex;
+  gap: 8px;
+}
+
+.required {
+  color: #ef4444;
+  font-size: 11px;
+}

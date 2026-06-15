@@ -1,0 +1,18 @@
+<div class="toast-container" aria-live="polite" aria-atomic="false">
+  <div class="toast"
+    *ngFor="let t of toasts$ | async; trackBy: trackById"
+    [class.toast-success]="t.type === 'success'"
+    [class.toast-error]="t.type === 'error'"
+    [class.toast-warning]="t.type === 'warning'"
+    [class.toast-exit]="t.exiting"
+    role="alert">
+
+    <span class="material-icons toast-icon">{{ iconFor(t.type) }}</span>
+
+    <span class="toast-msg">{{ t.message }}</span>
+
+    <button class="toast-close" (click)="dismiss(t.id)" aria-label="Fechar">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+</div>

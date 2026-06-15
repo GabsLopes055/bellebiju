@@ -1,39 +1,50 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { user } from 'src/app/shared/models/user';
+import { PaginaResponse } from 'src/app/shared/models/pagina-response';
 import { environment } from 'src/environments/environment.development';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuariosService {
 
-  constructor(private http: HttpClient, private message: MatSnackBar, private route: Router) {}
+  constructor(private http: HttpClient, private toast: ToastService, private route: Router) {}
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, 'X', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: color,
-    });
+    this.toast.showMessage(msg, color);
   }
 
   private errorHandler(e: any): Observable<any> {
-    if (e.status === 500) {
-      this.showMessage('Erro Interno', 'error');
-    } else if (e.status === 403) {
-      this.route.navigate(['/login']);
-      this.showMessage('Por favor, refaça o login', 'warning');
+    switch (e.status) {
+      case 403:
+        this.route.navigate(['/login']);
+        this.showMessage('Por favor, refaça o login', 'warning');
+        break;
+      case 404:
+        this.showMessage('Usuário não encontrado', 'error');
+        break;
+      case 409:
+        this.showMessage('Username já está em uso', 'error');
+        break;
+      case 422:
+        this.showMessage(e.error?.message ?? 'Dados inválidos', 'error');
+        break;
+      case 500:
+        this.showMessage('Erro interno no servidor', 'error');
+        break;
+      default:
+        this.showMessage('Ocorreu um erro inesperado', 'error');
     }
     return EMPTY;
   }
 
   listAllUsers(): Observable<user[]> {
-    return this.http.get<user[]>(environment.url + '/users').pipe(
+    return this.http.get<PaginaResponse<user>>(environment.url + '/users?tamanho=500').pipe(
+      map((r) => r.conteudo),
       catchError((e) => this.errorHandler(e))
     );
   }

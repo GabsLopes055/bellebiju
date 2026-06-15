@@ -1,120 +1,169 @@
+// ─── Tokens ──────────────────────────────────────────────────────────────────
+$purple:  #9b23a0;
+$teal:    #0f8182;
+$ease:    cubic-bezier(0.4, 0, 0.2, 1);
+
+// ─── Wrapper ─────────────────────────────────────────────────────────────────
 .page-wrapper {
-  padding: 20px;
+  padding: 24px;
   background: #f0f2f5;
   min-height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-// ===== BANNER =====
+// ══════════════════════════════════════════════════════
+// BANNER
+// ══════════════════════════════════════════════════════
 .welcome-banner {
-  background: linear-gradient(135deg, #0d6e6f 0%, #138182 55%, #770d7c 100%);
-  border-radius: 16px;
-  padding: 28px 32px;
+  background: linear-gradient(130deg, #0c1f20 0%, #0f5253 45%, #5a0a5e 85%, #770d7c 100%);
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(15, 129, 130, 0.25);
+}
+
+// Grade de pontos de fundo
+.banner-deco-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+// Brilhos difusos
+.banner-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  opacity: 0.30;
+}
+
+.glow-left  { width: 260px; height: 260px; top: -80px;  left: -60px;  background: $teal; }
+.glow-right { width: 220px; height: 220px; bottom: -60px; right: -40px; background: $purple; }
+
+// Conteúdo do banner
+.banner-body {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(19, 129, 130, 0.3);
-  overflow: hidden;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    right: 140px;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-  }
+  padding: 28px 32px;
 }
 
-.welcome-left {
+.banner-left {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
-.welcome-saudacao {
+.banner-greeting {
   margin: 0;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.2;
 
   strong {
-    font-weight: 700;
+    font-weight: 800;
     color: #fff;
   }
 }
 
-.welcome-date {
+.banner-date {
   display: flex;
   align-items: center;
   gap: 6px;
   margin: 0;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.52);
   text-transform: capitalize;
 
-  mat-icon {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+  .material-icons {
+    font-size: 15px !important;
+    opacity: 0.70;
   }
 }
 
-.welcome-icon-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+.banner-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 
-  mat-icon {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 32px;
-    width: 32px;
-    height: 32px;
+  .material-icons {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 30px !important;
   }
 }
 
-// ===== SECTION HEADER =====
+// ══════════════════════════════════════════════════════
+// SECTION HEADER
+// ══════════════════════════════════════════════════════
 .section-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: -8px;
-
-  mat-icon {
-    color: #138182;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-  }
-
-  span {
-    font-size: 15px;
-    font-weight: 700;
-    color: #444;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: -6px;
 }
 
+.section-label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  font-size: 18px !important;
+  color: $teal;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+// Loader customizado (substitui mat-progress-bar)
 .kpi-loader {
   flex: 1;
-  margin-left: 12px;
-  border-radius: 4px;
+  height: 3px;
+  border-radius: 2px;
+  background: #e5e7eb;
+  overflow: hidden;
+  max-width: 200px;
 }
 
-// ===== KPI GRID =====
+.kpi-loader-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, $teal, $purple, $teal);
+  background-size: 200% 100%;
+  animation: loader-slide 1.4s ease-in-out infinite;
+}
+
+@keyframes loader-slide {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+// ══════════════════════════════════════════════════════
+// KPI GRID
+// ══════════════════════════════════════════════════════
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -122,111 +171,121 @@
   transition: opacity 0.3s ease;
 
   &.kpi-loading {
-    opacity: 0.5;
+    opacity: 0.45;
     pointer-events: none;
   }
 }
 
 .kpi-card {
   background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 14px;
+  padding: 20px 20px 20px 20px;
   display: flex;
   align-items: center;
   gap: 16px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border: 1px solid #f1f3f5;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s $ease, box-shadow 0.18s $ease;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
   }
 }
 
-.kpi-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+// Barra colorida no topo do card
+.kpi-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 14px 14px 0 0;
+
+  &.kpi-accent-teal   { background: linear-gradient(90deg, #0d6e6f, #138182); }
+  &.kpi-accent-purple { background: linear-gradient(90deg, #5a0a5e, #9b23a0); }
+  &.kpi-accent-brown  { background: linear-gradient(90deg, #5c3d0b, #7f5410); }
+  &.kpi-accent-indigo { background: linear-gradient(90deg, #3730a3, #6366f1); }
+}
+
+// Ícone do KPI
+.kpi-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 
-  mat-icon {
+  .material-icons {
     color: #fff;
-    font-size: 26px;
-    width: 26px;
-    height: 26px;
+    font-size: 24px !important;
   }
 
-  &.kpi-teal   { background: linear-gradient(135deg, #0d6e6f, #138182); }
-  &.kpi-purple { background: linear-gradient(135deg, #5a0a5e, #770d7c); }
-  &.kpi-brown  { background: linear-gradient(135deg, #5c3d0b, #7f5410); }
-  &.kpi-red    { background: linear-gradient(135deg, #6b2310, #822b0e); }
+  &.kpi-teal   { background: linear-gradient(135deg, #0d6e6f, #138182); box-shadow: 0 4px 12px rgba(15, 129, 130, 0.35); }
+  &.kpi-purple { background: linear-gradient(135deg, #5a0a5e, #9b23a0); box-shadow: 0 4px 12px rgba(155, 35, 160, 0.35); }
+  &.kpi-brown  { background: linear-gradient(135deg, #5c3d0b, #7f5410); box-shadow: 0 4px 12px rgba(127, 84, 16, 0.35); }
+  &.kpi-indigo { background: linear-gradient(135deg, #3730a3, #6366f1); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35); }
 }
 
 .kpi-body {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   min-width: 0;
+  flex: 1;
 }
 
 .kpi-label {
-  font-size: 12px;
-  color: #999;
+  font-size: 11.5px;
+  color: #9ca3af;
   font-weight: 500;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .kpi-value {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 21px;
+  font-weight: 800;
+  color: #111827;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.5px;
 }
 
-// ===== RESPONSIVE =====
+// ══════════════════════════════════════════════════════
+// RESPONSIVO
+// ══════════════════════════════════════════════════════
 @media (max-width: 1024px) {
-  .kpi-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
   .page-wrapper {
-    padding: 12px;
-    gap: 14px;
+    padding: 14px;
+    gap: 16px;
   }
 
-  .welcome-banner {
-    padding: 20px;
-    border-radius: 12px;
-  }
-
-  .welcome-saudacao { font-size: 20px; }
-
-  .welcome-icon-wrap { display: none; }
+  .banner-body    { padding: 22px 20px; }
+  .banner-greeting { font-size: 21px; }
+  .banner-icon    { display: none; }
 
   .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .kpi-card {
-    padding: 14px;
-    gap: 12px;
-  }
+  .kpi-card   { padding: 16px 14px; gap: 12px; }
 
-  .kpi-icon {
+  .kpi-icon-wrap {
     width: 42px;
     height: 42px;
-    border-radius: 10px;
-
-    mat-icon { font-size: 20px; width: 20px; height: 20px; }
+    border-radius: 11px;
+    .material-icons { font-size: 20px !important; }
   }
 
-  .kpi-value { font-size: 18px; }
+  .kpi-value  { font-size: 17px; }
 }

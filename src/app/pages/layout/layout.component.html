@@ -1,129 +1,208 @@
-<mat-sidenav-container autosize>
+<div class="shell">
 
-  <mat-sidenav #sidenav
-    [class.collapsed]="isCollapsed"
-    [opened]="sidenavOpened"
-    [mode]="isMobile ? 'over' : 'side'"
-    [disableClose]="!isMobile">
+  <!-- ══ SIDEBAR — desktop only ══ -->
+  <aside class="sidebar" *ngIf="!isMobile" [class.collapsed]="isCollapsed">
 
-    <div class="sidenav-wrapper">
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="sbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#9b23a0"/>
+              <stop offset="100%" stop-color="#0f8182"/>
+            </linearGradient>
+            <linearGradient id="sbSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+          </defs>
+          <rect width="44" height="44" rx="11" fill="url(#sbGrad)"/>
+          <rect width="44" height="22" rx="11" fill="url(#sbSheen)"/>
+          <rect width="44" height="11" fill="url(#sbSheen)" y="11"/>
+          <text x="22" y="31"
+            font-family="'Inter', system-ui, sans-serif"
+            font-size="22" font-weight="800"
+            fill="white" text-anchor="middle"
+            letter-spacing="-1">BL</text>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <span class="brand-title">Belle Biju</span>
+        <span class="brand-sub">Gestão de Bijuterias</span>
+      </div>
+      <button class="icon-btn collapse-btn"
+        (click)="toggleCollapse()"
+        [title]="isCollapsed ? 'Expandir' : 'Recolher'">
+        <span class="material-icons">
+          {{ isCollapsed ? 'keyboard_double_arrow_right' : 'keyboard_double_arrow_left' }}
+        </span>
+      </button>
+    </div>
 
-      <!-- Header: logo + botão de colapso -->
-      <div class="sidenav-header" [class.collapsed]="isCollapsed">
-        <div class="brand-block">
-          <div class="logo-wrapper">
-            <img src="../../../assets/img/logo.jpeg" alt="Belle Biju">
-          </div>
-          <div class="brand-text">
-            <span class="brand-name">Belle Biju</span>
-            <span class="brand-subtitle">Gestão de Bijuterias</span>
-          </div>
-        </div>
+    <!-- Nav agrupada -->
+    <div class="sidebar-body">
 
-        <button mat-icon-button class="collapse-btn"
-          *ngIf="!isMobile"
-          (click)="toggleCollapse()"
-          [matTooltip]="isCollapsed ? 'Expandir' : 'Recolher'"
-          matTooltipPosition="right">
-          <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-        </button>
+      <div class="nav-group">
+        <span class="group-label">Principal</span>
+        <nav>
+          <a class="nav-item" routerLink="/dashboard" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" [title]="isCollapsed ? 'Dashboard' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">grid_view</span></span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a class="nav-item" routerLink="adicionarVenda/visualizarVenda"
+            routerLinkActive="active" [title]="isCollapsed ? 'Vendas' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">point_of_sale</span></span>
+            <span class="nav-text">Vendas</span>
+          </a>
+          <a class="nav-item" routerLink="graficos"
+            routerLinkActive="active" [title]="isCollapsed ? 'Gráficos' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">bar_chart</span></span>
+            <span class="nav-text">Gráficos</span>
+          </a>
+        </nav>
       </div>
 
-      <mat-divider class="brand-divider"></mat-divider>
+      <div class="nav-group">
+        <span class="group-label">Catálogo</span>
+        <nav>
+          <a class="nav-item" routerLink="produtos"
+            routerLinkActive="active" [title]="isCollapsed ? 'Produtos' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">inventory_2</span></span>
+            <span class="nav-text">Produtos</span>
+          </a>
+          <a class="nav-item" routerLink="categorias"
+            routerLinkActive="active" [title]="isCollapsed ? 'Categorias' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">category</span></span>
+            <span class="nav-text">Categorias</span>
+          </a>
+        </nav>
+      </div>
 
-      <!-- Label da seção -->
-      <span class="nav-section-label" [class.hidden]="isCollapsed">MENU</span>
-
-      <!-- Itens de navegação -->
-      <nav class="sidenav-nav">
-
-        <a class="nav-item" routerLink="/dashboard" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          [matTooltip]="isCollapsed ? 'Dashboard' : ''"
-          matTooltipPosition="right">
-          <mat-icon>dashboard</mat-icon>
-          <span class="nav-label">Dashboard</span>
-        </a>
-
-        <a class="nav-item" routerLink="adicionarVenda/visualizarVenda" routerLinkActive="active"
-          [matTooltip]="isCollapsed ? 'Vendas' : ''"
-          matTooltipPosition="right">
-          <mat-icon>point_of_sale</mat-icon>
-          <span class="nav-label">Vendas</span>
-        </a>
-
-        <a class="nav-item" routerLink="graficos" routerLinkActive="active"
-          [matTooltip]="isCollapsed ? 'Gráficos' : ''"
-          matTooltipPosition="right">
-          <mat-icon>bar_chart</mat-icon>
-          <span class="nav-label">Gráficos</span>
-        </a>
-
-        <a class="nav-item" routerLink="produtos" routerLinkActive="active"
-          [matTooltip]="isCollapsed ? 'Produtos' : ''"
-          matTooltipPosition="right">
-          <mat-icon>inventory_2</mat-icon>
-          <span class="nav-label">Produtos</span>
-        </a>
-
-        <a class="nav-item" routerLink="usuarios" routerLinkActive="active"
-          [matTooltip]="isCollapsed ? 'Usuários' : ''"
-          matTooltipPosition="right">
-          <mat-icon>group</mat-icon>
-          <span class="nav-label">Usuários</span>
-        </a>
-
-      </nav>
-
-      <!-- Footer: avatar do usuário + logout -->
-      <div class="sidenav-footer">
-        <mat-divider class="brand-divider"></mat-divider>
-
-        <div class="user-card" [class.collapsed]="isCollapsed"
-          [matTooltip]="isCollapsed ? userName : ''"
-          matTooltipPosition="right">
-          <div class="user-avatar">{{ userInitials }}</div>
-          <div class="user-details">
-            <span class="user-display-name">{{ userName }}</span>
-            <span class="user-role">Usuário</span>
-          </div>
-        </div>
-
-        <button class="nav-item logout-btn" (click)="logout()"
-          [matTooltip]="isCollapsed ? 'Sair' : ''"
-          matTooltipPosition="right">
-          <mat-icon>logout</mat-icon>
-          <span class="nav-label">Sair</span>
-        </button>
+      <div class="nav-group">
+        <span class="group-label">Sistema</span>
+        <nav>
+          <a class="nav-item" routerLink="usuarios"
+            routerLinkActive="active" [title]="isCollapsed ? 'Usuários' : ''">
+            <span class="nav-icon-wrap"><span class="material-icons">manage_accounts</span></span>
+            <span class="nav-text">Usuários</span>
+          </a>
+        </nav>
       </div>
 
     </div>
-  </mat-sidenav>
 
-  <mat-sidenav-content>
+    <!-- Footer: usuário + logout -->
+    <div class="sidebar-foot">
+      <div class="foot-divider"></div>
+      <div class="user-row" [title]="isCollapsed ? userName : ''">
+        <div class="user-badge">{{ userInitials }}</div>
+        <div class="user-meta">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-role">Usuário</span>
+        </div>
+      </div>
+      <button class="logout-btn" (click)="logout()" title="Sair do sistema">
+        <span class="material-icons">logout</span>
+        <span class="logout-text">Sair</span>
+      </button>
+    </div>
 
-    <!-- Toolbar superior -->
-    <mat-toolbar class="top-toolbar">
-      <button mat-icon-button class="menu-toggle"
-        (click)="isMobile ? toggleSidenav() : toggleCollapse()"
-        aria-label="Toggle menu">
-        <mat-icon>{{ isMobile ? 'menu' : (isCollapsed ? 'menu_open' : 'menu') }}</mat-icon>
+  </aside>
+
+  <!-- ══ ÁREA PRINCIPAL ══ -->
+  <div class="main-wrap">
+
+    <!-- Topbar -->
+    <header class="topbar">
+
+      <!-- Desktop: botão de colapso da sidebar -->
+      <button *ngIf="!isMobile" class="icon-btn topbar-toggle"
+        (click)="toggleCollapse()" aria-label="Alternar sidebar">
+        <span class="material-icons">
+          {{ isCollapsed ? 'menu_open' : 'menu' }}
+        </span>
       </button>
 
-      <span class="page-title">{{ pageTitle }}</span>
-      <span class="toolbar-spacer"></span>
-
-      <div class="toolbar-user" *ngIf="userName">
-        <div class="toolbar-avatar">{{ userInitials }}</div>
-        <span class="toolbar-username">{{ userName }}</span>
+      <!-- Mobile: marca no topbar -->
+      <div class="topbar-brand" *ngIf="isMobile">
+        <div class="topbar-mark">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="tbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#9b23a0"/>
+                <stop offset="100%" stop-color="#0f8182"/>
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="8" fill="url(#tbGrad)"/>
+            <text x="16" y="22"
+              font-family="'Inter', system-ui, sans-serif"
+              font-size="15" font-weight="800"
+              fill="white" text-anchor="middle"
+              letter-spacing="-0.8">BL</text>
+          </svg>
+        </div>
+        <span class="topbar-brand-name">Belle Biju</span>
       </div>
-    </mat-toolbar>
 
-    <!-- Conteúdo principal -->
-    <div class="main-content">
+      <span class="topbar-title">{{ pageTitle }}</span>
+
+      <div class="topbar-right">
+        <div class="topbar-user" *ngIf="userName">
+          <div class="topbar-badge">{{ userInitials }}</div>
+          <span class="topbar-name">{{ userName }}</span>
+        </div>
+
+        <!-- Mobile: logout direto no topbar -->
+        <button *ngIf="isMobile" class="topbar-logout-btn" (click)="logout()" aria-label="Sair">
+          <span class="material-icons">logout</span>
+        </button>
+      </div>
+
+    </header>
+
+    <!-- Roteador -->
+    <main class="page-content">
       <router-outlet></router-outlet>
-    </div>
+    </main>
 
-  </mat-sidenav-content>
+  </div>
 
-</mat-sidenav-container>
+  <!-- ══ BOTTOM NAV — mobile only ══ -->
+  <nav class="bottom-nav" *ngIf="isMobile">
+
+    <a class="bnav-item" routerLink="/dashboard" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-icons">grid_view</span>
+      <span class="bnav-label">Dashboard</span>
+    </a>
+
+    <a class="bnav-item" routerLink="adicionarVenda/visualizarVenda" routerLinkActive="active">
+      <span class="material-icons">point_of_sale</span>
+      <span class="bnav-label">Vendas</span>
+    </a>
+
+    <a class="bnav-item" routerLink="graficos" routerLinkActive="active">
+      <span class="material-icons">bar_chart</span>
+      <span class="bnav-label">Gráficos</span>
+    </a>
+
+    <a class="bnav-item" routerLink="produtos" routerLinkActive="active">
+      <span class="material-icons">inventory_2</span>
+      <span class="bnav-label">Produtos</span>
+    </a>
+
+    <a class="bnav-item" routerLink="categorias" routerLinkActive="active">
+      <span class="material-icons">category</span>
+      <span class="bnav-label">Categorias</span>
+    </a>
+
+    <a class="bnav-item" routerLink="usuarios" routerLinkActive="active">
+      <span class="material-icons">manage_accounts</span>
+      <span class="bnav-label">Usuários</span>
+    </a>
+
+  </nav>
+
+</div>

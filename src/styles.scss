@@ -1,3 +1,8 @@
+/* Tailwind CSS — diretivas base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* You can add global styles to this file, and also import other style files */
 
 html,
@@ -6,7 +11,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: "Roboto Mono" !important;
+  font-family: "Inter", system-ui, -apple-system, sans-serif !important;
 }
 
 h1,
@@ -16,10 +21,25 @@ h4,
 h5,
 h6,
 p,
-span,
 div,
 table {
-  font-family: "Roboto Mono" !important;
+  font-family: "Inter", system-ui, -apple-system, sans-serif !important;
+}
+
+/* Protege ícones Material de herdar fonte customizada */
+.material-icons {
+  font-family: 'Material Icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
 }
 
 :root {
@@ -33,23 +53,4 @@ table {
   --black-color: #00022e;
 }
 
-.success {
-  --mdc-snackbar-container-color: var(--primary-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
-}
-
-.error {
-  --mdc-snackbar-container-color: var(--delete-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
-}
-
-.warning {
-  --mdc-snackbar-container-color: var(--warning-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
-}
-
-.secondary {
-  --mdc-snackbar-container-color: var(--secondary-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
-}
 

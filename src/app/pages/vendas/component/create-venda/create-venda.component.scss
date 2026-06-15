@@ -1,46 +1,211 @@
-.dialog-title {
+@import '../../../../shared/styles/dialog-base';
+
+// ── Toggle de modo ────────────────────────────────────────────────────────────
+.modo-toggle {
+  display: flex;
+  gap: 4px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 4px;
+}
+
+.modo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+  height: 34px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: #6b7280;
+  background: transparent;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+  .material-icons { font-size: 15px !important; }
+
+  &.active {
+    background: #fff;
+    color: #138182;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+  }
+}
+
+// ── Autocomplete ─────────────────────────────────────────────────────────────
+.search-autocomplete {
+  position: relative;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  padding: 2px;
+  border-radius: 4px;
+  transition: color 0.12s ease;
+
+  .material-icons { font-size: 16px !important; }
+  &:hover { color: #374151; }
+}
+
+.sugestoes-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  overflow: hidden;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.sugestao-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: #1a1a1a;
-  padding: 16px 20px 12px !important;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  border-bottom: 1px solid #f3f4f6;
 
-  mat-icon { color: #138182; }
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f9fafb; }
 }
 
-.dialog-content {
-  padding: 16px 20px !important;
-  min-width: 320px;
-}
-
-form {
+.sugestao-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  min-width: 0;
 }
 
-.full-width {
-  width: 100%;
+.sugestao-nome {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.sugestao-cat {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.sugestao-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.sugestao-preco {
+  font-size: 13px;
+  font-weight: 700;
+  color: #138182;
+}
+
+.sugestao-estoque {
+  font-size: 11px;
+  color: #9ca3af;
+
+  &.low { color: #dc3545; font-weight: 600; }
+}
+
+.sugestao-empty {
+  padding: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+// ── Card do produto selecionado ───────────────────────────────────────────────
+.produto-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(19, 129, 130, 0.06);
+  border: 1px solid rgba(19, 129, 130, 0.20);
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.produto-card-icon {
+  font-size: 18px !important;
+  color: #138182;
+  flex-shrink: 0;
+}
+
+.produto-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.produto-card-nome {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.produto-card-detalhe {
+  font-size: 11.5px;
+  color: #6b7280;
+}
+
+// ── Desconto ─────────────────────────────────────────────────────────────────
+.desconto-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+
+  .material-icons { font-size: 11px !important; }
+}
+
+.preco-desconto {
+  border-color: #f59e0b !important;
+  color: #d97706 !important;
+  font-weight: 700;
+}
+
+.desconto-hint {
+  color: #d97706 !important;
+  font-weight: 500;
+}
+
+// ── Linha dupla ───────────────────────────────────────────────────────────────
 .row-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-
-  mat-form-field { width: 100%; }
-}
-
-.btn-salvar {
-  background: linear-gradient(135deg, #138182, #0f9090) !important;
-  color: #fff !important;
-  border-radius: 8px !important;
-  font-weight: 600 !important;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  mat-spinner { display: inline-block; }
 }

@@ -1,123 +1,412 @@
 <div class="page-wrapper">
 
-  <!-- Header -->
+  <!-- ══ HEADER ══ -->
   <div class="page-header">
     <div class="header-content">
       <div class="header-info">
         <h1 class="page-heading">
-          <mat-icon>bar_chart</mat-icon>
+          <span class="material-icons heading-icon">bar_chart</span>
           Gráficos
         </h1>
-        <p class="periodo-label" *ngIf="periodo">
-          <mat-icon>date_range</mat-icon>
+        <p class="periodo-chip" *ngIf="periodo">
+          <span class="material-icons">date_range</span>
           {{ periodo.displayInicio }} — {{ periodo.displayFim }}
         </p>
       </div>
-      <button mat-raised-button class="btn-pesquisar" (click)="pesquisarPorData()">
-        <mat-icon>search</mat-icon>
+      <button class="btn-primary" (click)="pesquisarPorData()">
+        <span class="material-icons">search</span>
         {{ hasData ? 'Alterar Período' : 'Pesquisar por Período' }}
       </button>
     </div>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="loading-bar"></mat-progress-bar>
+
+    <div class="header-loader" *ngIf="isLoading">
+      <div class="header-loader-bar"></div>
+    </div>
   </div>
 
-  <!-- Empty state -->
+  <!-- ══ ESTADO VAZIO ══ -->
   <div class="empty-state" *ngIf="!hasData && !isLoading">
     <img src="../../../../../assets/img/grafico.svg" class="empty-img" alt="Sem dados">
-    <h3>Nenhum dado para exibir</h3>
-    <p>Selecione um período para visualizar os gráficos e análises de vendas.</p>
-    <button mat-raised-button class="btn-pesquisar" (click)="pesquisarPorData()">
-      <mat-icon>search</mat-icon>
+    <h3 class="empty-title">Nenhum dado para exibir</h3>
+    <p class="empty-sub">Selecione um período para visualizar os gráficos e análises de vendas.</p>
+    <button class="btn-primary" (click)="pesquisarPorData()">
+      <span class="material-icons">date_range</span>
       Selecionar Período
     </button>
   </div>
 
-  <!-- Main content -->
-  <div class="main-content" *ngIf="hasData">
+  <!-- ══ TABS + CONTEÚDO ══ -->
+  <ng-container *ngIf="hasData">
 
-    <!-- KPI Cards -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-icon kpi-teal">
-          <mat-icon>attach_money</mat-icon>
-        </div>
-        <div class="kpi-body">
-          <span class="kpi-label">Total Vendido</span>
-          <span class="kpi-value">{{ totalVendido | currency:'BRL' }}</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon kpi-purple">
-          <mat-icon>receipt_long</mat-icon>
-        </div>
-        <div class="kpi-body">
-          <span class="kpi-label">Total de Transações</span>
-          <span class="kpi-value">{{ totalTransacoes }}</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon kpi-brown">
-          <mat-icon>trending_up</mat-icon>
-        </div>
-        <div class="kpi-body">
-          <span class="kpi-label">Ticket Médio</span>
-          <span class="kpi-value">{{ ticketMedio | currency:'BRL' }}</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon kpi-red">
-          <mat-icon>star</mat-icon>
-        </div>
-        <div class="kpi-body">
-          <span class="kpi-label">Método Principal</span>
-          <span class="kpi-value kpi-text">{{ metodoPrincipal }}</span>
-        </div>
-      </div>
+    <!-- Tabs -->
+    <div class="tabs-bar">
+      <button class="tab-btn" [class.active]="activeTab === 'relatorio'" (click)="setTab('relatorio')">
+        <span class="material-icons">leaderboard</span>
+        Relatório
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'pagamento'" (click)="setTab('pagamento')">
+        <span class="material-icons">payments</span>
+        Formas de Pagamento
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'categoria'" (click)="setTab('categoria')">
+        <span class="material-icons">category</span>
+        Por Categoria
+      </button>
     </div>
 
-    <!-- Charts -->
-    <div class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-card-header">
-          <mat-icon>bar_chart</mat-icon>
-          <span class="chart-title">Valor por Forma de Pagamento</span>
-        </div>
-        <div class="chart-body">
-          <canvas #graficoBar></canvas>
-        </div>
-      </div>
+    <!-- ══ TAB 1 — RELATÓRIO ══ -->
+    <div class="tab-content" *ngIf="activeTab === 'relatorio' && resumo">
 
-      <div class="chart-card">
-        <div class="chart-card-header">
-          <mat-icon>donut_large</mat-icon>
-          <span class="chart-title">Distribuição de Transações</span>
-        </div>
-        <div class="chart-body">
-          <canvas #graficopizza></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pagamentos Breakdown -->
-    <div class="pagamentos-grid">
-      <div class="pagamento-card" *ngFor="let p of pagamentos">
-        <div class="pagamento-header" [style.background]="p.cor">
-          <mat-icon>{{ p.icone }}</mat-icon>
-          <span>{{ p.label }}</span>
-        </div>
-        <div class="pagamento-body">
-          <div class="pagamento-valor">{{ p.valor | currency:'BRL' }}</div>
-          <div class="pagamento-qtd">{{ p.quantidade }} transaç{{ p.quantidade !== 1 ? 'ões' : 'ão' }}</div>
-          <div class="pagamento-progress">
-            <div class="progress-fill" [style.width.%]="p.percentual" [style.background]="p.cor"></div>
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-teal"><span class="material-icons">attach_money</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Receita Total</span>
+            <span class="kpi-value">{{ resumo.receitaTotal | currency:'BRL' }}</span>
           </div>
-          <div class="pagamento-pct">{{ p.percentual.toFixed(1) }}%</div>
+          <div class="kpi-accent kpi-accent-teal"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-purple"><span class="material-icons">receipt_long</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Total de Vendas</span>
+            <span class="kpi-value">{{ resumo.totalVendas }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-purple"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-brown"><span class="material-icons">trending_up</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Ticket Médio</span>
+            <span class="kpi-value">{{ resumo.ticketMedio | currency:'BRL' }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-brown"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-indigo"><span class="material-icons">emoji_events</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Produto Destaque</span>
+            <span class="kpi-value kpi-text">{{ produtoDestaque }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-indigo"></div>
         </div>
       </div>
+
+      <!-- Gráficos de Produtos -->
+      <div class="charts-grid">
+        <div class="chart-card chart-card--tall">
+          <div class="chart-card-header">
+            <span class="material-icons chart-header-icon">bar_chart</span>
+            <span class="chart-title">Produtos Mais Vendidos (Qtd)</span>
+          </div>
+          <div class="chart-body chart-body--tall">
+            <canvas #graficoBar></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="material-icons chart-header-icon">donut_large</span>
+            <span class="chart-title">Top 5 por Receita</span>
+          </div>
+          <div class="chart-body">
+            <canvas #graficoPizza></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ranking -->
+      <div class="ranking-card" *ngIf="topProdutos.length > 0">
+        <div class="ranking-header">
+          <span class="material-icons chart-header-icon">leaderboard</span>
+          <span class="chart-title">Ranking de Produtos</span>
+        </div>
+        <div class="ranking-table-wrap">
+          <table class="ranking-table">
+            <thead>
+              <tr><th>#</th><th>Produto</th><th>Qtd Vendida</th><th>Receita</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of topProdutos; let i = index" [class.ranking-top3]="i < 3">
+                <td class="ranking-pos">
+                  <span class="pos-badge" [class.gold]="i === 0" [class.silver]="i === 1" [class.bronze]="i === 2">{{ i + 1 }}</span>
+                </td>
+                <td class="ranking-nome">{{ p.nomeProduto }}</td>
+                <td class="ranking-qtd">{{ p.quantidadeTotal }}</td>
+                <td class="ranking-receita">{{ p.receitaTotal | currency:'BRL' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
-  </div>
+    <!-- ══ TAB 2 — FORMAS DE PAGAMENTO ══ -->
+    <div class="tab-content" *ngIf="activeTab === 'pagamento'">
+
+      <!-- KPI Cards Pagamento -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-teal"><span class="material-icons">attach_money</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Total Vendido</span>
+            <span class="kpi-value">{{ totalVendido | currency:'BRL' }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-teal"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-purple"><span class="material-icons">receipt_long</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Total de Transações</span>
+            <span class="kpi-value">{{ totalTransacoes }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-purple"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-brown"><span class="material-icons">trending_up</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Ticket Médio</span>
+            <span class="kpi-value">{{ totalTransacoes > 0 ? (totalVendido / totalTransacoes | currency:'BRL') : 'R$ 0,00' }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-brown"></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-indigo"><span class="material-icons">star</span></div>
+          <div class="kpi-body">
+            <span class="kpi-label">Método Principal</span>
+            <span class="kpi-value kpi-text">{{ metodoPrincipal }}</span>
+          </div>
+          <div class="kpi-accent kpi-accent-indigo"></div>
+        </div>
+      </div>
+
+      <!-- Gráficos de Pagamento -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="material-icons chart-header-icon">bar_chart</span>
+            <span class="chart-title">Valor por Forma de Pagamento</span>
+          </div>
+          <div class="chart-body">
+            <canvas #pagBar></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="material-icons chart-header-icon">donut_large</span>
+            <span class="chart-title">Distribuição de Transações</span>
+          </div>
+          <div class="chart-body">
+            <canvas #pagDoughnut></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards por método -->
+      <div class="pagamentos-grid">
+        <div class="pagamento-card" *ngFor="let p of pagamentos">
+          <div class="pagamento-header" [style.background]="p.cor">
+            <span class="material-icons">{{ p.icone }}</span>
+            <span>{{ p.label }}</span>
+          </div>
+          <div class="pagamento-body">
+            <div class="pagamento-valor">{{ p.valor | currency:'BRL' }}</div>
+            <div class="pagamento-qtd">{{ p.quantidade }} transaç{{ p.quantidade !== 1 ? 'ões' : 'ão' }}</div>
+            <div class="pagamento-progress">
+              <div class="progress-fill" [style.width.%]="p.percentual" [style.background]="p.cor"></div>
+            </div>
+            <div class="pagamento-pct">{{ p.percentual.toFixed(1) }}%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ TAB 3 — POR CATEGORIA ══ -->
+    <div class="tab-content" *ngIf="activeTab === 'categoria'">
+
+      <!-- ── Visão geral de categorias ── -->
+      <ng-container *ngIf="!categoriaAtiva">
+
+        <!-- Gráfico horizontal de categorias -->
+        <div class="chart-card chart-card--tall" *ngIf="resumoCategorias.length > 0">
+          <div class="chart-card-header">
+            <span class="material-icons chart-header-icon">bar_chart</span>
+            <span class="chart-title">Receita por Categoria</span>
+          </div>
+          <div class="chart-body chart-body--tall">
+            <canvas #catBar></canvas>
+          </div>
+        </div>
+
+        <!-- Ranking de categorias clicável -->
+        <div class="ranking-card" *ngIf="resumoCategorias.length > 0">
+          <div class="ranking-header">
+            <span class="material-icons chart-header-icon">category</span>
+            <span class="chart-title">Ranking de Categorias</span>
+            <span class="ranking-hint">Clique em uma categoria para ver o detalhe</span>
+          </div>
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <thead>
+                <tr><th>#</th><th>Categoria</th><th>Vendas</th><th>Receita</th><th>Ticket Médio</th><th></th></tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of resumoCategorias; let i = index"
+                    class="cat-row"
+                    [class.ranking-top3]="i < 3"
+                    (click)="verDetalheCategoria(c)">
+                  <td class="ranking-pos">
+                    <span class="pos-badge" [class.gold]="i === 0" [class.silver]="i === 1" [class.bronze]="i === 2">{{ i + 1 }}</span>
+                  </td>
+                  <td class="ranking-nome">{{ c.nomeCategoria }}</td>
+                  <td class="ranking-qtd">{{ c.totalVendas }}</td>
+                  <td class="ranking-receita">{{ c.receitaTotal | currency:'BRL' }}</td>
+                  <td class="ranking-ticket">{{ c.ticketMedio | currency:'BRL' }}</td>
+                  <td class="ranking-action">
+                    <span class="material-icons">chevron_right</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sem categorias -->
+        <div class="empty-state" *ngIf="resumoCategorias.length === 0">
+          <span class="material-icons empty-icon-lg">category</span>
+          <h3 class="empty-title">Nenhuma categoria com vendas</h3>
+          <p class="empty-sub">Não há vendas vinculadas a categorias no período selecionado.</p>
+        </div>
+
+      </ng-container>
+
+      <!-- ── Detalhe de uma categoria ── -->
+      <ng-container *ngIf="categoriaAtiva">
+
+        <!-- Back + título -->
+        <div class="cat-detail-header">
+          <button class="back-btn" (click)="voltarParaCategorias()">
+            <span class="material-icons">arrow_back</span>
+            Voltar
+          </button>
+          <div class="cat-detail-title">
+            <span class="material-icons cat-detail-icon">category</span>
+            {{ categoriaAtiva.nomeCategoria }}
+          </div>
+        </div>
+
+        <!-- Loading skeleton -->
+        <div class="cat-loading" *ngIf="isLoadingCat">
+          <div class="cat-loading-spinner"></div>
+          <span>Carregando dados da categoria...</span>
+        </div>
+
+        <!-- Conteúdo do detalhe -->
+        <ng-container *ngIf="!isLoadingCat && resumoCategoria">
+
+          <!-- KPI cards do detalhe -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon-wrap kpi-teal"><span class="material-icons">attach_money</span></div>
+              <div class="kpi-body">
+                <span class="kpi-label">Receita da Categoria</span>
+                <span class="kpi-value">{{ resumoCategoria.receitaTotal | currency:'BRL' }}</span>
+              </div>
+              <div class="kpi-accent kpi-accent-teal"></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon-wrap kpi-purple"><span class="material-icons">receipt_long</span></div>
+              <div class="kpi-body">
+                <span class="kpi-label">Total de Vendas</span>
+                <span class="kpi-value">{{ resumoCategoria.totalVendas }}</span>
+              </div>
+              <div class="kpi-accent kpi-accent-purple"></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon-wrap kpi-brown"><span class="material-icons">trending_up</span></div>
+              <div class="kpi-body">
+                <span class="kpi-label">Ticket Médio</span>
+                <span class="kpi-value">{{ resumoCategoria.ticketMedio | currency:'BRL' }}</span>
+              </div>
+              <div class="kpi-accent kpi-accent-brown"></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon-wrap kpi-indigo"><span class="material-icons">emoji_events</span></div>
+              <div class="kpi-body">
+                <span class="kpi-label">Produto Destaque</span>
+                <span class="kpi-value kpi-text">{{ topProdutosCategoria.length > 0 ? topProdutosCategoria[0].nomeProduto : '—' }}</span>
+              </div>
+              <div class="kpi-accent kpi-accent-indigo"></div>
+            </div>
+          </div>
+
+          <!-- Gráficos do detalhe -->
+          <div class="charts-grid">
+            <div class="chart-card chart-card--tall">
+              <div class="chart-card-header">
+                <span class="material-icons chart-header-icon">bar_chart</span>
+                <span class="chart-title">Produtos Mais Vendidos</span>
+              </div>
+              <div class="chart-body chart-body--tall">
+                <canvas #catDetalheBar></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <span class="material-icons chart-header-icon">donut_large</span>
+                <span class="chart-title">Top 5 por Receita</span>
+              </div>
+              <div class="chart-body">
+                <canvas #catDetalhePizza></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ranking de produtos da categoria -->
+          <div class="ranking-card" *ngIf="topProdutosCategoria.length > 0">
+            <div class="ranking-header">
+              <span class="material-icons chart-header-icon">leaderboard</span>
+              <span class="chart-title">Produtos da Categoria</span>
+            </div>
+            <div class="ranking-table-wrap">
+              <table class="ranking-table">
+                <thead>
+                  <tr><th>#</th><th>Produto</th><th>Qtd Vendida</th><th>Receita</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of topProdutosCategoria; let i = index" [class.ranking-top3]="i < 3">
+                    <td class="ranking-pos">
+                      <span class="pos-badge" [class.gold]="i === 0" [class.silver]="i === 1" [class.bronze]="i === 2">{{ i + 1 }}</span>
+                    </td>
+                    <td class="ranking-nome">{{ p.nomeProduto }}</td>
+                    <td class="ranking-qtd">{{ p.quantidadeTotal }}</td>
+                    <td class="ranking-receita">{{ p.receitaTotal | currency:'BRL' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </ng-container>
+
+      </ng-container>
+
+    </div>
+
+  </ng-container>
+
 </div>

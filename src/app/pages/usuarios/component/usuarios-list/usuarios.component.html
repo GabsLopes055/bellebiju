@@ -1,93 +1,171 @@
-<div class="container">
-  <div class="content">
+<div class="table-card">
 
-    <mat-card class="card-superior mat-elevation-z8">
-      <mat-card-header>
-        <mat-card-title>Usuários</mat-card-title>
-        <mat-card-subtitle>{{ users.length }} usuário(s) cadastrado(s)</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="card-actions">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Pesquisar</mat-label>
-          <input matInput [(ngModel)]="searchTerm" placeholder="Nome ou usuário...">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <button class="button-cadastrar" mat-raised-button (click)="createNewUser()">
-          <mat-icon>person_add</mat-icon>
-          Cadastrar Usuário
-        </button>
-      </mat-card-content>
-    </mat-card>
-
-    <div class="progress">
-      <mat-divider></mat-divider>
-      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  <!-- ══ TOOLBAR ══ -->
+  <div class="card-toolbar">
+    <div class="toolbar-left">
+      <div class="card-title-wrap">
+        <span class="material-icons card-title-icon">group</span>
+        <h2 class="card-title">Usuários</h2>
+      </div>
+      <span class="count-chip" *ngIf="allUsers.length > 0">
+        {{ allUsers.length }} cadastrado{{ allUsers.length !== 1 ? 's' : '' }}
+      </span>
     </div>
 
-    <mat-card class="card-table-users mat-elevation-z8">
-      <div class="tableUsers">
-        <table mat-table [dataSource]="filteredUsers">
+    <div class="toolbar-actions">
+      <button class="btn-primary" (click)="createNewUser()">
+        <span class="material-icons">person_add</span>
+        Novo Usuário
+      </button>
+    </div>
+  </div>
 
-          <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef>Nome</th>
-            <td mat-cell *matCellDef="let element">
-              <div class="user-name-cell">
-                <mat-icon class="user-icon">person</mat-icon>
-                <span>{{ element.nome }}</span>
+  <!-- ══ BUSCA + LOADER ══ -->
+  <div class="search-row">
+    <div class="search-wrap">
+      <span class="material-icons search-icon">search</span>
+      <input class="search-input" type="text"
+        placeholder="Buscar por nome ou usuário..."
+        (input)="applyFilter($event)">
+    </div>
+  </div>
+
+  <div class="table-loader" *ngIf="isLoading">
+    <div class="table-loader-bar"></div>
+  </div>
+
+  <!-- ══ TABELA ══ -->
+  <div class="table-wrap">
+    <table class="data-table">
+      <colgroup>
+        <col style="width: auto">
+        <col style="width: 160px">
+        <col style="width: 130px">
+        <col style="width: 110px">
+        <col style="width: 80px">
+      </colgroup>
+
+      <thead>
+        <tr>
+          <th class="th-sort" (click)="sortBy('nome')">
+            <span>Nome</span>
+            <span class="material-icons sort-icon" [class.sort-active]="sortField === 'nome'">
+              {{ getSortIcon('nome') }}
+            </span>
+          </th>
+          <th class="th-sort" (click)="sortBy('username')">
+            <span>Usuário</span>
+            <span class="material-icons sort-icon" [class.sort-active]="sortField === 'username'">
+              {{ getSortIcon('username') }}
+            </span>
+          </th>
+          <th class="th-sort" (click)="sortBy('createdAt')">
+            <span>Criado em</span>
+            <span class="material-icons sort-icon" [class.sort-active]="sortField === 'createdAt'">
+              {{ getSortIcon('createdAt') }}
+            </span>
+          </th>
+          <th>Permissão</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Linhas de dados -->
+        <tr class="table-row" *ngFor="let row of displayedUsers">
+
+          <!-- Nome -->
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar">
+                {{ row.nome.charAt(0).toUpperCase() }}
               </div>
-            </td>
-          </ng-container>
+              <span class="user-name">{{ row.nome }}</span>
+            </div>
+          </td>
 
-          <ng-container matColumnDef="username">
-            <th mat-header-cell *matHeaderCellDef>Usuário</th>
-            <td mat-cell *matCellDef="let element">{{ element.username }}</td>
-          </ng-container>
+          <!-- Username -->
+          <td class="td-username">{{ row.username }}</td>
 
-          <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef>Criado em</th>
-            <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'dd/MM/yyyy' }}</td>
-          </ng-container>
+          <!-- Data -->
+          <td class="td-date">{{ row.createdAt | date:'dd/MM/yyyy' }}</td>
 
-          <ng-container matColumnDef="roles">
-            <th mat-header-cell *matHeaderCellDef>Permissão</th>
-            <td mat-cell *matCellDef="let element">
-              <span class="role-badge" [ngClass]="element.roles === 'ADMIN' ? 'role-admin' : 'role-user'">
-                {{ element.roles }}
+          <!-- Role -->
+          <td>
+            <span class="role-badge"
+              [class.role-admin]="row.roles === 'ADMIN'"
+              [class.role-user]="row.roles !== 'ADMIN'">
+              <span class="material-icons role-icon">
+                {{ row.roles === 'ADMIN' ? 'shield' : 'person' }}
               </span>
-            </td>
-          </ng-container>
+              {{ row.roles === 'ADMIN' ? 'Admin' : 'Usuário' }}
+            </span>
+          </td>
 
-          <ng-container matColumnDef="editar">
-            <th mat-header-cell *matHeaderCellDef>Editar</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="editarUsuario(element)" matTooltip="Editar usuário">
-                <mat-icon>edit</mat-icon>
+          <!-- Ações -->
+          <td>
+            <div class="acoes-cell">
+              <button class="action-btn edit-btn" (click)="editarUsuario(row)" title="Editar usuário">
+                <span class="material-icons">edit</span>
               </button>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="deletar">
-            <th mat-header-cell *matHeaderCellDef>Deletar</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="warn" (click)="deleteUsuario(element)" matTooltip="Excluir usuário">
-                <mat-icon>delete</mat-icon>
+              <button class="action-btn delete-btn" (click)="deleteUsuario(row)" title="Excluir usuário">
+                <span class="material-icons">delete_outline</span>
               </button>
-            </td>
-          </ng-container>
+            </div>
+          </td>
 
-          <tr mat-header-row *matHeaderRowDef="headersTable"></tr>
-          <tr mat-row *matRowDef="let row; columns: headersTable;"></tr>
+        </tr>
 
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell no-data-cell" colspan="6">
-              <mat-icon>search_off</mat-icon>
-              <span>Nenhum usuário encontrado</span>
-            </td>
-          </tr>
+        <!-- Estado vazio -->
+        <tr *ngIf="displayedUsers.length === 0 && !isLoading">
+          <td colspan="5">
+            <div class="empty-state">
+              <span class="material-icons empty-icon">group_off</span>
+              <span class="empty-title">Nenhum usuário encontrado</span>
+              <span class="empty-sub" *ngIf="filterText">
+                Tente remover o filtro de busca
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        </table>
-      </div>
-    </mat-card>
+  <!-- ══ PAGINAÇÃO ══ -->
+  <div class="pagination" *ngIf="totalFiltered > 0">
+
+    <span class="pg-info">{{ paginationInfo }}</span>
+
+    <div class="pg-controls">
+      <button class="pg-btn" (click)="goToPage(1)" [disabled]="page === 1" title="Primeira">
+        <span class="material-icons">first_page</span>
+      </button>
+      <button class="pg-btn" (click)="goToPage(page - 1)" [disabled]="page === 1" title="Anterior">
+        <span class="material-icons">chevron_left</span>
+      </button>
+
+      <button class="pg-btn"
+        *ngFor="let p of pageNumbers"
+        [class.pg-active]="p === page"
+        (click)="goToPage(p)">
+        {{ p }}
+      </button>
+
+      <button class="pg-btn" (click)="goToPage(page + 1)" [disabled]="page === totalPages" title="Próxima">
+        <span class="material-icons">chevron_right</span>
+      </button>
+      <button class="pg-btn" (click)="goToPage(totalPages)" [disabled]="page === totalPages" title="Última">
+        <span class="material-icons">last_page</span>
+      </button>
+    </div>
+
+    <select class="pg-size" (change)="onPageSizeChange($event)" title="Itens por página">
+      <option value="10">10 / pág</option>
+      <option value="25">25 / pág</option>
+      <option value="50">50 / pág</option>
+    </select>
 
   </div>
+
 </div>

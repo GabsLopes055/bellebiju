@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { venda } from 'src/app/shared/models/venda';
+import { PaginaResponse } from 'src/app/shared/models/pagina-response';
 import { environment } from 'src/environments/environment.development';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,33 +13,45 @@ import { environment } from 'src/environments/environment.development';
 export class VendasService {
   constructor(
     private http: HttpClient,
-    private message: MatSnackBar,
+    private toast: ToastService,
     private route: Router,
   ) {}
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, 'X', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: color,
-    });
+    this.toast.showMessage(msg, color);
   }
 
   private errorHandler(e: any): Observable<never> {
-    if (e.status === 500) {
-      this.showMessage('Erro Interno', 'error');
-    } else if (e.status === 403) {
-      this.route.navigate(['/login']);
-      this.showMessage('Por favor, refaça o login', 'warning');
+    switch (e.status) {
+      case 403:
+        this.route.navigate(['/login']);
+        this.showMessage('Por favor, refaça o login', 'warning');
+        break;
+      case 404:
+        this.showMessage('Venda não encontrada', 'error');
+        break;
+      case 409:
+        this.showMessage('Conflito de dados', 'error');
+        break;
+      case 422:
+        this.showMessage(e.error?.message ?? 'Estoque insuficiente', 'error');
+        break;
+      case 500:
+        this.showMessage('Erro interno no servidor', 'error');
+        break;
+      default:
+        this.showMessage('Ocorreu um erro inesperado', 'error');
     }
     return EMPTY;
   }
 
   listAllVendas(): Observable<venda[]> {
     return this.http
-      .get<venda[]>(environment.url + '/vendas')
-      .pipe(catchError((e) => this.errorHandler(e)));
+      .get<PaginaResponse<venda>>(environment.url + '/vendas?tamanho=500')
+      .pipe(
+        map((r) => r.conteudo),
+        catchError((e) => this.errorHandler(e))
+      );
   }
 
   createNewVenda(venda: Partial<venda>): Observable<venda> {

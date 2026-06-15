@@ -1,0 +1,75 @@
+<div class="dialog-wrap">
+
+  <div class="dialog-header">
+    <div class="dialog-icon-wrap purple">
+      <span class="material-icons">edit</span>
+    </div>
+    <div>
+      <h2 class="dialog-title">Editar Categoria</h2>
+      <p class="dialog-subtitle">{{ data.categoria.nomeCategoria }}</p>
+    </div>
+    <button class="dialog-close-btn" mat-dialog-close>
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <!-- Formulário de edição -->
+  <form [formGroup]="formGroup" (ngSubmit)="update()" class="dialog-body" *ngIf="!confirmDelete">
+
+    <div class="field-group">
+      <label class="field-label">Nome da Categoria</label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons">label</span>
+        <input
+          class="field-input has-icon"
+          type="text"
+          placeholder="Nome da categoria"
+          formControlName="nomeCategoria"
+          autocomplete="off"
+        />
+      </div>
+      <span class="field-error" *ngIf="formGroup.get('nomeCategoria')?.touched && getError()">
+        {{ getError() }}
+      </span>
+    </div>
+
+    <div class="dialog-footer footer-split">
+      <button type="button" class="btn-danger-outline" (click)="confirmDelete = true">
+        <span class="material-icons">delete</span>
+        Excluir
+      </button>
+      <div class="footer-right">
+        <button type="button" class="btn-ghost" mat-dialog-close>Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="formGroup.invalid || isLoading">
+          <span class="btn-spinner" *ngIf="isLoading"></span>
+          <span class="material-icons" *ngIf="!isLoading">save</span>
+          {{ isLoading ? 'Salvando...' : 'Salvar' }}
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Confirmação de exclusão -->
+  <div class="dialog-body" *ngIf="confirmDelete">
+    <div class="confirm-box">
+      <span class="material-icons confirm-icon">warning_amber</span>
+      <p class="confirm-text">
+        Tem certeza que deseja excluir a categoria
+        <strong>{{ data.categoria.nomeCategoria }}</strong>?
+        <br>
+        <small>Produtos vinculados ficarão sem categoria.</small>
+      </p>
+    </div>
+
+    <div class="dialog-footer footer-split">
+      <button type="button" class="btn-ghost" (click)="confirmDelete = false">Voltar</button>
+      <button type="button" class="btn-danger" (click)="delete()" [disabled]="isLoading">
+        <span class="btn-spinner" *ngIf="isLoading"></span>
+        <span class="material-icons" *ngIf="!isLoading">delete_forever</span>
+        {{ isLoading ? 'Excluindo...' : 'Confirmar Exclusão' }}
+      </button>
+    </div>
+  </div>
+
+</div>

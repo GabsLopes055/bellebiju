@@ -1,0 +1,118 @@
+<div class="dialog-wrap">
+
+  <div class="dialog-header">
+    <div class="dialog-icon-wrap purple">
+      <span class="material-icons">edit</span>
+    </div>
+    <div>
+      <h2 class="dialog-title">Editar Produto</h2>
+      <p class="dialog-subtitle">{{ data.produto.nomeProduto }}</p>
+    </div>
+    <button class="dialog-close-btn" mat-dialog-close>
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <!-- Formulário de edição -->
+  <form [formGroup]="formGroup" (ngSubmit)="update()" class="dialog-body" *ngIf="!confirmDelete">
+
+    <!-- Nome -->
+    <div class="field-group">
+      <label class="field-label">Nome do Produto <span class="required">*</span></label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons">label</span>
+        <input class="field-input has-icon" type="text"
+          formControlName="nomeProduto" autocomplete="off" />
+      </div>
+      <span class="field-error" *ngIf="formGroup.get('nomeProduto')?.touched && getError('nomeProduto')">
+        {{ getError('nomeProduto') }}
+      </span>
+    </div>
+
+    <!-- Preço -->
+    <div class="field-group">
+      <label class="field-label">Preço <span class="required">*</span></label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons">attach_money</span>
+        <input class="field-input has-icon" type="number" step="0.01" min="0.01"
+          formControlName="precoProduto" />
+      </div>
+      <span class="field-error" *ngIf="formGroup.get('precoProduto')?.touched && getError('precoProduto')">
+        {{ getError('precoProduto') }}
+      </span>
+    </div>
+
+    <!-- Estoque + Mínimo -->
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">Qtd. em Estoque</label>
+        <div class="field-input-wrap">
+          <span class="field-icon material-icons">warehouse</span>
+          <input class="field-input has-icon" type="number" min="0"
+            formControlName="quantidadeEstoque" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Estoque Mínimo</label>
+        <div class="field-input-wrap">
+          <span class="field-icon material-icons">warning</span>
+          <input class="field-input has-icon" type="number" min="0"
+            formControlName="estoqueMinimo" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Categoria -->
+    <div class="field-group">
+      <label class="field-label">Categoria</label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons">category</span>
+        <select class="field-input has-icon" formControlName="idCategoria">
+          <option [ngValue]="null">Sem categoria</option>
+          <option *ngFor="let cat of categorias" [value]="cat.idCategoria">
+            {{ cat.nomeCategoria }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="dialog-footer footer-split">
+      <button type="button" class="btn-danger-outline" (click)="confirmDelete = true">
+        <span class="material-icons">delete</span>
+        Excluir
+      </button>
+      <div class="footer-right">
+        <button type="button" class="btn-ghost" mat-dialog-close>Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="formGroup.invalid || isLoading">
+          <span class="btn-spinner" *ngIf="isLoading"></span>
+          <span class="material-icons" *ngIf="!isLoading">save</span>
+          {{ isLoading ? 'Salvando...' : 'Salvar' }}
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Confirmação de exclusão -->
+  <div class="dialog-body" *ngIf="confirmDelete">
+    <div class="confirm-box">
+      <span class="material-icons confirm-icon">warning_amber</span>
+      <p class="confirm-text">
+        Tem certeza que deseja excluir
+        <strong>{{ data.produto.nomeProduto }}</strong>?
+        <br>
+        <small>Esta ação não pode ser desfeita.</small>
+      </p>
+    </div>
+
+    <div class="dialog-footer footer-split">
+      <button type="button" class="btn-ghost" (click)="confirmDelete = false">Voltar</button>
+      <button type="button" class="btn-danger" (click)="delete()" [disabled]="isLoading">
+        <span class="btn-spinner" *ngIf="isLoading"></span>
+        <span class="material-icons" *ngIf="!isLoading">delete_forever</span>
+        {{ isLoading ? 'Excluindo...' : 'Confirmar Exclusão' }}
+      </button>
+    </div>
+  </div>
+
+</div>

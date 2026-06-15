@@ -1,74 +1,92 @@
 <div class="page-wrapper">
 
-  <!-- Banner de boas-vindas -->
+  <!-- ══ BANNER ══ -->
   <div class="welcome-banner">
-    <div class="welcome-left">
-      <p class="welcome-saudacao">{{ saudacao }}, <strong>{{ primeiroNome }}</strong>!</p>
-      <p class="welcome-date">
-        <mat-icon>today</mat-icon>
-        {{ dataFormatada }}
-      </p>
-    </div>
-    <div class="welcome-icon-wrap">
-      <mat-icon>storefront</mat-icon>
+    <div class="banner-deco-grid"></div>
+    <div class="banner-glow glow-left"></div>
+    <div class="banner-glow glow-right"></div>
+
+    <div class="banner-body">
+      <div class="banner-left">
+        <p class="banner-greeting">{{ saudacao }}, <strong>{{ primeiroNome }}</strong>!</p>
+        <p class="banner-date">
+          <span class="material-icons">today</span>
+          {{ dataFormatada }}
+        </p>
+      </div>
+
+      <div class="banner-icon">
+        <span class="material-icons">storefront</span>
+      </div>
     </div>
   </div>
 
-  <!-- KPIs de hoje -->
+  <!-- ══ KPIs ══ -->
   <div class="section-header">
-    <mat-icon>insights</mat-icon>
-    <span>Resumo de hoje</span>
-    <mat-progress-bar *ngIf="isLoadingKpis" mode="indeterminate" class="kpi-loader"></mat-progress-bar>
+    <div class="section-label-wrap">
+      <span class="material-icons section-icon">insights</span>
+      <span class="section-label">Resumo de hoje</span>
+    </div>
+    <!-- Loader customizado -->
+    <div class="kpi-loader" *ngIf="isLoadingKpis">
+      <div class="kpi-loader-bar"></div>
+    </div>
   </div>
 
   <div class="kpi-grid" [class.kpi-loading]="isLoadingKpis">
 
     <div class="kpi-card">
-      <div class="kpi-icon kpi-teal">
-        <mat-icon>paid</mat-icon>
+      <div class="kpi-icon-wrap kpi-teal">
+        <span class="material-icons">paid</span>
       </div>
       <div class="kpi-body">
         <span class="kpi-label">Total Vendido</span>
         <span class="kpi-value">{{ totalVendidoHoje | currency:'BRL' }}</span>
       </div>
+      <div class="kpi-accent kpi-accent-teal"></div>
     </div>
 
     <div class="kpi-card">
-      <div class="kpi-icon kpi-purple">
-        <mat-icon>point_of_sale</mat-icon>
+      <div class="kpi-icon-wrap kpi-purple">
+        <span class="material-icons">point_of_sale</span>
       </div>
       <div class="kpi-body">
         <span class="kpi-label">Vendas Realizadas</span>
         <span class="kpi-value">{{ vendasHoje }}</span>
       </div>
+      <div class="kpi-accent kpi-accent-purple"></div>
     </div>
 
     <div class="kpi-card">
-      <div class="kpi-icon kpi-brown">
-        <mat-icon>inventory_2</mat-icon>
+      <div class="kpi-icon-wrap kpi-brown">
+        <span class="material-icons">inventory_2</span>
       </div>
       <div class="kpi-body">
         <span class="kpi-label">Produtos Vendidos</span>
         <span class="kpi-value">{{ produtosVendidosHoje }}</span>
       </div>
+      <div class="kpi-accent kpi-accent-brown"></div>
     </div>
 
     <div class="kpi-card">
-      <div class="kpi-icon kpi-red">
-        <mat-icon>trending_up</mat-icon>
+      <div class="kpi-icon-wrap kpi-indigo">
+        <span class="material-icons">trending_up</span>
       </div>
       <div class="kpi-body">
         <span class="kpi-label">Ticket Médio</span>
         <span class="kpi-value">{{ ticketMedioHoje | currency:'BRL' }}</span>
       </div>
+      <div class="kpi-accent kpi-accent-indigo"></div>
     </div>
 
   </div>
 
-  <!-- Tabela de vendas -->
+  <!-- ══ TABELA DE VENDAS ══ -->
   <div class="section-header">
-    <mat-icon>receipt_long</mat-icon>
-    <span>Todas as Vendas</span>
+    <div class="section-label-wrap">
+      <span class="material-icons section-icon">receipt_long</span>
+      <span class="section-label">Todas as Vendas</span>
+    </div>
   </div>
 
   <app-accordion-vendas></app-accordion-vendas>

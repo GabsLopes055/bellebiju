@@ -1,54 +1,78 @@
-<div class="content">
-  <h2 class="dialog-title" matDialogTitle>
-    <mat-icon>edit</mat-icon>
-    Editar Usuário
-  </h2>
-  <mat-divider></mat-divider>
+<div class="dialog-wrap">
 
-  <mat-dialog-content>
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="dialog-title-row">
+      <div class="dialog-icon-wrap teal">
+        <span class="material-icons">manage_accounts</span>
+      </div>
+      <div>
+        <h2 class="dialog-title">Editar Usuário</h2>
+        <p class="dialog-sub">Atualize os dados do usuário</p>
+      </div>
+    </div>
+    <button class="dialog-close" mat-dialog-close title="Fechar">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="dialog-body">
     <form [formGroup]="formGroup">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Nome completo</mat-label>
-        <input matInput formControlName="nome">
-        <mat-icon matSuffix>badge</mat-icon>
-        <mat-error>{{ getErrorMessage('nome') }}</mat-error>
-      </mat-form-field>
+      <div class="field-group">
+        <label class="field-label">Nome completo</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">badge</span>
+          <input class="field-input has-icon" type="text" formControlName="nome">
+        </div>
+        <span class="field-error" *ngIf="formGroup.controls['nome'].touched && formGroup.controls['nome'].invalid">
+          {{ getErrorMessage('nome') }}
+        </span>
+      </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Nome de usuário</mat-label>
-        <input matInput formControlName="username">
-        <mat-icon matSuffix>alternate_email</mat-icon>
-        <mat-error>{{ getErrorMessage('username') }}</mat-error>
-      </mat-form-field>
+      <div class="field-group">
+        <label class="field-label">Nome de usuário</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">alternate_email</span>
+          <input class="field-input has-icon" type="text" formControlName="username">
+        </div>
+        <span class="field-error" *ngIf="formGroup.controls['username'].touched && formGroup.controls['username'].invalid">
+          {{ getErrorMessage('username') }}
+        </span>
+      </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Permissão</mat-label>
-        <mat-select formControlName="roles">
-          <mat-option *ngFor="let role of allRoles" [value]="role">{{ role }}</mat-option>
-        </mat-select>
-        <mat-icon matSuffix>shield</mat-icon>
-        <mat-error>{{ getErrorMessage('roles') }}</mat-error>
-      </mat-form-field>
+      <div class="field-group">
+        <label class="field-label">Permissão</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">shield</span>
+          <select class="field-input has-icon" formControlName="roles">
+            <option *ngFor="let role of allRoles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+        <span class="field-error" *ngIf="formGroup.controls['roles'].touched && formGroup.controls['roles'].invalid">
+          {{ getErrorMessage('roles') }}
+        </span>
+      </div>
 
     </form>
-  </mat-dialog-content>
+  </div>
 
-  <mat-divider></mat-divider>
-
-  <mat-dialog-actions>
-    <div class="actions-container">
-      <div class="main-actions">
-        <button mat-raised-button color="primary" (click)="updateUser()" [disabled]="formGroup.invalid || isLoading">
-          <mat-progress-spinner *ngIf="isLoading" diameter="18" mode="indeterminate" class="btn-spinner"></mat-progress-spinner>
-          <span *ngIf="!isLoading">Salvar</span>
-        </button>
-        <button mat-button matDialogClose [disabled]="isLoading">Cancelar</button>
-      </div>
-      <button mat-raised-button color="warn" (click)="deletarUser()" [disabled]="isLoading">
-        <mat-icon>delete</mat-icon>
-        Excluir
+  <!-- Footer -->
+  <div class="dialog-footer space-between">
+    <button class="btn-danger-outline" (click)="deletarUser()" [disabled]="isLoading">
+      <span class="material-icons">delete_outline</span>
+      Excluir
+    </button>
+    <div class="footer-right">
+      <button class="btn-ghost" mat-dialog-close [disabled]="isLoading">Cancelar</button>
+      <button class="btn-primary" (click)="updateUser()"
+        [disabled]="formGroup.invalid || isLoading">
+        <span class="btn-spinner" *ngIf="isLoading"></span>
+        <span class="material-icons" *ngIf="!isLoading">save</span>
+        {{ isLoading ? 'Salvando...' : 'Salvar' }}
       </button>
     </div>
-  </mat-dialog-actions>
+  </div>
+
 </div>

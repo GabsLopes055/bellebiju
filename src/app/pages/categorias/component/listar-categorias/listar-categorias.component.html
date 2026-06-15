@@ -1,0 +1,88 @@
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">
+        <span class="material-icons page-icon">category</span>
+        Categorias
+      </h1>
+      <span class="total-badge">{{ allCategorias.length }} categori{{ allCategorias.length !== 1 ? 'as' : 'a' }}</span>
+    </div>
+    <button class="btn-primary" (click)="openCreate()">
+      <span class="material-icons">add</span>
+      Nova Categoria
+    </button>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="table-toolbar">
+    <div class="search-wrap">
+      <span class="material-icons search-icon">search</span>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Filtrar por nome..."
+        [(ngModel)]="filterText"
+        (input)="updateDisplay()"
+      />
+      <button class="search-clear" *ngIf="filterText" (click)="filterText = ''; updateDisplay()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SKELETON LOADER -->
+  <div class="skeleton-list" *ngIf="isLoading">
+    <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5]"></div>
+  </div>
+
+  <!-- TABELA -->
+  <div class="table-card" *ngIf="!isLoading">
+
+    <div class="empty-state" *ngIf="displayed.length === 0 && !filterText">
+      <span class="material-icons empty-icon">category</span>
+      <p class="empty-text">Nenhuma categoria cadastrada</p>
+      <button class="btn-primary" (click)="openCreate()">
+        <span class="material-icons">add</span>
+        Criar primeira categoria
+      </button>
+    </div>
+
+    <div class="empty-state" *ngIf="displayed.length === 0 && filterText">
+      <span class="material-icons empty-icon">search_off</span>
+      <p class="empty-text">Nenhuma categoria encontrada para "{{ filterText }}"</p>
+    </div>
+
+    <table class="data-table" *ngIf="displayed.length > 0">
+      <thead>
+        <tr>
+          <th class="th-icon"></th>
+          <th>Nome</th>
+          <th class="th-id">ID</th>
+          <th class="th-actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of displayed" class="table-row">
+          <td class="td-icon">
+            <div class="cat-gem-wrap">
+              <span class="material-icons cat-gem">label</span>
+            </div>
+          </td>
+          <td class="td-nome">{{ cat.nomeCategoria }}</td>
+          <td class="td-id">{{ cat.idCategoria | slice:0:8 }}...</td>
+          <td class="td-actions">
+            <div class="acoes-cell">
+              <button class="action-btn edit-btn" title="Editar" (click)="openEdit(cat)">
+                <span class="material-icons">edit</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

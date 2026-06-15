@@ -45,7 +45,14 @@ const routes: Routes = [
           import(
             './pages/produtos/module/produtos.module'
           ).then((module) => module.ProdutosModule),
-      }
+      },
+      {
+        path: 'categorias',
+        loadChildren: () =>
+          import('./pages/categorias/module/categorias.module').then(
+            (module) => module.CategoriasModule
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

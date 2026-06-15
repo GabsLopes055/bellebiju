@@ -1,77 +1,163 @@
 <div class="login-page">
 
-  <!-- Painel esquerdo: marca -->
+  <!-- ══ PAINEL ESQUERDO (marca) ══ -->
   <div class="brand-panel">
-    <div class="deco-circle deco-1"></div>
-    <div class="deco-circle deco-2"></div>
-    <div class="deco-circle deco-3"></div>
+
+    <!-- Grade decorativa de fundo -->
+    <div class="deco-grid"></div>
+
+    <!-- Brilho difuso no canto superior -->
+    <div class="deco-glow glow-top"></div>
+    <div class="deco-glow glow-bottom"></div>
 
     <div class="brand-content">
-      <div class="logo-wrap">
-        <img src="../../../assets/img/logo.jpeg" alt="Belle Biju">
+
+      <!-- Logo BL — mesmo SVG do sidebar -->
+      <div class="brand-logo-wrap">
+        <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="lBlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#9b23a0"/>
+              <stop offset="100%" stop-color="#0f8182"/>
+            </linearGradient>
+            <linearGradient id="lSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+          </defs>
+          <rect width="56" height="56" rx="14" fill="url(#lBlGrad)"/>
+          <rect width="56" height="28" rx="14" fill="url(#lSheen)"/>
+          <rect width="56" height="14" fill="url(#lSheen)" y="14"/>
+          <text x="28" y="39"
+            font-family="'Inter', system-ui, sans-serif"
+            font-size="26" font-weight="800"
+            fill="white" text-anchor="middle"
+            letter-spacing="-1">BL</text>
+        </svg>
       </div>
+
       <h1 class="brand-name">Belle Biju</h1>
       <p class="brand-tagline">Gestão de Bijuterias</p>
 
+      <!-- Separador -->
+      <div class="brand-sep"></div>
+
+      <!-- Features — estilo nav-icon-wrap do sidebar -->
       <div class="brand-features">
+
         <div class="feature-item">
-          <mat-icon>point_of_sale</mat-icon>
-          <span>Controle de Vendas</span>
+          <div class="feat-icon">
+            <span class="material-icons">point_of_sale</span>
+          </div>
+          <div class="feat-info">
+            <span class="feat-title">Controle de Vendas</span>
+            <span class="feat-sub">Registre e acompanhe em tempo real</span>
+          </div>
         </div>
+
         <div class="feature-item">
-          <mat-icon>bar_chart</mat-icon>
-          <span>Relatórios e Gráficos</span>
+          <div class="feat-icon">
+            <span class="material-icons">bar_chart</span>
+          </div>
+          <div class="feat-info">
+            <span class="feat-title">Relatórios e Gráficos</span>
+            <span class="feat-sub">Visualize o desempenho da loja</span>
+          </div>
         </div>
+
         <div class="feature-item">
-          <mat-icon>inventory_2</mat-icon>
-          <span>Gestão de Produtos</span>
+          <div class="feat-icon">
+            <span class="material-icons">inventory_2</span>
+          </div>
+          <div class="feat-info">
+            <span class="feat-title">Gestão de Produtos</span>
+            <span class="feat-sub">Catálogo organizado e atualizado</span>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Painel direito: formulário -->
+  <!-- ══ PAINEL DIREITO (formulário) ══ -->
   <div class="form-panel">
     <div class="form-container">
 
+      <!-- Logo mini mobile -->
+      <div class="mobile-brand">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="mBlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#9b23a0"/>
+              <stop offset="100%" stop-color="#0f8182"/>
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="10" fill="url(#mBlGrad)"/>
+          <text x="20" y="28"
+            font-family="'Inter', system-ui, sans-serif"
+            font-size="19" font-weight="800"
+            fill="white" text-anchor="middle"
+            letter-spacing="-1">BL</text>
+        </svg>
+        <span class="mobile-brand-name">Belle Biju</span>
+      </div>
+
+      <!-- Cabeçalho -->
       <div class="form-header">
-        <div class="form-logo-mobile">
-          <img src="../../../assets/img/logo.jpeg" alt="Belle Biju">
-          <span>Belle Biju</span>
-        </div>
         <h2 class="form-title">Bem-vindo de volta</h2>
         <p class="form-subtitle">Faça login para acessar o sistema</p>
       </div>
 
+      <!-- Formulário -->
       <form [formGroup]="formGroup" (keydown.enter)="logar()" class="login-form">
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Usuário</mat-label>
-          <input type="text" matInput formControlName="username"
-            placeholder="seu.usuario" autocomplete="username">
-          <mat-icon matSuffix>person_outline</mat-icon>
-          <mat-error>Usuário é obrigatório</mat-error>
-        </mat-form-field>
+        <div class="field-wrap">
+          <label class="field-label" for="username">Usuário</label>
+          <div class="input-group">
+            <span class="input-prefix material-icons">person_outline</span>
+            <input id="username" type="text" formControlName="username"
+              class="field-input has-prefix"
+              placeholder="seu.usuario"
+              autocomplete="username">
+          </div>
+          <span class="field-error"
+            *ngIf="formGroup.get('username')?.invalid && formGroup.get('username')?.touched">
+            Usuário é obrigatório
+          </span>
+        </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Senha</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'"
-            formControlName="password" placeholder="••••••••"
-            autocomplete="current-password">
-          <button mat-icon-button matSuffix type="button"
-            (click)="hide = !hide" [attr.aria-label]="hide ? 'Mostrar senha' : 'Ocultar senha'">
-            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-          </button>
-          <mat-error>Senha é obrigatória</mat-error>
-        </mat-form-field>
+        <div class="field-wrap">
+          <label class="field-label" for="password">Senha</label>
+          <div class="input-group">
+            <span class="input-prefix material-icons">lock_outline</span>
+            <input id="password" [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              class="field-input has-prefix"
+              placeholder="••••••••"
+              autocomplete="current-password">
+            <button type="button" class="input-eye"
+              (click)="hide = !hide"
+              [attr.aria-label]="hide ? 'Mostrar senha' : 'Ocultar senha'">
+              <span class="material-icons">{{ hide ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
+          <span class="field-error"
+            *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched">
+            Senha é obrigatória
+          </span>
+        </div>
 
       </form>
 
-      <button mat-raised-button class="btn-login"
+      <!-- Botão -->
+      <button class="btn-login" type="button"
         (click)="logar()" [disabled]="formGroup.invalid || isLoading">
-        <mat-spinner *ngIf="isLoading" diameter="20" class="btn-spinner"></mat-spinner>
-        <mat-icon *ngIf="!isLoading">login</mat-icon>
-        {{ isLoading ? 'Entrando...' : 'Acessar' }}
+        <svg *ngIf="isLoading" class="btn-spinner" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.30)" stroke-width="3"/>
+          <path d="M12 2a10 10 0 0 1 10 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span *ngIf="!isLoading" class="material-icons">arrow_forward</span>
+        {{ isLoading ? 'Entrando...' : 'Entrar' }}
       </button>
 
       <p class="form-footer">Belle Biju &copy; {{ currentYear }}</p>

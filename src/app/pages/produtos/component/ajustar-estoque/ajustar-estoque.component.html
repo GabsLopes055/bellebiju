@@ -1,0 +1,69 @@
+<div class="dialog-wrap">
+
+  <div class="dialog-header">
+    <div class="dialog-icon-wrap teal">
+      <span class="material-icons">warehouse</span>
+    </div>
+    <div>
+      <h2 class="dialog-title">Ajustar Estoque</h2>
+      <p class="dialog-subtitle">{{ data.produto.nomeProduto }}</p>
+    </div>
+    <button class="dialog-close-btn" mat-dialog-close>
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <form [formGroup]="formGroup" (ngSubmit)="ajustar()" class="dialog-body">
+
+    <!-- Info do estoque atual -->
+    <div class="estoque-info">
+      <div class="estoque-item">
+        <span class="estoque-label">Estoque atual</span>
+        <span class="estoque-valor" [class.low]="data.produto.quantidadeEstoque <= data.produto.estoqueMinimo">
+          {{ data.produto.quantidadeEstoque }}
+        </span>
+      </div>
+      <span class="material-icons estoque-arrow">arrow_forward</span>
+      <div class="estoque-item">
+        <span class="estoque-label">Novo estoque</span>
+        <span class="estoque-valor" [class.entrada]="operacao === 'entrada'" [class.saida]="operacao === 'saida'">
+          {{ novoEstoque }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Quantidade -->
+    <div class="field-group">
+      <label class="field-label">Quantidade de Ajuste</label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons"
+          [class.icon-entrada]="operacao === 'entrada'"
+          [class.icon-saida]="operacao === 'saida'">
+          {{ operacao === 'saida' ? 'remove_circle_outline' : 'add_circle_outline' }}
+        </span>
+        <input class="field-input has-icon" type="number"
+          placeholder="Ex: +10 (entrada) ou -3 (saída)"
+          formControlName="quantidade" />
+      </div>
+      <span class="field-hint">
+        Use valor positivo para <strong>entrada</strong> e negativo para <strong>saída</strong> de estoque.
+      </span>
+    </div>
+
+    <!-- Badge de operação -->
+    <div class="op-badge" *ngIf="operacao" [class.op-entrada]="operacao === 'entrada'" [class.op-saida]="operacao === 'saida'">
+      <span class="material-icons">{{ operacao === 'entrada' ? 'arrow_downward' : 'arrow_upward' }}</span>
+      {{ operacao === 'entrada' ? 'Entrada de estoque' : 'Saída de estoque' }}
+    </div>
+
+    <div class="dialog-footer">
+      <button type="button" class="btn-ghost" mat-dialog-close>Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="formGroup.invalid || isLoading || novoEstoque < 0">
+        <span class="btn-spinner" *ngIf="isLoading"></span>
+        <span class="material-icons" *ngIf="!isLoading">check_circle</span>
+        {{ isLoading ? 'Salvando...' : 'Confirmar Ajuste' }}
+      </button>
+    </div>
+
+  </form>
+</div>

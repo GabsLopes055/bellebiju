@@ -1,0 +1,308 @@
+// ─── Tokens ──────────────────────────────────────────────────────────────────
+$teal:   #138182;
+$purple: #770d7c;
+$border: #f1f3f5;
+$ease:   cubic-bezier(0.4, 0, 0.2, 1);
+
+// ─── Wrapper ─────────────────────────────────────────────────────────────────
+.page-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  box-sizing: border-box;
+  background: #f0f2f5;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid $border;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.page-icon {
+  font-size: 20px !important;
+  color: $purple;
+}
+
+.total-badge {
+  background: rgba(119, 13, 124, 0.08);
+  color: $purple;
+  border: 1px solid rgba(119, 13, 124, 0.18);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, $teal, darken($teal, 8%));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(19, 129, 130, 0.28);
+  transition: opacity 0.15s $ease, transform 0.12s $ease;
+
+  .material-icons { font-size: 17px !important; }
+  &:hover { opacity: 0.90; transform: translateY(-1px); }
+}
+
+// ─── Toolbar ─────────────────────────────────────────────────────────────────
+.table-toolbar {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid $border;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.search-wrap {
+  position: relative;
+  max-width: 320px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px !important;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 36px 0 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: #111827;
+  background: #f9fafb;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s $ease, box-shadow 0.15s $ease;
+
+  &:focus {
+    border-color: $teal;
+    box-shadow: 0 0 0 3px rgba(19, 129, 130, 0.12);
+    background: #fff;
+  }
+
+  &::placeholder { color: #d1d5db; }
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  padding: 2px;
+
+  .material-icons { font-size: 16px !important; }
+  &:hover { color: #374151; }
+}
+
+// ─── Skeleton ────────────────────────────────────────────────────────────────
+.skeleton-list {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid $border;
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.skeleton-row {
+  height: 52px;
+  margin: 4px 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e9eaec 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ─── Table Card ──────────────────────────────────────────────────────────────
+.table-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid $border;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f9fafb;
+    border-bottom: 1px solid $border;
+    white-space: nowrap;
+  }
+
+  .th-icon    { width: 52px; }
+  .th-id      { width: 140px; }
+  .th-actions { width: 60px; }
+}
+
+.table-row {
+  transition: background 0.15s $ease;
+
+  &:not(:last-child) td { border-bottom: 1px solid $border; }
+  &:hover { background: #f9fafb; }
+
+  &:hover .acoes-cell { opacity: 1; }
+}
+
+.td-icon {
+  padding: 10px 16px;
+  width: 52px;
+}
+
+.cat-gem-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(119,13,124,0.12), rgba(119,13,124,0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat-gem {
+  font-size: 17px !important;
+  color: $purple;
+}
+
+.td-nome {
+  padding: 14px 16px;
+  font-weight: 600;
+  color: #111827;
+  font-size: 14px;
+}
+
+.td-id {
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #9ca3af;
+  font-family: monospace;
+}
+
+.td-actions {
+  padding: 10px 16px;
+}
+
+.acoes-cell {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.15s $ease;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: background 0.15s $ease, transform 0.12s $ease;
+
+  .material-icons { font-size: 16px !important; }
+  &:hover { transform: scale(1.05); }
+}
+
+.edit-btn {
+  background: rgba(119, 13, 124, 0.08);
+  color: $purple;
+  &:hover { background: rgba(119, 13, 124, 0.14); }
+}
+
+// ─── Empty State ─────────────────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 20px;
+  text-align: center;
+  gap: 12px;
+}
+
+.empty-icon {
+  font-size: 48px !important;
+  color: #d1d5db;
+}
+
+.empty-text {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+// ─── Responsivo ──────────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .page-wrapper { padding: 12px; }
+
+  .td-id { display: none; }
+  .th-id { display: none; }
+
+  .acoes-cell { opacity: 1; }
+}

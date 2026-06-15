@@ -1,28 +1,57 @@
-<div class="container">
-  <h2 class="dialog-title">
-    <mat-icon>date_range</mat-icon>
-    Selecionar Período
-  </h2>
+<div class="dialog-wrap">
 
-  <mat-divider></mat-divider>
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="dialog-title-row">
+      <div class="dialog-icon-wrap purple">
+        <span class="material-icons">date_range</span>
+      </div>
+      <div>
+        <h2 class="dialog-title">Pesquisar por Período</h2>
+        <p class="dialog-sub">Selecione o intervalo de datas</p>
+      </div>
+    </div>
+    <button class="dialog-close" (click)="fecharModal()" title="Fechar">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
 
-  <form [formGroup]="formData" class="form">
-    <mat-form-field appearance="outline" class="date-field">
-      <mat-label>Período de análise</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Data inicial" readonly formControlName="dataInicio">
-        <input matEndDate placeholder="Data final" readonly formControlName="dataFim">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-  </form>
+  <!-- Body -->
+  <div class="dialog-body">
+    <form [formGroup]="formData">
 
-  <div class="actions">
-    <button mat-raised-button class="btn-pesquisar" (click)="pesquisarVendas()" [disabled]="formData.invalid">
-      <mat-icon>search</mat-icon>
+      <div class="field-group">
+        <label class="field-label">Data Inicial</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">today</span>
+          <input class="field-input has-icon" type="date"
+            formControlName="dataInicio">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Data Final</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">event</span>
+          <input class="field-input has-icon" type="date"
+            formControlName="dataFim">
+        </div>
+        <span class="field-error"
+          *ngIf="formData.value.dataFim && formData.value.dataInicio && formData.value.dataFim < formData.value.dataInicio">
+          Data final não pode ser anterior à inicial
+        </span>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button class="btn-ghost" (click)="fecharModal()">Cancelar</button>
+    <button class="btn-primary" (click)="pesquisarVendas()" [disabled]="formData.invalid">
+      <span class="material-icons">search</span>
       Pesquisar
     </button>
-    <button mat-button (click)="fecharModal()">Cancelar</button>
   </div>
+
 </div>

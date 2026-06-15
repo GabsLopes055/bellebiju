@@ -1,0 +1,12 @@
+@import '../../../../shared/styles/dialog-base';
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.required {
+  color: #ef4444;
+  font-size: 11px;
+}

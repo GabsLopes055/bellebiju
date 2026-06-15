@@ -1,0 +1,12 @@
+@import '../../../../shared/styles/dialog-base';
+
+.footer-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-right {
+  display: flex;
+  gap: 8px;
+}

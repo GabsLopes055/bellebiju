@@ -1,10 +1,9 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, map, catchError, EMPTY } from 'rxjs';
 import { login } from 'src/app/shared/models/login';
-import { user } from 'src/app/shared/models/user';
 import { environment } from 'src/environments/environment.development';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,31 +13,31 @@ export class LoginService {
   private readonly TOKEN_KEY = 'authToken';
   url = environment.url;
   private isAuthenticated = false;
-  private expirationToken!: null | string
 
-  constructor(private http: HttpClient, private message: MatSnackBar) {
+  constructor(private http: HttpClient, private toast: ToastService) {
     this.isAuthenticated = !!localStorage.getItem(this.TOKEN_KEY);
   }
 
   showMessage(msg: string, color: string) {
-    this.message.open(msg, 'x', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: color,
-    });
+    this.toast.showMessage(msg, color);
   }
 
   errorHandler(e: any): Observable<any> {
-    if (e.status == 400) {
-      this.showMessage(e.error, 'error');
-    } else if (e.status == 404) {
-      this.showMessage('Usuário não encontrado', 'error');
-    } else if (e.status == 403) {
-      this.showMessage(
-        'Não foi possível validar o token. Por favor, refaça o login',
-        'error'
-      );
+    switch (e.status) {
+      case 400:
+        this.showMessage(e.error?.message ?? 'Dados inválidos', 'error');
+        break;
+      case 403:
+        this.showMessage('Senha incorreta ou sem permissão', 'error');
+        break;
+      case 404:
+        this.showMessage('Usuário não encontrado', 'error');
+        break;
+      case 409:
+        this.showMessage('Username já está em uso', 'error');
+        break;
+      default:
+        this.showMessage('Ocorreu um erro inesperado', 'error');
     }
     return EMPTY;
   }
@@ -48,6 +47,15 @@ export class LoginService {
       map((response) => {
         this.setToken(response.token);
         this.isAuthenticated = true;
+      }),
+      catchError((e) => this.errorHandler(e))
+    );
+  }
+
+  refreshToken(): Observable<any> {
+    return this.http.post<any>(this.url + '/authentication/refresh', null).pipe(
+      map((response) => {
+        this.setToken(response.token);
       }),
       catchError((e) => this.errorHandler(e))
     );
@@ -63,10 +71,8 @@ export class LoginService {
   }
 
   private setToken(token: string): void {
-
     const expiration = new Date().getTime() + 1800000;
-
-    localStorage.setItem("expirationToken", expiration.toLocaleString())
+    localStorage.setItem('expirationToken', expiration.toString());
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
@@ -75,6 +81,6 @@ export class LoginService {
   }
 
   getExpirationToken(): string | null {
-    return localStorage.getItem("expirationToken");
+    return localStorage.getItem('expirationToken');
   }
 }

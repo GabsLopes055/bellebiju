@@ -1,5 +1,4 @@
-import { Component, ViewChild, OnDestroy } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { filter } from 'rxjs/operators';
@@ -12,13 +11,11 @@ import { LoginService } from 'src/app/login/service/login.service';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnDestroy {
-  @ViewChild('sidenav') sidenav!: MatSidenav;
-
-  isMobile: boolean = false;
-  sidenavOpened: boolean = true;
-  isCollapsed: boolean = false;
-  pageTitle: string = 'Dashboard';
-  userName: string = '';
+  isMobile      = false;
+  drawerOpen    = false;
+  isCollapsed   = false;
+  pageTitle     = 'Dashboard';
+  userName      = '';
 
   private routeTitles: Record<string, string> = {
     '/dashboard': 'Dashboard',
@@ -26,6 +23,7 @@ export class LayoutComponent implements OnDestroy {
     '/dashboard/graficos': 'Gráficos',
     '/dashboard/produtos': 'Produtos',
     '/dashboard/usuarios': 'Usuários',
+    '/dashboard/categorias': 'Categorias',
   };
 
   private subs = new Subscription();
@@ -33,24 +31,26 @@ export class LayoutComponent implements OnDestroy {
   constructor(
     private router: Router,
     private service: LoginService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) {
-    this.userName = this.getUsernameFromToken();
+    this.userName  = this.getUsernameFromToken();
     this.pageTitle = this.routeTitles[this.router.url] || 'Belle Biju';
 
     this.subs.add(
-      this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
-        this.pageTitle = this.routeTitles[e.urlAfterRedirects] || 'Belle Biju';
-        if (this.isMobile) this.sidenav?.close();
-      })
+      this.router.events
+        .pipe(filter(e => e instanceof NavigationEnd))
+        .subscribe((e: any) => {
+          this.pageTitle = this.routeTitles[e.urlAfterRedirects] || 'Belle Biju';
+          this.drawerOpen = false;
+        }),
     );
 
     this.subs.add(
-      this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.TabletPortrait]).subscribe(result => {
-        this.isMobile = result.matches;
-        this.sidenavOpened = !result.matches;
-        if (result.matches) this.isCollapsed = false;
-      })
+      this.breakpointObserver
+        .observe([Breakpoints.Handset, Breakpoints.TabletPortrait])
+        .subscribe(result => {
+          this.isMobile = result.matches;
+        }),
     );
   }
 
@@ -73,13 +73,9 @@ export class LayoutComponent implements OnDestroy {
     }
   }
 
-  toggleSidenav() {
-    this.sidenav.toggle();
-  }
-
-  toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
-  }
+  toggleDrawer()   { this.drawerOpen  = !this.drawerOpen; }
+  closeDrawer()    { this.drawerOpen  = false; }
+  toggleCollapse() { this.isCollapsed = !this.isCollapsed; }
 
   logout() {
     this.service.isLogout();
@@ -87,7 +83,5 @@ export class LayoutComponent implements OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+  ngOnDestroy() { this.subs.unsubscribe(); }
 }

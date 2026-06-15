@@ -1,237 +1,375 @@
-// ===== LAYOUT =====
+// ─── Tokens (espelha o sidebar) ───────────────────────────────────────────────
+$sb-bg:     #0d1c1d;
+$sb-border: rgba(255, 255, 255, 0.07);
+$sb-dim:    rgba(255, 255, 255, 0.32);
+$sb-text:   rgba(255, 255, 255, 0.70);
+$purple:    #9b23a0;
+$teal:      #0f8182;
+$ease:      cubic-bezier(0.4, 0, 0.2, 1);
+
+// ─── Layout ──────────────────────────────────────────────────────────────────
 .login-page {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-// ===== PAINEL ESQUERDO (MARCA) =====
+// ─── Painel esquerdo ─────────────────────────────────────────────────────────
 .brand-panel {
-  flex: 0 0 42%;
-  background: linear-gradient(145deg, #0d6e6f 0%, #138182 40%, #5a0a5e 85%, #770d7c 100%);
+  flex: 0 0 44%;
+  background: $sb-bg;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  border-right: 1px solid $sb-border;
 }
 
-// Círculos decorativos
-.deco-circle {
+// Grade de pontos decorativa
+.deco-grid {
   position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
 }
-.deco-1 { width: 300px; height: 300px; top: -80px;  left: -80px; }
-.deco-2 { width: 220px; height: 220px; bottom: -60px; right: -60px; background: rgba(255,255,255,0.04); }
-.deco-3 { width: 140px; height: 140px; bottom: 120px; left: -40px; background: rgba(255,255,255,0.05); }
 
+// Brilhos difusos
+.deco-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.28;
+}
+
+.glow-top {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  left: -60px;
+  background: $purple;
+}
+
+.glow-bottom {
+  width: 260px;
+  height: 260px;
+  bottom: -60px;
+  right: -40px;
+  background: $teal;
+}
+
+// Conteúdo da marca
 .brand-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  z-index: 1;
   text-align: center;
-  padding: 40px 32px;
+  gap: 0;
+  z-index: 1;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.logo-wrap {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+// Logo
+.brand-logo-wrap {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 6px 20px rgba(155, 35, 160, 0.45));
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  svg { width: 100%; height: 100%; display: block; }
 }
 
 .brand-name {
-  margin: 0;
-  font-size: 32px;
+  margin: 0 0 6px;
+  font-size: 28px;
   font-weight: 800;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.3px;
 }
 
 .brand-tagline {
   margin: 0;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 1px;
+  font-size: 12px;
+  color: $sb-dim;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
+// Separador
+.brand-sep {
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, $purple, $teal);
+  margin: 28px auto;
+  opacity: 0.6;
+}
+
+// Features
 .brand-features {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
 }
 
 .feature-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 13px;
+  gap: 14px;
+}
 
-  mat-icon {
+.feat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid $sb-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .material-icons {
     font-size: 18px;
-    width: 18px;
-    height: 18px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.65);
   }
 }
 
-// ===== PAINEL DIREITO (FORMULÁRIO) =====
+.feat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.feat-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+}
+
+.feat-sub {
+  font-size: 11px;
+  color: $sb-dim;
+  white-space: nowrap;
+}
+
+// ─── Painel direito ──────────────────────────────────────────────────────────
 .form-panel {
   flex: 1;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 24px;
+  padding: 40px 32px;
   overflow-y: auto;
 }
 
 .form-container {
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-// Logo mobile (só aparece em telas pequenas)
-.form-logo-mobile {
+// Logo mobile (oculto no desktop)
+.mobile-brand {
   display: none;
   align-items: center;
   gap: 12px;
-  margin-bottom: 4px;
 
-  img {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(19, 129, 130, 0.3);
-  }
-
-  span {
-    font-size: 20px;
-    font-weight: 700;
-    color: #138182;
-  }
+  svg { width: 40px; height: 40px; display: block; }
 }
 
-.form-header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.mobile-brand-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
 }
+
+// Cabeçalho
+.form-header { display: flex; flex-direction: column; gap: 6px; }
 
 .form-title {
   margin: 0;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #111827;
+  letter-spacing: -0.3px;
 }
 
 .form-subtitle {
   margin: 0;
   font-size: 14px;
-  color: #888;
+  color: #6b7280;
 }
 
-// ===== FORMULÁRIO =====
+// ─── Formulário ──────────────────────────────────────────────────────────────
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 16px;
 }
 
-.full-width {
+.field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 12px;
+  font-size: 19px !important;
+  color: #9ca3af;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.field-input {
   width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111827;
+  background: #f9fafb;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+
+  &.has-prefix { padding-left: 42px; }
+
+  &::placeholder { color: #9ca3af; }
+
+  &:focus {
+    background: #fff;
+    border-color: #0f8182;
+    box-shadow: 0 0 0 3px rgba(15, 129, 130, 0.12);
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.10);
+  }
 }
 
-// ===== BOTÃO =====
+.input-eye {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  .material-icons { font-size: 19px !important; }
+
+  &:hover {
+    color: #0f8182;
+    background: rgba(15, 129, 130, 0.08);
+  }
+}
+
+.field-error {
+  font-size: 12px;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+// ─── Botão ───────────────────────────────────────────────────────────────────
 .btn-login {
   width: 100%;
   height: 48px;
-  background: linear-gradient(135deg, #138182, #0d6e6f) !important;
-  color: #fff !important;
-  border-radius: 10px !important;
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.3px !important;
-  box-shadow: 0 4px 16px rgba(19, 129, 130, 0.4) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+  background: linear-gradient(135deg, $purple, $teal);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 18px rgba(155, 35, 160, 0.30);
+  transition: opacity 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+
+  .material-icons { font-size: 20px; }
 
   &:not([disabled]):hover {
-    box-shadow: 0 6px 20px rgba(19, 129, 130, 0.5) !important;
+    opacity: 0.92;
     transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(155, 35, 160, 0.38);
   }
 
   &[disabled] {
-    opacity: 0.65 !important;
-    box-shadow: none !important;
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
   }
-
-  mat-icon { font-size: 20px; width: 20px; height: 20px; }
 }
 
 .btn-spinner {
-  display: inline-block;
-
-  ::ng-deep circle {
-    stroke: #fff !important;
-  }
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  animation: spin 0.75s linear infinite;
 }
 
-// ===== RODAPÉ =====
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ─── Rodapé ──────────────────────────────────────────────────────────────────
 .form-footer {
   text-align: center;
   font-size: 12px;
-  color: #bbb;
+  color: #9ca3af;
   margin: 0;
 }
 
-// ===== RESPONSIVO MOBILE =====
+// ─── Mobile ──────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
-  .login-page {
-    flex-direction: column;
-  }
-
-  .brand-panel {
-    display: none;
-  }
-
-  .form-logo-mobile {
-    display: flex;
-  }
+  .brand-panel   { display: none; }
+  .mobile-brand  { display: flex; }
 
   .form-panel {
-    padding: 32px 20px;
-    justify-content: flex-start;
-    padding-top: 48px;
+    padding: 48px 24px 32px;
+    align-items: flex-start;
   }
 
-  .form-container {
-    max-width: 100%;
-  }
-
-  .form-title {
-    font-size: 22px;
-  }
+  .form-container { max-width: 100%; }
+  .form-title     { font-size: 22px; }
 }

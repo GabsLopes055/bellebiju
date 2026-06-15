@@ -13,7 +13,6 @@ import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usua
 import { UsuariosEditComponent } from './pages/usuarios/component/usuarios-edit/usuarios-edit.component';
 import { UsuariosCreatedComponent } from './pages/usuarios/component/usuarios-created/usuarios-created.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material/radio';
 import { ListVendasComponent } from './pages/vendas/component/list-vendas/list-vendas.component';
 import { CreateVendaComponent } from './pages/vendas/component/create-venda/create-venda.component';
 import { AccordionVendasComponent } from './pages/vendas/component/accordion-vendas/accordion-vendas.component';
@@ -24,8 +23,8 @@ import { DeleteVendaComponent } from './pages/vendas/component/delete-venda/dele
 import { InterceptorToken } from './login/service/InterceptorToken';
 import { SessionLoginComponent } from './pages/session-login/session-login.component';
 import { GraficosComponent } from './pages/graficos/component/graficos/graficos.component';
-import { ListarProdutosComponent } from './pages/produtos/components/listar-produtos/listar-produtos.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     DeleteVendaComponent,
     SessionLoginComponent,
     GraficosComponent,
-    ListarProdutosComponent
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +54,6 @@ import { LayoutModule } from '@angular/cdk/layout';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,
     LayoutModule,
 ],
   providers: [

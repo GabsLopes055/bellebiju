@@ -1,0 +1,45 @@
+<div class="dialog-wrap">
+
+  <div class="dialog-header">
+    <div class="dialog-icon-wrap teal">
+      <span class="material-icons">category</span>
+    </div>
+    <div>
+      <h2 class="dialog-title">Nova Categoria</h2>
+      <p class="dialog-subtitle">Preencha o nome para criar uma categoria</p>
+    </div>
+    <button class="dialog-close-btn" mat-dialog-close>
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <form [formGroup]="formGroup" (ngSubmit)="save()" class="dialog-body">
+
+    <div class="field-group">
+      <label class="field-label">Nome da Categoria</label>
+      <div class="field-input-wrap">
+        <span class="field-icon material-icons">label</span>
+        <input
+          class="field-input has-icon"
+          type="text"
+          placeholder="Ex: Anéis, Colares, Pulseiras..."
+          formControlName="nomeCategoria"
+          autocomplete="off"
+        />
+      </div>
+      <span class="field-error" *ngIf="formGroup.get('nomeCategoria')?.touched && getError()">
+        {{ getError() }}
+      </span>
+    </div>
+
+    <div class="dialog-footer">
+      <button type="button" class="btn-ghost" mat-dialog-close>Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="formGroup.invalid || isLoading">
+        <span class="btn-spinner" *ngIf="isLoading"></span>
+        <span class="material-icons" *ngIf="!isLoading">add_circle</span>
+        {{ isLoading ? 'Salvando...' : 'Criar Categoria' }}
+      </button>
+    </div>
+
+  </form>
+</div>

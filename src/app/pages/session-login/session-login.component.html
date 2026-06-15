@@ -1,9 +1,11 @@
-<div class="container">
-  <h1>Sua sessão expirou</h1>
-  <mat-divider></mat-divider>
-  <h4><strong>Por favor, refaça o login para renovar a sessão.</strong></h4>
-  <mat-divider></mat-divider>
-  <div class="footer">
-    <button mat-raised-button color="primary" (click)="redirectLogin()">Logar</button>
+<div class="session-dialog">
+  <div class="session-icon-wrap">
+    <span class="material-icons session-icon">lock_clock</span>
   </div>
+  <h2 class="session-title">Sessão expirada</h2>
+  <p class="session-msg">Por favor, refaça o login para renovar a sessão.</p>
+  <button class="btn-login" (click)="redirectLogin()">
+    <span class="material-icons">login</span>
+    Fazer login
+  </button>
 </div>

@@ -1,65 +1,181 @@
-<h2 mat-dialog-title class="dialog-title">
-  <mat-icon>add_shopping_cart</mat-icon>
-  Nova Venda
-</h2>
+<div class="dialog-wrap">
 
-<mat-divider></mat-divider>
-
-<mat-dialog-content class="dialog-content">
-  <form [formGroup]="formGroup">
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nome do Produto</mat-label>
-      <input matInput formControlName="nomeProduto" placeholder="Ex: Brinco dourado">
-      <mat-icon matSuffix>diamond</mat-icon>
-      <mat-error *ngIf="formGroup.controls['nomeProduto'].hasError('required')">Campo obrigatório</mat-error>
-      <mat-error *ngIf="formGroup.controls['nomeProduto'].hasError('minlength')">Mínimo 3 caracteres</mat-error>
-    </mat-form-field>
-
-    <div class="row-2">
-      <mat-form-field appearance="outline">
-        <mat-label>Preço (R$)</mat-label>
-        <input matInput type="number" formControlName="preco" placeholder="0,00" min="0.01" step="0.01">
-        <mat-icon matSuffix>attach_money</mat-icon>
-        <mat-error>Preço inválido</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Quantidade</mat-label>
-        <input matInput type="number" formControlName="quantidade" placeholder="1" min="1">
-        <mat-icon matSuffix>tag</mat-icon>
-        <mat-error>Quantidade inválida</mat-error>
-      </mat-form-field>
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="dialog-title-row">
+      <div class="dialog-icon-wrap teal">
+        <span class="material-icons">add_shopping_cart</span>
+      </div>
+      <div>
+        <h2 class="dialog-title">Nova Venda</h2>
+        <p class="dialog-sub">Preencha os dados da venda</p>
+      </div>
     </div>
+    <button class="dialog-close" mat-dialog-close title="Fechar">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Total da Venda</mat-label>
-      <input matInput formControlName="total" [value]="(formGroup.controls['total'].value | currency:'BRL') ?? '—'">
-      <mat-icon matSuffix>calculate</mat-icon>
-      <mat-hint>Calculado automaticamente</mat-hint>
-    </mat-form-field>
+  <!-- Body -->
+  <div class="dialog-body">
+    <form [formGroup]="formGroup">
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Forma de Pagamento</mat-label>
-      <mat-select formControlName="formaPagamento">
-        <mat-option value="DINHEIRO">Dinheiro</mat-option>
-        <mat-option value="PIX">PIX</mat-option>
-        <mat-option value="DEBITO">Cartão de Débito</mat-option>
-        <mat-option value="CREDITO">Cartão de Crédito</mat-option>
-      </mat-select>
-      <mat-icon matSuffix>payments</mat-icon>
-      <mat-error>Selecione a forma de pagamento</mat-error>
-    </mat-form-field>
+      <!-- Toggle de modo -->
+      <div class="modo-toggle">
+        <button type="button" class="modo-btn" [class.active]="!modoVinculado" (click)="setModo(false)">
+          <span class="material-icons">edit_note</span>
+          Produto avulso
+        </button>
+        <button type="button" class="modo-btn" [class.active]="modoVinculado" (click)="setModo(true)">
+          <span class="material-icons">inventory_2</span>
+          Do catálogo
+        </button>
+      </div>
 
-  </form>
-</mat-dialog-content>
+      <!-- ══ MODO AVULSO: campo livre ══ -->
+      <div class="field-group" *ngIf="!modoVinculado">
+        <label class="field-label">Nome do Produto</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">diamond</span>
+          <input class="field-input has-icon" type="text"
+            formControlName="nomeProduto"
+            placeholder="Ex: Brinco dourado"
+            autocomplete="off">
+        </div>
+        <span class="field-error" *ngIf="formGroup.controls['nomeProduto'].touched && formGroup.controls['nomeProduto'].hasError('required')">Campo obrigatório</span>
+        <span class="field-error" *ngIf="formGroup.controls['nomeProduto'].touched && formGroup.controls['nomeProduto'].hasError('minlength')">Mínimo 3 caracteres</span>
+      </div>
 
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-raised-button class="btn-salvar" (click)="salvarVenda()"
-    [disabled]="formGroup.invalid || isLoading">
-    <mat-spinner *ngIf="isLoading" diameter="18"></mat-spinner>
-    <mat-icon *ngIf="!isLoading">save</mat-icon>
-    Cadastrar
-  </button>
-</mat-dialog-actions>
+      <!-- ══ MODO CATÁLOGO: busca com autocomplete ══ -->
+      <div class="field-group" *ngIf="modoVinculado">
+        <label class="field-label">Buscar Produto</label>
+        <div class="field-wrap search-autocomplete">
+          <span class="material-icons field-icon">
+            {{ buscandoProduto ? 'hourglass_empty' : 'search' }}
+          </span>
+          <input class="field-input has-icon"
+            type="text"
+            [value]="produtoSelecionado ? produtoSelecionado.nomeProduto : ''"
+            [readonly]="!!produtoSelecionado"
+            (input)="onSearchInput($event)"
+            (focus)="showSugestoes = sugestoes.length > 0"
+            (blur)="fecharSugestoes()"
+            placeholder="Digite o nome do produto..."
+            autocomplete="off">
+          <button type="button" class="clear-btn" *ngIf="produtoSelecionado" (click)="limparProduto()">
+            <span class="material-icons">close</span>
+          </button>
+
+          <!-- Dropdown de sugestões -->
+          <div class="sugestoes-dropdown" *ngIf="showSugestoes">
+            <div class="sugestao-item" *ngFor="let p of sugestoes" (mousedown)="selecionarProduto(p)">
+              <div class="sugestao-info">
+                <span class="sugestao-nome">{{ p.nomeProduto }}</span>
+                <span class="sugestao-cat" *ngIf="p.categoria">{{ p.categoria.nomeCategoria }}</span>
+              </div>
+              <div class="sugestao-right">
+                <span class="sugestao-preco">{{ p.precoProduto | currency:'BRL' }}</span>
+                <span class="sugestao-estoque" [class.low]="p.quantidadeEstoque <= p.estoqueMinimo">
+                  Estoque: {{ p.quantidadeEstoque }}
+                </span>
+              </div>
+            </div>
+            <div class="sugestao-empty" *ngIf="sugestoes.length === 0 && !buscandoProduto">
+              Nenhum produto encontrado
+            </div>
+          </div>
+        </div>
+
+        <!-- Card do produto selecionado -->
+        <div class="produto-card" *ngIf="produtoSelecionado">
+          <span class="material-icons produto-card-icon">check_circle</span>
+          <div class="produto-card-info">
+            <span class="produto-card-nome">{{ produtoSelecionado.nomeProduto }}</span>
+            <span class="produto-card-detalhe">
+              {{ produtoSelecionado.precoProduto | currency:'BRL' }}
+              <span *ngIf="produtoSelecionado.categoria"> · {{ produtoSelecionado.categoria.nomeCategoria }}</span>
+              · Estoque: {{ produtoSelecionado.quantidadeEstoque }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preço + Quantidade -->
+      <div class="row-2">
+        <div class="field-group">
+          <label class="field-label">
+            Preço (R$)
+            <span class="desconto-tag" *ngIf="temDesconto">
+              <span class="material-icons">local_offer</span> Desconto
+            </span>
+          </label>
+          <div class="field-wrap">
+            <span class="material-icons field-icon">attach_money</span>
+            <input class="field-input has-icon" type="number"
+              formControlName="preco"
+              placeholder="0,00" min="0.01" step="0.01"
+              [class.preco-desconto]="temDesconto">
+          </div>
+          <span class="field-error" *ngIf="formGroup.controls['preco'].touched && formGroup.controls['preco'].invalid">Preço inválido</span>
+          <span class="field-hint desconto-hint" *ngIf="temDesconto">
+            Preço original: {{ produtoSelecionado!.precoProduto | currency:'BRL' }} — estoque não será deduzido
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Quantidade</label>
+          <div class="field-wrap">
+            <span class="material-icons field-icon">tag</span>
+            <input class="field-input has-icon" type="number"
+              formControlName="quantidade"
+              placeholder="1" min="1">
+          </div>
+          <span class="field-error" *ngIf="formGroup.controls['quantidade'].touched && formGroup.controls['quantidade'].invalid">Quantidade inválida</span>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="field-group">
+        <label class="field-label">Total da Venda</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">calculate</span>
+          <input class="field-input has-icon total-field" type="text" readonly
+            [value]="formGroup.controls['total'].value != null
+              ? (formGroup.controls['total'].value | currency:'BRL')
+              : '—'">
+        </div>
+        <span class="field-hint">Calculado automaticamente</span>
+      </div>
+
+      <!-- Forma de pagamento -->
+      <div class="field-group">
+        <label class="field-label">Forma de Pagamento</label>
+        <div class="field-wrap">
+          <span class="material-icons field-icon">payments</span>
+          <select class="field-input has-icon" formControlName="formaPagamento">
+            <option value="" disabled>Selecione...</option>
+            <option value="DINHEIRO">Dinheiro</option>
+            <option value="PIX">PIX</option>
+            <option value="DEBITO">Cartão de Débito</option>
+            <option value="CREDITO">Cartão de Crédito</option>
+          </select>
+        </div>
+        <span class="field-error" *ngIf="formGroup.controls['formaPagamento'].touched && formGroup.controls['formaPagamento'].invalid">
+          Selecione a forma de pagamento
+        </span>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button class="btn-ghost" mat-dialog-close>Cancelar</button>
+    <button class="btn-primary" (click)="salvarVenda()" [disabled]="isFormInvalid || isLoading">
+      <span class="btn-spinner" *ngIf="isLoading"></span>
+      <span class="material-icons" *ngIf="!isLoading">save</span>
+      {{ isLoading ? 'Salvando...' : 'Cadastrar' }}
+    </button>
+  </div>
+
+</div>
