@@ -43,8 +43,8 @@ export class UsuariosService {
   }
 
   listAllUsers(): Observable<user[]> {
-    return this.http.get<PaginaResponse<user>>(environment.url + '/users?tamanho=500').pipe(
-      map((r) => r.conteudo),
+    return this.http.get<any>(environment.url + '/users?tamanho=500').pipe(
+      map((r) => Array.isArray(r) ? r : (r.conteudo ?? [])),
       catchError((e) => this.errorHandler(e))
     );
   }

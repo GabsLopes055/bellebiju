@@ -1,10 +1,8 @@
-import { UsuariosModule } from './pages/usuarios/module/usuarios.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/telaLogin/login.component';
 import { DashboardComponent } from './pages/dashboard/component/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
-import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usuarios.component';
 import { AuthGuardService } from './shared/Auth/auth-guard.service';
 
 const routes: Routes = [

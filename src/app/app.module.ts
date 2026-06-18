@@ -9,9 +9,6 @@ import { AngularMaterialModule } from './shared/angular-material/angular-materia
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/component/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
-import { UsuariosComponent } from './pages/usuarios/component/usuarios-list/usuarios.component';
-import { UsuariosEditComponent } from './pages/usuarios/component/usuarios-edit/usuarios-edit.component';
-import { UsuariosCreatedComponent } from './pages/usuarios/component/usuarios-created/usuarios-created.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListVendasComponent } from './pages/vendas/component/list-vendas/list-vendas.component';
 import { CreateVendaComponent } from './pages/vendas/component/create-venda/create-venda.component';
@@ -32,9 +29,6 @@ import { ToastComponent } from './shared/toast/toast.component';
     LoginComponent,
     DashboardComponent,
     LayoutComponent,
-    UsuariosComponent,
-    UsuariosEditComponent,
-    UsuariosCreatedComponent,
     ListVendasComponent,
     CreateVendaComponent,
     AccordionVendasComponent,

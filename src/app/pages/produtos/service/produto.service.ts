@@ -48,8 +48,8 @@ export class ProdutoService {
   }
 
   listAllProducts(): Observable<produto[]> {
-    return this.http.get<PaginaResponse<produto>>(this.url + '/produto?tamanho=500').pipe(
-      map((r) => r.conteudo),
+    return this.http.get<any>(this.url + '/produto?tamanho=500').pipe(
+      map((r) => Array.isArray(r) ? r : (r.conteudo ?? [])),
       catchError((error) => this.errorHandler(error))
     );
   }
