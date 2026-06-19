@@ -26,6 +26,7 @@ export class EditVendaComponent {
       quantidade:     [v.quantidade,     [Validators.required, Validators.min(1)]],
       total:          [{ value: v.total, disabled: true }],
       formaPagamento: [v.formaPagamento, Validators.required],
+      dataVenda:      [v.createAt ? v.createAt.substring(0, 16) : null],
     });
 
     this.formGroup.controls['preco'].valueChanges.subscribe(() => this.calcularTotal());
@@ -44,7 +45,14 @@ export class EditVendaComponent {
   salvarEdicao() {
     if (this.formGroup.invalid) return;
     this.isLoading = true;
-    const payload = this.formGroup.getRawValue();
+    const raw = this.formGroup.getRawValue();
+    const payload: any = { ...raw };
+
+    if (raw.dataVenda) {
+      payload.dataVenda = raw.dataVenda.length === 16 ? raw.dataVenda + ':00' : raw.dataVenda;
+    } else {
+      delete payload.dataVenda;
+    }
 
     this.service.editarVenda(this.data.venda.id, payload).subscribe({
       next: () => {

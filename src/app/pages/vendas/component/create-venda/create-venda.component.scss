@@ -203,6 +203,21 @@
   font-weight: 500;
 }
 
+// ── Tag opcional ─────────────────────────────────────────────────────────────
+.optional-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  background: #f3f4f6;
+  color: #9ca3af;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}
+
 // ── Linha dupla ───────────────────────────────────────────────────────────────
 .row-2 {
   display: grid;

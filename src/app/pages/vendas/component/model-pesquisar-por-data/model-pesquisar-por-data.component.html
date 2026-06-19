@@ -18,6 +18,23 @@
 
   <!-- Body -->
   <div class="dialog-body">
+
+    <!-- Chips de período rápido -->
+    <div class="chips-label">Período rápido</div>
+    <div class="chips-row">
+      <button
+        type="button"
+        class="period-chip"
+        *ngFor="let chip of chips"
+        [class.active]="activeChip === chip.id"
+        (click)="aplicarChip(chip)">
+        <span class="material-icons">{{ chip.icon }}</span>
+        {{ chip.label }}
+      </button>
+    </div>
+
+    <div class="chips-divider"></div>
+
     <form [formGroup]="formData">
 
       <div class="field-group">
@@ -25,7 +42,8 @@
         <div class="field-wrap">
           <span class="material-icons field-icon">today</span>
           <input class="field-input has-icon" type="date"
-            formControlName="dataInicio">
+            formControlName="dataInicio"
+            (change)="onDateChange()">
         </div>
       </div>
 
@@ -34,7 +52,8 @@
         <div class="field-wrap">
           <span class="material-icons field-icon">event</span>
           <input class="field-input has-icon" type="date"
-            formControlName="dataFim">
+            formControlName="dataFim"
+            (change)="onDateChange()">
         </div>
         <span class="field-error"
           *ngIf="formData.value.dataFim && formData.value.dataInicio && formData.value.dataFim < formData.value.dataInicio">

@@ -71,11 +71,8 @@ export class VendasService {
 
   deleteVenda(venda: venda): Observable<any> {
     return this.http
-      .delete<any>(environment.url + '/vendas/' + venda.id)
-      .pipe(
-        map((response) => response),
-        catchError((e) => this.errorHandler(e)),
-      );
+      .delete(environment.url + '/vendas/' + venda.id, { responseType: 'text' })
+      .pipe(catchError((e) => this.errorHandler(e)));
   }
 
   pesquisarPorVenda(dataInicio: string, dataFim: string): Observable<venda[]> {

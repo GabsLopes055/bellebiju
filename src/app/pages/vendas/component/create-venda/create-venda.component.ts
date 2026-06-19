@@ -36,6 +36,7 @@ export class CreateVendaComponent implements OnInit, OnDestroy {
       quantidade:     [null, [Validators.required, Validators.min(1)]],
       total:          [{ value: null, disabled: true }],
       formaPagamento: ['', Validators.required],
+      dataVenda:      [null],
     });
 
     this.subs.add(
@@ -174,6 +175,10 @@ export class CreateVendaComponent implements OnInit, OnDestroy {
       payload.preco       = raw.preco;
       payload.total       = raw.total;
       payload.idProduto   = null;
+    }
+
+    if (raw.dataVenda) {
+      payload.dataVenda = raw.dataVenda.length === 16 ? raw.dataVenda + ':00' : raw.dataVenda;
     }
 
     this.service.createNewVenda(payload).subscribe({
